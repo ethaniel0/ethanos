@@ -7,7 +7,7 @@ import Taskbar from './Taskbar';
 export default function Desktop(){
   return (
     <div className='relative w-screen h-screen bg-cover bg-center' style={{backgroundImage: 'url(/assets/bkg.png)'}}>
-      <Taskbar quickTasks={[]} apps={[]} />
+      <Taskbar quickTasks={[]} />
 
     </div>
   );

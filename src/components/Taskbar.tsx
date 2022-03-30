@@ -2,21 +2,17 @@ import * as React from 'react';
 import { useState, lazy } from 'react'
 import Application from './Application';
 import AppDrawer from './AppDrawer';
-import AppList from './AppList';
-
+import * as AppList from './appList.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons'
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
+
+// valid applications
+import Present from '../apps/Present/Present';
 
 interface TaskbarProps {
   quickTasks: string[];
-  apps: Application[]
 }
 
-function importApp(app: string){
-  return lazy(() =>
-    import(`../apps/${app}/${app}`).catch(() => null)
-  )
-}
 
 function getTime(){
   let d = new Date();
@@ -38,9 +34,10 @@ function getDay(){
 }
 
 export default function Taskbar(props: TaskbarProps){
-  let {quickTasks, apps} = props;
+  let {quickTasks} = props;
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
+  const [apps, setApps] = useState([new Present() as Application]);
   setInterval(() => setTime(getTime()), 1000);
   setInterval(() => setDay(getDay()), 1000);
 
@@ -51,9 +48,10 @@ export default function Taskbar(props: TaskbarProps){
         {/* apps */}
         <div className='grow rounded-xl h-full mx-1 flex items-center px-2 justify-start' style={{background: 'rgb(0, 0, 0, 0.6)'}}>
             <AppDrawer />
-            {AppList.map(async (app: string) => {
-              let App = await importApp(app);
-              <img src={(App as unknown as Application).icon} alt="" />
+            {apps.map((app: Application, index: number) => {
+              console.log('APP', app);
+              // let App = require(`../apps/${app}/${app}`);
+              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' />
             })}
         </div>
         {/* info */}

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Application from '../../components/Application';
+import icon from './assets/icon.svg';
 
 class Present implements Application {
   name: string;
@@ -14,8 +15,8 @@ class Present implements Application {
   constructor(file?: string){
     this.code = null;
     this.name = "Present";
-    this.icon = "/assets/icon.svg",
-    this.defaultSize = ['60vw', '50vh'],
+    this.icon = icon;
+    this.defaultSize = ['60vw', '50vh'];
     this.resizeable = false;
     
     if (file){
@@ -40,8 +41,8 @@ class Present implements Application {
 
   app(){
     return (<>
-      {this.page == 0 && this.landing()}
-      {this.page == 1 && this.loadPage()}
+      {this.page === 0 && this.landing()}
+      {this.page === 1 && this.loadPage()}
     </>)
   }
 
