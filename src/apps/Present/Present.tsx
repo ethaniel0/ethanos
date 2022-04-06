@@ -13,7 +13,7 @@ class Present implements Application {
 
 
   constructor(file?: string){
-    this.code = null;
+    this.code = this.app;
     this.name = "Present";
     this.icon = icon;
     this.defaultSize = ['60vw', '50vh'];
@@ -28,10 +28,14 @@ class Present implements Application {
       this.page = 0;
     }
   }
+
+  newObject(){
+    return new Present();
+  }
   
   landing(){
     return (<>
-    
+      <h1>Hello, World!</h1>
     </>)
   }
 

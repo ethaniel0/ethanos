@@ -1,7 +1,8 @@
 export default interface Application {
-  code: Function,
-  name: string,
-  icon: string,
-  defaultSize: string[],
-  resizeable: boolean
+  code: Function;
+  name: string;
+  icon: string;
+  defaultSize: string[];
+  resizeable: boolean;
+  newObject: Function;
 }

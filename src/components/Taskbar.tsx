@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { useState, lazy } from 'react'
+import { useState } from 'react'
 import Application from './Application';
 import AppDrawer from './AppDrawer';
-import * as AppList from './appList.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
+import Processes from './Processes';
 
 // valid applications
 import Present from '../apps/Present/Present';
+import Terminal from '../apps/Terminal/Terminal';
 
 interface TaskbarProps {
   quickTasks: string[];
@@ -33,11 +34,16 @@ function getDay(){
   return week + ' ' + month + '/' + day;
 }
 
+function makeWindow(app: Application){
+  // console.log(app);
+  Processes.addWindow(app.newObject());
+}
+
 export default function Taskbar(props: TaskbarProps){
   let {quickTasks} = props;
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
-  const [apps, setApps] = useState([new Present() as Application]);
+  const [apps, setApps] = useState([new Present() as Application, new Terminal() as Application]);
   setInterval(() => setTime(getTime()), 1000);
   setInterval(() => setDay(getDay()), 1000);
 
@@ -49,9 +55,7 @@ export default function Taskbar(props: TaskbarProps){
         <div className='grow rounded-xl h-full mx-1 flex items-center px-2 justify-start' style={{background: 'rgb(0, 0, 0, 0.6)'}}>
             <AppDrawer />
             {apps.map((app: Application, index: number) => {
-              console.log('APP', app);
-              // let App = require(`../apps/${app}/${app}`);
-              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' />
+              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' onClick={() => makeWindow(app)} />
             })}
         </div>
         {/* info */}
