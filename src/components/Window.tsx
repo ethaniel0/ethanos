@@ -61,9 +61,13 @@ export default function Window(props: AppProps){
     setwindowStyles(copy);
   }
   
+  function stopProp(e: any){
+    e.cancelbubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+  }
 
   return (
-    <div className='window' style={windowStyles as any}>
+    <div onClick={stopProp} className='window' style={windowStyles as any}>
       <nav className='flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
         <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
         <div className='flex'>
@@ -73,7 +77,7 @@ export default function Window(props: AppProps){
         </div>
       </nav>
       <div style={{width: '100%', height: '100%'}}>
-        {app.code()}
+        {app.code}
       </div>
     </div>
   );

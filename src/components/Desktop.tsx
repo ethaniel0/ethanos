@@ -11,6 +11,8 @@ import Application from './Application';
 export default function Desktop(){
   const [windows, setWindows]: [Application[], Function] = useState([])
 
+  const selector = useState([-1, -1])
+
   Processes.addWindow = function(app: Application) {
     let copy = [...windows];
     copy.push(app);
@@ -20,7 +22,6 @@ export default function Desktop(){
     let copy = windows.filter(w => w !== app);
     setWindows(copy);
   }
-
 
   return (
     <div id='desktop' className='relative flex flex-col w-screen h-screen bg-cover bg-center' style={{backgroundImage: 'url(/assets/bkg.png)'}}>

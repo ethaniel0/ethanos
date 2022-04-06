@@ -7,13 +7,13 @@ class Present implements Application {
   icon: string;
   defaultSize: string[];
   resizeable: boolean;
-  code: Function;
+  code: React.ReactElement<any, any>;
   page: number;
   file: string;
 
 
   constructor(file?: string){
-    this.code = this.app;
+    this.code = this.app();
     this.name = "Present";
     this.icon = icon;
     this.defaultSize = ['60vw', '50vh'];

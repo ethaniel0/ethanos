@@ -7,14 +7,18 @@ export default class CommandLine{
         if (cwd) this.cwd = new Directory(cwd);
         else this.cwd = new Directory('/');
     }
-    command(input: string){
+    command(input: string): string{
         let parts = input.split(' ');
         let command = parts[0];
         let args = parts.slice(1);
         switch(command){
             case 'cd':
-                this.cwd = this.cwd.get(args[0]);
-                break;
+                let d = this.cwd.get(args[0]);
+                if (d !== null){
+                    this.cwd = d;
+                    return '';
+                }
+                return 'cd: no such file or directory: ' + args[0];
             case 'ls':
                 return this.ls(args);
             case 'cat':
@@ -27,22 +31,19 @@ export default class CommandLine{
                 return `Command not found: ${command}`;
         }
     }
-    ls(args: string[]){
-        let d = this.cwd;
-        if (args.length > 0) d = this.cwd.get(args[0]);
-        let ret = '';
-        for (let key in d.directory){
-            ret += key + '\t';
-        }
-        return ret;
+    ls(args: string[]): string{
+        let dirs = this.cwd.getDirectories();
+        if (dirs.length === 0) return ' ';
+        return dirs.join('    ');
     }
-    cat(args: string[]){
-
+    cat(args: string[]): string{
+        return '';
     }
-    clear(){
+    clear(): string{
+        return '';
     }
-    help(){
-
+    help(): string{
+        return '';
     }
 
 }

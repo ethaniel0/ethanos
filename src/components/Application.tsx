@@ -1,5 +1,6 @@
+
 export default interface Application {
-  code: Function;
+  code: React.ReactElement<any, any>;
   name: string;
   icon: string;
   defaultSize: string[];

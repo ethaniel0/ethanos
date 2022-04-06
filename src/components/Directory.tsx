@@ -15,21 +15,23 @@ let directory = {
     }
 }
 
-
 export default class Directory {
     path: string;
     directory: any;
-    parent: Directory;
     constructor(path: string) {
+        if (path.length === 0) path = '/';
+
         this.path = path;
         this.directory = directory;
-        if (path === '/') this.parent = null;
-        else this.parent = new Directory(path.substring(0, path.lastIndexOf('/')));
 
         let parts = path.split('/');
         for (let part of parts){
-            if (part in this.directory) this.directory = this.directory[part] || null;
-            if (this.directory === null) break;
+            if (part.length == 0) continue;
+            if (part in this.directory) this.directory = this.directory[part];
+            else {
+                this.directory = null;
+                break;
+            }
         }
     }
     get(path: string): Directory {
@@ -44,14 +46,18 @@ export default class Directory {
         }
         // relative path
         else {
-            let parts = path.split('../');
+            let curPath = this.getPath().substring(0, this.getPath().length - 1).split('/')
+            let parts = path.split('/');
             let dir: Directory = this;
-            for (let i = 0; i < parts.length - 1; i++) {
-                if (dir.parent == null) return null;
-                dir = dir.parent;
+            while (parts[0] === '..'){
+                parts.splice(0, 1);
+                if (dir.getParent() == null) return new Directory('/');
+                curPath.pop();
             }
             let newpath = parts.pop();
-            return dir.get(newpath);
+            let d = new Directory(curPath.join('/') + (newpath ? '/' + newpath : ""));
+            if (d.directory == null) return null;
+            return d;
         }
     }
     set(path: string, value: any) {
@@ -84,6 +90,38 @@ export default class Directory {
             }
             return {};
         }
+    }
+    getPath(): string {
+        if (this.path === '/') return '/';
+        else return this.path + '/';
+    }
+    getName(): string {
+        if (this.path === '/') return '/';
+        else return this.path.substring(this.path.lastIndexOf('/') + 1);
+    }
+    getParent(): Directory {
+        if (this.path === '/') return null;
+        return new Directory(this.path.substring(0, this.path.lastIndexOf('/')));
+    }
+    getDirectories(): string[] {
+        let ret = [];
+        for (let key in this.directory) {
+            ret.push(key);
+        }
+        return ret;
+    }
+    getFiles(): string[] {
+        let ret = [];
+        for (let key in this.directory) {
+            if (typeof this.directory[key] === 'object') ret.push(key);
+        }
+        return ret;
+    }
+    getFile(name: string): any {
+        return this.directory[name];
+    }
+    getFilePath(name: string): string {
+        return this.getPath() + name;
     }
 
 }

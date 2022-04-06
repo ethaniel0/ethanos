@@ -35,7 +35,6 @@ function getDay(){
 }
 
 function makeWindow(app: Application){
-  // console.log(app);
   Processes.addWindow(app.newObject());
 }
 
