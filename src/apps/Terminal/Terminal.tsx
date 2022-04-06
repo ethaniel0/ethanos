@@ -31,7 +31,8 @@ export default class Terminal implements Application {
             background: 'black',
             width: '100%',
             height: '100%',
-            color: 'white'
+            color: 'white',
+            padding: '0.5rem'
         }
         return (<>
             <div className="terminal" style={mainStyles}>
