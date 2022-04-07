@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Application from './Application';
 import Processes from './Processes';
+import Draggable from "react-draggable";
 
 interface AppProps {
   app: Application
@@ -67,19 +68,21 @@ export default function Window(props: AppProps){
   }
 
   return (
-    <div onClick={stopProp} className='window' style={windowStyles as any}>
-      <nav className='flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
-        <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
-        <div className='flex'>
-          <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
-          <div className='bg-yellow-500' style={circleStyles}></div>
-          <div onClick={() => Processes.removeWindow(app)} className='bg-red-600' style={circleStyles}></div>
+    <Draggable bounds='parent'>  
+      <div onClick={stopProp} className='window' style={windowStyles as any}>
+        <nav className='flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
+          <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
+          <div className='flex'>
+            <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
+            <div className='bg-yellow-500' style={circleStyles}></div>
+            <div onClick={() => Processes.removeWindow(app)} className='bg-red-600' style={circleStyles}></div>
+          </div>
+        </nav>
+        <div style={{width: '100%', height: '100%'}}>
+          {app.code}
         </div>
-      </nav>
-      <div style={{width: '100%', height: '100%'}}>
-        {app.code}
       </div>
-    </div>
+    </Draggable>
   );
   
 }
