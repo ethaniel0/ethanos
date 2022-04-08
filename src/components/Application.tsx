@@ -4,6 +4,8 @@ export default interface Application {
   name: string;
   icon: string;
   defaultSize: string[];
+  minWidth?: number;
+  minHeight?: number;
   resizeable: boolean;
   newObject: Function;
 }

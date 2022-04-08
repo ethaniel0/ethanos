@@ -26,7 +26,7 @@ export default class Directory {
 
         let parts = path.split('/');
         for (let part of parts){
-            if (part.length == 0) continue;
+            if (part.length === 0) continue;
             if (part in this.directory) this.directory = this.directory[part];
             else {
                 this.directory = null;

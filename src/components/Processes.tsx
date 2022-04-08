@@ -1,7 +1,9 @@
 import Application from './Application';
+import { ReactElement } from 'react';
+import Window from './Window';
 
 interface ProcessesLayout {
-    windows: Application[];
+    windows: ReactElement<Window, any>[];
     addWindow: Function;
     removeWindow: Function;
 }
@@ -9,7 +11,8 @@ interface ProcessesLayout {
 let Processes: ProcessesLayout = {
     windows: [],
     addWindow: (app: Application) => {},
-    removeWindow: (app: Application) => {}
+    removeWindow: (code: string) => {}
+    
 
 }
 

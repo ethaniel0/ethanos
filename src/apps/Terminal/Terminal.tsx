@@ -23,7 +23,7 @@ export default class Terminal implements Application  {
     constructor(){
         this.name = 'Terminal';
         this.icon = icon;
-        this.defaultSize = ['60vw', '50vh'];
+        this.defaultSize = ['500px', '300px'];
         this.resizeable = true;
         this.code = <UI />;
         this.lines = [];

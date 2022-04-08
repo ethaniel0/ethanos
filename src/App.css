@@ -1,3 +1,74 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --resize-wid: 3px;
+    --top-h: 0;
+    --bottom-h: calc(100% - var(--resize-wid));
+    --left-w: 0;
+    --right-w: calc(100% - var(--resize-wid));
+}
+
+.resize-area {
+    position: absolute;
+    background: transparent;
+    z-index: 5;
+    
+}
+.resize-area.top {
+    height: var(--resize-wid);
+    width: calc(100% - var(--resize-wid));
+    top: var(--top-h);
+    left: var(--resize-wid);
+    cursor: row-resize;
+}
+.resize-area.bottom {
+    height: var(--resize-wid);
+    width: calc(100% - var(--resize-wid));
+    top: var(--bottom-h);
+    left: var(--resize-wid);
+    cursor: row-resize;
+}
+.resize-area.left {
+    height: calc(100% - var(--resize-wid));
+    width: var(--resize-wid);
+    top: var(--resize-wid);
+    left: var(--left-w);
+    cursor: col-resize;
+}
+.resize-area.right {
+    height: calc(100% - var(--resize-wid));
+    width: var(--resize-wid);
+    top: var(--resize-wid);
+    left: var(--right-w);
+    cursor: col-resize;
+}
+.resize-area.tr {
+    height: calc(2 * var(--resize-wid));
+    width: calc(2 * var(--resize-wid));
+    top: var(--top-h);
+    left: var(--right-w);
+    cursor: nesw-resize;
+}
+.resize-area.tl {
+    height: calc(2 * var(--resize-wid));
+    width: calc(2 * var(--resize-wid));
+    top: var(--top-h);
+    left: var(--left-w);
+    cursor: nwse-resize;
+}
+.resize-area.br {
+    height: calc(2 * var(--resize-wid));
+    width: calc(2 * var(--resize-wid));
+    top: var(--bottom-h);
+    left: var(--right-w);
+    cursor: nwse-resize;
+}
+.resize-area.bl {
+    height: calc(2 * var(--resize-wid));
+    width: calc(2 * var(--resize-wid));
+    top: var(--bottom-h);
+    left: var(--left-w);
+    cursor: nesw-resize;
+}

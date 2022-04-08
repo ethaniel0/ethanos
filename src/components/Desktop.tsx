@@ -9,17 +9,19 @@ import Application from './Application';
 
 
 export default function Desktop(){
-  const [windows, setWindows]: [Application[], Function] = useState([])
+  const [windows, setWindows]: [React.ReactElement<Window, any>[], Function] = useState([])
 
   const selector = useState([-1, -1])
 
   Processes.addWindow = function(app: Application) {
+    let key = Math.round(Math.random()*1e15) + '';
+    let window = <Window app={app} key={key} code={key} />
     let copy = [...windows];
-    copy.push(app);
+    copy.push(window);
     setWindows(copy);
   }
-  Processes.removeWindow = function(app: Application) {
-    let copy = windows.filter(w => w !== app);
+  Processes.removeWindow = function(code: string) {
+    let copy = windows.filter(w => w.key !== code);
     setWindows(copy);
   }
 
@@ -28,9 +30,7 @@ export default function Desktop(){
       <Taskbar quickTasks={[]} />
       <div style={{width: '100%', flexGrow: 1,  position: 'relative'}}>
 
-        {windows.map((appl, index) => {
-          return <Window key={index} app={appl} />
-          })}
+        {windows.map((appl, index) => (appl))}
       </div>
     </div>
   );

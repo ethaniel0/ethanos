@@ -3,9 +3,11 @@ import { useState } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
+const { ResizableBox } = require('react-resizable');
 
 interface AppProps {
-  app: Application
+  app: Application,
+  code: string
 }
 
 interface Coords {
@@ -16,14 +18,13 @@ interface Coords {
 export default function Window(props: AppProps){
 
   let app = props.app;
-
-  const [coords, setCoords]: [Coords, Function] = useState({x: 100, y: 100});
+  
+  let minWidth = app.minWidth || 200;
+  let minHeight = app.minHeight || 200;
   const [size, setSize]: [string[], Function] = useState(app.defaultSize);
   const [isFullScreen, setFullScreen]: [boolean, Function] = useState(false);
   const [windowStyles, setwindowStyles]: [any, Function] = useState({
     position: 'absolute',
-    top: coords.y,
-    left: coords.x,
     width: size[0],
     height: size[1],
     backgroundColor: '#fff',
@@ -33,6 +34,9 @@ export default function Window(props: AppProps){
     zIndex: 1,
     boxSizing: 'border-box'
   });
+  const [code, setCode] = useState(props.code);
+
+  let [coords, setCoords] = useState({x: 0, y: 0});
 
   let circleStyles = {
     width: '0.8rem',
@@ -46,16 +50,12 @@ export default function Window(props: AppProps){
     if (isFullScreen){
       copy.width = size[0];
       copy.height = size[1];
-      copy.top = coords.y;
-      copy.left = coords.x;
       copy.border = '1px solid #C4C4C4';
       setFullScreen(false);
     }
     else {
       copy.width = '100%';
       copy.height = '100%';
-      copy.top = 0;
-      copy.left = 0;
       copy.border = 'none';
       setFullScreen(true);
     }
@@ -67,22 +67,179 @@ export default function Window(props: AppProps){
     if (e.stopPropagation) e.stopPropagation();
   }
 
+  function onDrag(e: any, data: any){
+    setCoords({x: data.x, y: data.y});
+  }
+
+  function getNum(s: string){
+    let allowed = '1234567890';
+    let c = '';
+    for (let i = 0; i < s.length; i++){
+      if (allowed.includes(s.charAt(i))) c += s.charAt(i);
+      else break; 
+    }
+    return parseInt(c);
+  }
+
+  function shiftTop(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let y = coords.y;
+    let dy = data.y;
+    y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
+    let newHeight = curHeight + (coords.y - y);
+    copy.height = newHeight + 'px';
+
+    setwindowStyles(copy);
+    setCoords({x: coords.x, y: y});
+  }
+  function shiftBottom(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let newHeight = Math.max(minHeight, curHeight + data.deltaY);
+    copy.height = newHeight + 'px';
+    setwindowStyles(copy);
+  }
+  function shiftLeft(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curWidth = getNum(copy.width);
+    let x = coords.x;
+    let dx = data.x;
+    x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
+    let newWidth = curWidth + (coords.x - x);
+    copy.width = newWidth + 'px';
+
+    setwindowStyles(copy);
+    setCoords({x: x, y: coords.y});
+  }
+  function shiftRight(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curWidth = getNum(copy.width);
+    let newWidth = Math.max(minWidth, curWidth + data.deltaX);
+    copy.width = newWidth + 'px';
+    setwindowStyles(copy);
+  }
+  function shiftTopLeft(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let y = coords.y;
+    let dy = data.y;
+    y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
+    let newHeight = curHeight + (coords.y - y);
+    copy.height = newHeight + 'px';
+
+    let curWidth = getNum(copy.width);
+    let x = coords.x;
+    let dx = data.x;
+    x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
+    let newWidth = curWidth + (coords.x - x);
+    copy.width = newWidth + 'px';
+
+    setwindowStyles(copy);
+    setCoords({x: x, y: y});
+  }
+  function shiftTopRight(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let y = coords.y;
+    let dy = data.y;
+    y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
+    let newHeight = curHeight + (coords.y - y);
+    copy.height = newHeight + 'px';
+
+    let curWidth = getNum(copy.width);
+    let newWidth = Math.max(minWidth, curWidth + data.deltaX);
+    copy.width = newWidth + 'px';
+
+    setwindowStyles(copy);
+    setCoords({x: coords.x, y: y});
+  }
+  function shiftBottomLeft(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let newHeight = Math.max(minHeight, curHeight + data.deltaY);
+    copy.height = newHeight + 'px';
+
+    let curWidth = getNum(copy.width);
+    let x = coords.x;
+    let dx = data.x;
+    x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
+    let newWidth = curWidth + (coords.x - x);
+    copy.width = newWidth + 'px';
+
+    setwindowStyles(copy);
+    setCoords({x: x, y: coords.y});
+  }
+  function shiftBottomRight(e: any, data: any){
+    let copy = {...windowStyles};
+    
+    let curHeight = getNum(copy.height);
+    let newHeight = Math.max(minHeight, curHeight + data.deltaY);
+    copy.height = newHeight + 'px';
+
+    let curWidth = getNum(copy.width);
+    let newWidth = Math.max(minWidth, curWidth + data.deltaX);
+    copy.width = newWidth + 'px';
+
+    setwindowStyles(copy);
+  }
+
   return (
-    <Draggable bounds='parent'>  
-      <div onClick={stopProp} className='window' style={windowStyles as any}>
-        <nav className='flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
-          <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
-          <div className='flex'>
-            <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
-            <div className='bg-yellow-500' style={circleStyles}></div>
-            <div onClick={() => Processes.removeWindow(app)} className='bg-red-600' style={circleStyles}></div>
+    <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords}>
+        <div onClick={stopProp} className={'window' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
+          <nav className='navbar flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
+            <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
+            <div className='flex'>
+              <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
+              <div className='bg-yellow-500' style={circleStyles}></div>
+              <div onClick={() => Processes.removeWindow(code)} className='bg-red-600' style={circleStyles}></div>
+            </div>
+          </nav>
+          <div style={{width: '100%', height: '100%'}}>
+            {app.code}
           </div>
-        </nav>
-        <div style={{width: '100%', height: '100%'}}>
-          {app.code}
+          {/* top */}
+          <Draggable onDrag={shiftTop} position={{x: 0, y: 0}}>
+            <div className='resize-area top'></div>
+          </Draggable>
+          {/* left */}
+          <Draggable onDrag={shiftLeft} position={{x: 0, y: 0}}>
+            <div className='resize-area left'></div>
+          </Draggable>
+          {/* bottom */}
+          <Draggable onDrag={shiftBottom} position={{x: 0, y: 0}}>
+            <div className='resize-area bottom'></div>
+          </Draggable>
+          {/* right */}
+          <Draggable onDrag={shiftRight} position={{x: 0, y: 0}}>
+            <div className='resize-area right'></div>
+          </Draggable>
+          {/* top right */}
+          <Draggable onDrag={shiftTopRight} position={{x: 0, y: 0}}>
+            <div className='resize-area tr'></div>
+          </Draggable>
+          {/* top left */}
+          <Draggable onDrag={shiftTopLeft} position={{x: 0, y: 0}}>
+            <div className='resize-area tl'></div>
+          </Draggable>
+          {/* bottom right */}
+          <Draggable onDrag={shiftBottomRight} position={{x: 0, y: 0}}>
+            <div className='resize-area br'></div>
+          </Draggable>
+          {/* bottom left */}
+          <Draggable onDrag={shiftBottomLeft} position={{x: 0, y: 0}}>
+            <div className='resize-area bl'></div>
+          </Draggable>
         </div>
-      </div>
     </Draggable>
+    
   );
   
 }

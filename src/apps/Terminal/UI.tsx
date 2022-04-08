@@ -60,31 +60,49 @@ const UI = () => {
             cursor.current = 0;
         } 
         else if (code === 127){ // allow deleting characters
-            if (cursor.current > 0){
+            if (cursor.current == 0) return;
+            let cur = input.current;
+            if (cursor.current === input.current.length){
                 ref.current.terminal.write("\b \b");  
-                let cur = input.current;
-                input.current = cur.substring(0, cursor.current-1) + cur.substring(cursor.current);
-                cursor.current--;
             }
+            else {
+                let after = cur.substring(cursor.current);
+                ref.current.terminal.write('\b' + after + ' ');
+                for (let i = 0; i <= after.length; i++){
+                    ref.current.terminal.write('\b');
+                }
+
+            }
+            input.current = cur.substring(0, cursor.current-1) + cur.substring(cursor.current);
+            cursor.current--;
+            
         }
         else if (escapeChar){ // allow arrow keys
             let key = data.substring(1, data.length);
-            if (key === '[D'){ // left arrow
-                ref.current.terminal.write("\b");
+            if (key === '[D' && cursor.current > 0){ // left arrow
+                // ref.current.terminal.write("\b");
+                ref.current.terminal.write('\x1b[D');
                 cursor.current--;
+            }
+            if (key === '[C' && cursor.current < input.current.length){ // left arrow
+                ref.current.terminal.write('\x1b[C');
+                cursor.current++;
             }
         }
         else if (code < 32) { // Disable control Keys such as arrow keys
             return;
         } else { // Add general key press characters to the terminal
-            ref.current.terminal.write(data);
             let cur = input.current;
-            input.current = cur.substring(0, cursor.current) + data + cur.substring(cursor.current+1);
+            let right = cur.substring(cursor.current);
+            ref.current.terminal.write(data + right);
+            for (let i = 0; i < right.length; i++){
+                ref.current.terminal.write('\b');
+            }
+            
+            input.current = cur.substring(0, cursor.current) + data + cur.substring(cursor.current);
             cursor.current++;
         }
     }
-
-    
     
     return (<>
         <div className="terminal" style={mainStyles}>

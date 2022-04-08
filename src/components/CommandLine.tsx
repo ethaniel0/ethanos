@@ -7,13 +7,56 @@ export default class CommandLine{
         if (cwd) this.cwd = new Directory(cwd);
         else this.cwd = new Directory('/');
     }
+    parseCommand(input: string){
+        let parts = [];
+        let curString = '';
+        let inString = false;
+        let escapeSpace = false;
+        for (let i = 0; i < input.length; i++){
+            let c = input.charAt(i);
+            if (c !== ' '){
+                if (c === '\\'){
+                    escapeSpace = true;
+                }
+                else if (c === '"'){
+                    if (inString){
+                        parts.push(curString);
+                        curString = '';
+                        inString = false;
+                    }
+                    else {
+                        inString = true;
+                    }
+                }
+                else {
+                    curString += c
+                }
+            }
+            else {
+                if (inString){
+                    curString += c;
+                    continue;
+                }
+                if (escapeSpace){
+                    curString += ' ';
+                    escapeSpace = false;
+                    continue;
+                }
+                else parts.push(curString);
+                curString = '';
+            }
+        }
+        if (curString.length > 0) parts.push(curString);
+        return parts;
+    }
     command(input: string): string{
-        let parts = input.split(' ');
+        let parts = this.parseCommand(input);
+        console.log('PARTS:', parts);
         let command = parts[0];
         let args = parts.slice(1);
         switch(command){
             case 'cd':
-                let d = this.cwd.get(args[0]);
+                let d = this.cwd.get(args[0] || '');
                 if (d !== null){
                     this.cwd = d;
                     return '';
