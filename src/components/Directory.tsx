@@ -1,19 +1,4 @@
-let directory = {
-    'E': {
-        'Applications': {
-            
-        },
-        'User': {
-            'Desktop': {
-
-            },
-            'Program Files': {
-
-            }
-
-        }
-    }
-}
+import FileSystem from './FileSystem';
 
 export default class Directory {
     path: string;
@@ -22,12 +7,12 @@ export default class Directory {
         if (path.length === 0) path = '/';
 
         this.path = path;
-        this.directory = directory;
+        this.directory = FileSystem.directories;
 
         let parts = path.split('/');
         for (let part of parts){
             if (part.length === 0) continue;
-            if (part in this.directory) this.directory = this.directory[part];
+            if (part in this.directory && (typeof this.directory[part] === 'object')) this.directory = this.directory[part];
             else {
                 this.directory = null;
                 break;
@@ -41,7 +26,9 @@ export default class Directory {
         // absolute path
         if (path.startsWith('/')){
             let d = new Directory(path);
-            if (d.directory == null) return null;
+            if (d.directory == null){
+                return null;
+            }
             return d;
         }
         // relative path
@@ -118,6 +105,11 @@ export default class Directory {
         return ret;
     }
     getFile(name: string): any {
+        let folder = name.substring(0, name.lastIndexOf('/')).trim();
+        if (folder) {
+            let d = this.get(folder);
+            if (d) return d.getFile(name.substring(folder.length + 1));
+        }
         return this.directory[name];
     }
     getFilePath(name: string): string {

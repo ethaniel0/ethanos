@@ -3,16 +3,10 @@ import { useState } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
-const { ResizableBox } = require('react-resizable');
 
 interface AppProps {
   app: Application,
   code: string
-}
-
-interface Coords {
-  x: number,
-  y: number
 }
 
 export default function Window(props: AppProps){
@@ -21,7 +15,7 @@ export default function Window(props: AppProps){
   
   let minWidth = app.minWidth || 200;
   let minHeight = app.minHeight || 200;
-  const [size, setSize]: [string[], Function] = useState(app.defaultSize);
+  const size = app.defaultSize;
   const [isFullScreen, setFullScreen]: [boolean, Function] = useState(false);
   const [windowStyles, setwindowStyles]: [any, Function] = useState({
     position: 'absolute',
@@ -36,7 +30,7 @@ export default function Window(props: AppProps){
   });
   const [code, setCode] = useState(props.code);
 
-  let [coords, setCoords] = useState({x: 0, y: 0});
+  let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
 
   let circleStyles = {
     width: '0.8rem',

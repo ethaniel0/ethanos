@@ -11,8 +11,6 @@ import Application from './Application';
 export default function Desktop(){
   const [windows, setWindows]: [React.ReactElement<Window, any>[], Function] = useState([])
 
-  const selector = useState([-1, -1])
-
   Processes.addWindow = function(app: Application) {
     let key = Math.round(Math.random()*1e15) + '';
     let window = <Window app={app} key={key} code={key} />
@@ -30,7 +28,7 @@ export default function Desktop(){
       <Taskbar quickTasks={[]} />
       <div style={{width: '100%', flexGrow: 1,  position: 'relative'}}>
 
-        {windows.map((appl, index) => (appl))}
+        {windows.map((appl) => (appl))}
       </div>
     </div>
   );

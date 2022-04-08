@@ -36,7 +36,6 @@ const UI = () => {
         setLines([...lines, line]);
         let pathname = commandLine.cwd.getName();
         name.current = pathname === '/' ? '$' : pathname;
-        console.log('current:', pathname, name.current);
         return resp;
     }
 
@@ -60,7 +59,7 @@ const UI = () => {
             cursor.current = 0;
         } 
         else if (code === 127){ // allow deleting characters
-            if (cursor.current == 0) return;
+            if (cursor.current === 0) return;
             let cur = input.current;
             if (cursor.current === input.current.length){
                 ref.current.terminal.write("\b \b");  
@@ -103,7 +102,7 @@ const UI = () => {
             cursor.current++;
         }
     }
-    
+
     return (<>
         <div className="terminal" style={mainStyles}>
             <XTerm ref={ref} onData={onData} />    

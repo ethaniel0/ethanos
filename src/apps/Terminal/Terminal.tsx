@@ -1,9 +1,8 @@
 import * as React from "react";
 import Application from "../../components/Application";
-import CommandLine from "../../components/CommandLine";
 import icon from './assets/icon.svg';
 import UI from "./UI";
-import { useState } from "react";
+import Processes from "../../components/Processes";
 
 function code(){
 
@@ -17,8 +16,8 @@ export default class Terminal implements Application  {
     icon: string;
     defaultSize: string[];
     resizeable: boolean;
-    
     lines: string[];
+    spawnPoint: number[];
 
     constructor(){
         this.name = 'Terminal';
@@ -27,6 +26,7 @@ export default class Terminal implements Application  {
         this.resizeable = true;
         this.code = <UI />;
         this.lines = [];
+        this.spawnPoint = [...Processes.windowSpawnPoint];
     }
 
     newObject(){

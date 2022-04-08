@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Application from '../../components/Application';
 import icon from './assets/icon.svg';
+import Processes from '../../components/Processes';
 
 class Present implements Application {
   name: string;
@@ -10,6 +11,7 @@ class Present implements Application {
   code: React.ReactElement<any, any>;
   page: number;
   file: string;
+  spawnPoint: number[];
 
 
   constructor(file?: string){
@@ -18,6 +20,8 @@ class Present implements Application {
     this.icon = icon;
     this.defaultSize = ['60vw', '50vh'];
     this.resizeable = false;
+    this.spawnPoint = [...Processes.windowSpawnPoint];
+    Processes.cycleSpawnPoint();
     
     if (file){
       this.file = file;

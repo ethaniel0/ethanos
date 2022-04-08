@@ -1,19 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react'
-import Application from './Application';
 import AppDrawer from './AppDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
-import Processes from './Processes';
-
-// valid applications
-import Present from '../apps/Present/Present';
-import Terminal from '../apps/Terminal/Terminal';
+import CommandLine from './CommandLine';
 
 interface TaskbarProps {
   quickTasks: string[];
 }
-
 
 function getTime(){
   let d = new Date();
@@ -34,15 +28,15 @@ function getDay(){
   return week + ' ' + month + '/' + day;
 }
 
-function makeWindow(app: Application){
-  Processes.addWindow(app.newObject());
-}
-
 export default function Taskbar(props: TaskbarProps){
   let {quickTasks} = props;
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
-  const [apps, setApps] = useState([new Present() as Application, new Terminal() as Application]);
+  const [pinnedApps, setPinnedApps] = useState([
+    '/E/Applications/Present.app',
+    '/E/Applications/Terminal.app'
+  ]);
+  const cmd = new CommandLine();
   setInterval(() => setTime(getTime()), 1000);
   setInterval(() => setDay(getDay()), 1000);
 
@@ -53,9 +47,13 @@ export default function Taskbar(props: TaskbarProps){
         {/* apps */}
         <div className='grow rounded-xl h-full mx-1 flex items-center px-2 justify-start' style={{background: 'rgb(0, 0, 0, 0.6)'}}>
             <AppDrawer />
-            {apps.map((app: Application, index: number) => {
-              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' onClick={() => makeWindow(app)} />
+            {pinnedApps.map((path: string, index: number) => {
+              let app = cmd.cwd.getFile(path);
+              if (typeof app === 'object') return;
+              app = new app();
+              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' onClick={() => cmd.command('open ' + path)} />
             })}
+            
         </div>
         {/* info */}
         <div className='w-48 rounded-xl h-full mx-1 text-white flex justify-around items-center' style={{background: 'rgb(0, 0, 0, 0.6)'}}>

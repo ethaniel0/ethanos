@@ -1,4 +1,5 @@
 import Directory from "./Directory";
+import Processes from "./Processes";
 
 export default class CommandLine{
     cwd: Directory;
@@ -51,7 +52,6 @@ export default class CommandLine{
     }
     command(input: string): string{
         let parts = this.parseCommand(input);
-        console.log('PARTS:', parts);
         let command = parts[0];
         let args = parts.slice(1);
         switch(command){
@@ -61,9 +61,11 @@ export default class CommandLine{
                     this.cwd = d;
                     return '';
                 }
-                return 'cd: no such file or directory: ' + args[0];
+                return 'cd: no such directory: ' + args[0];
             case 'ls':
                 return this.ls(args);
+            case 'open': 
+                return this.openWindow(args[0]);
             case 'cat':
                 return this.cat(args);
             case 'clear':
@@ -74,10 +76,19 @@ export default class CommandLine{
                 return `Command not found: ${command}`;
         }
     }
+    
     ls(args: string[]): string{
         let dirs = this.cwd.getDirectories();
         if (dirs.length === 0) return ' ';
         return dirs.join('    ');
+    }
+    openWindow(path: string): string {
+        let app: any = this.cwd.getFile(path);
+        if (typeof app === 'object') {
+            return 'open: path is not a file: ' + path;
+        }
+        Processes.addWindow(new app());
+        return '';
     }
     cat(args: string[]): string{
         return '';
