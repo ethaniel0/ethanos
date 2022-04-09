@@ -24,7 +24,7 @@ export default function Desktop(){
   }
 
   return (
-    <div id='desktop' className='relative flex flex-col w-screen h-screen bg-cover bg-center' style={{backgroundImage: 'url(/assets/bkg.png)'}}>
+    <div id='desktop' className='relative flex flex-col w-screen h-screen bg-cover bg-center overflow-hidden' style={{backgroundImage: 'url(/assets/bkg.png)'}}>
       <Taskbar quickTasks={[]} />
       <div style={{width: '100%', flexGrow: 1,  position: 'relative'}}>
 
