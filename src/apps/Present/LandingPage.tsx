@@ -6,7 +6,6 @@ interface AppProps {
   }
 
 const LandingPage = ({ width, height }: AppProps) => {
-    console.log(width, height);
 
   return (
     <div className='text-gray-100 flex flex-col items-center overflow-scroll' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
