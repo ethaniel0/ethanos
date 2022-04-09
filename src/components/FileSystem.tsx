@@ -1,7 +1,7 @@
 import Terminal from "../apps/Terminal/Terminal";
 import Present from "../apps/Present/Present";
 
-const FileSystem = {
+const FileSystem: any = {
     directories: {
         'E': {
             'Applications': {

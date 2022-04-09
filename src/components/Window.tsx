@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
+import { useRef } from 'react';
 
 interface AppProps {
   app: Application,
@@ -12,7 +13,7 @@ interface AppProps {
 export default function Window(props: AppProps){
 
   let app = props.app;
-  
+  let ref = useRef(null);
   let minWidth = app.minWidth || 200;
   let minHeight = app.minHeight || 200;
   const size = app.defaultSize;
@@ -187,7 +188,7 @@ export default function Window(props: AppProps){
 
   return (
     <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords}>
-        <div onClick={stopProp} className={'window' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
+        <div ref={ref} onClick={stopProp} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
           <nav className='navbar flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
             <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
             <div className='flex'>
@@ -196,8 +197,8 @@ export default function Window(props: AppProps){
               <div onClick={() => Processes.removeWindow(code)} className='bg-red-600' style={circleStyles}></div>
             </div>
           </nav>
-          <div style={{width: '100%', height: '100%'}}>
-            {app.code}
+          <div style={{width: '100%', height: '100%', overflow: 'scroll'}}>
+            {app.code(isFullScreen ? [window.innerWidth, ref.current.clientHeight] : [getNum(windowStyles.width), getNum(windowStyles.height)])}
           </div>
           {/* top */}
           <Draggable onDrag={shiftTop} position={{x: 0, y: 0}}>

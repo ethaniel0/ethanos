@@ -12,7 +12,7 @@ interface ProcessesLayout {
 }
 
 let Processes: ProcessesLayout = {
-    windows: [],
+    windows: [], // list of windows
     addWindow: (app: Application) => {},
     removeWindow: (code: string) => {},
     windowSpawnPoint: [100, 100],

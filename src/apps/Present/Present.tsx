@@ -2,23 +2,27 @@ import * as React from 'react'
 import Application from '../../components/Application';
 import icon from './assets/icon.svg';
 import Processes from '../../components/Processes';
+import LandingPage from './LandingPage';
+import './Present.css';
 
 class Present implements Application {
   name: string;
   icon: string;
   defaultSize: string[];
   resizeable: boolean;
-  code: React.ReactElement<any, any>;
+  code: Function;
   page: number;
   file: string;
   spawnPoint: number[];
+  width: number;
+  height: number;
 
 
   constructor(file?: string){
     
     this.name = "Present";
     this.icon = icon;
-    this.defaultSize = ['60vw', '50vh'];
+    this.defaultSize = [window.innerWidth * 0.6 + 'px', window.innerHeight * 0.5 + 'px'];
     this.resizeable = false;
     this.spawnPoint = [...Processes.windowSpawnPoint];
     Processes.cycleSpawnPoint();
@@ -31,26 +35,24 @@ class Present implements Application {
       this.file = ''
       this.page = 0;
     }
-    this.code = this.app();
+    this.code = this.landing;
   }
 
   newObject(){
     return new Present();
   }
   
-  landing(){
-    return (<>
-      <h1>Hello, World!</h1>
-    </>)
+  landing(size: number[]){
+    return (<LandingPage width={size[0]} height={size[1]} />)
   }
 
   loadPage(){
     return (<></>)
   }
 
-  app(){
+  app(size: number[]){
     return (<>
-      {this.page === 0 && this.landing()}
+      {this.page === 0 && this.landing(size)}
       {this.page === 1 && this.loadPage()}
     </>)
   }

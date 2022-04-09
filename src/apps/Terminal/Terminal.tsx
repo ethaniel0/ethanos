@@ -11,7 +11,7 @@ function code(){
 }
 
 export default class Terminal implements Application  {
-    code: React.ReactElement<any, any>;
+    code: Function;
     name: string;
     icon: string;
     defaultSize: string[];
@@ -24,7 +24,7 @@ export default class Terminal implements Application  {
         this.icon = icon;
         this.defaultSize = ['500px', '300px'];
         this.resizeable = true;
-        this.code = <UI />;
+        this.code = () => <UI />;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
     }
