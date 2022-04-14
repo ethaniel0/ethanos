@@ -25,13 +25,17 @@ class Present implements Application {
   spawnPoint: number[];
   width: number;
   height: number;
+  minWidth: number;
+  minHeight: number;
 
 
   constructor(file?: any){
     
     this.name = "Present";
     this.icon = icon;
-    this.defaultSize = [window.innerWidth * 0.6 + 'px', window.innerHeight * 0.5 + 'px'];
+    this.defaultSize = [window.innerWidth * 0.7 + 'px', window.innerHeight * 0.8 + 'px'];
+    this.minWidth = 400;
+    this.minHeight= 400;
     this.resizeable = false;
     this.spawnPoint = [...Processes.windowSpawnPoint];
     Processes.cycleSpawnPoint();

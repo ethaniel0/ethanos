@@ -6,6 +6,7 @@
         "project1": {
             "name": "Project 1",
             "description": "This is a project description",
+            "shortDesc": "",
             "url": "",
             "images": ["/assets/icons/present-web.png"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
@@ -13,8 +14,9 @@
         "project2": {
             "name": "Project 2",
             "description": "This is a project description",
+            "shortDesc": "",
             "url": "",
-            "image": ["/assets/icons/present-web.png"],
+            "images": ["/assets/icons/present-web.png"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         }
     }
