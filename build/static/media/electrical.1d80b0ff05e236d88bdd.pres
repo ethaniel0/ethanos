@@ -1,0 +1,31 @@
+{
+    "name": "Electrical Engineering Projects",
+    "icon": "/assets/icons/present-elec.svg",
+    "size": "10kB",
+    "projects": {
+        "Triangle": {
+            "name": "Light-Up Musical Triangle Prop",
+            "description": "This is a project description",
+            "shortDesc": "",
+            "url": "",
+            "images": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Web Bluetooth API", "Arduino", "ESP32", "C++"]
+        },
+        "Grad Cap": {
+            "name": "Graduation Cap",
+            "description": "This is a project description",
+            "shortDesc": "",
+            "url": "",
+            "images": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Web Bluetooth API", "ESP32", "C++"]
+        },
+        "Robot": {
+            "name": "ECE 110 Bot",
+            "description": "This is a project description",
+            "shortDesc": "",
+            "url": "",
+            "images": ["/assets/icons/present-web.png"],
+            "technologies": ["Arduino", "RFID", "Color Sensor", "Servos"]
+        }
+    }
+}

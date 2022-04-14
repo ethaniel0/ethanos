@@ -1,17 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.5fcbedcd.css",
-    "main.js": "/static/js/main.b7bc16c6.js",
+    "main.css": "/static/css/main.e08c2e4c.css",
+    "main.js": "/static/js/main.60add5ef.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
+    "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
+    "static/media/Quicksand-SemiBold.ttf": "/static/media/Quicksand-SemiBold.f36a86e2ff447dc869f0.ttf",
+    "static/media/Quicksand-Bold.ttf": "/static/media/Quicksand-Bold.4c3d23174e1f233b946d.ttf",
     "static/media/Ubuntu-Title.ttf": "/static/media/Ubuntu-Title.2b5febb9b8d936b29fed.ttf",
+    "static/media/web.pres": "/static/media/web.4256442f97db1b5427c5.pres",
     "static/media/icon.svg": "/static/media/icon.743833e9faed1abcef579432c7e0ed42.svg",
+    "static/media/electrical.pres": "/static/media/electrical.1d80b0ff05e236d88bdd.pres",
+    "static/media/hardware.pres": "/static/media/hardware.4307066924e9e9a0e541.pres",
+    "static/media/applications.pres": "/static/media/applications.777d54eaa8527b09a537.pres",
     "index.html": "/index.html",
-    "main.5fcbedcd.css.map": "/static/css/main.5fcbedcd.css.map",
-    "main.b7bc16c6.js.map": "/static/js/main.b7bc16c6.js.map",
+    "main.e08c2e4c.css.map": "/static/css/main.e08c2e4c.css.map",
+    "main.60add5ef.js.map": "/static/js/main.60add5ef.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5fcbedcd.css",
-    "static/js/main.b7bc16c6.js"
+    "static/css/main.e08c2e4c.css",
+    "static/js/main.60add5ef.js"
   ]
 }
