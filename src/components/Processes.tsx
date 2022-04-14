@@ -9,6 +9,7 @@ interface ProcessesLayout {
     vars: any; // environment variables
     windowSpawnPoint: number[];
     cycleSpawnPoint: Function;
+    exts: any; // extensions
 }
 
 let Processes: ProcessesLayout = {
@@ -30,6 +31,10 @@ let Processes: ProcessesLayout = {
             Processes.windowSpawnPoint[0] += 100;
             Processes.windowSpawnPoint[1] = 100;
         }
+    },
+    exts: {
+        'bash': '/E/Applications/Terminal.app',
+        'pres': '/E/Applications/Present.app',
     }
 }
 

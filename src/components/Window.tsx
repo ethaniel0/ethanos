@@ -234,7 +234,6 @@ export default function Window(props: AppProps){
           </Draggable>
         </div>
     </Draggable>
-    
   );
   
 }

@@ -65,7 +65,9 @@ export default class CommandLine{
             case 'ls':
                 return this.ls(args);
             case 'open': 
+                if (args.length === 0) return 'open: no file specified';
                 return this.openWindow(args[0]);
+                
             case 'cat':
                 return this.cat(args);
             case 'clear':
@@ -75,8 +77,7 @@ export default class CommandLine{
             default:
                 return `Command not found: ${command}`;
         }
-    }
-    
+    }  
     ls(args: string[]): string{
         let dirs = this.cwd.getDirectories();
         if (dirs.length === 0) return ' ';
@@ -86,6 +87,21 @@ export default class CommandLine{
         let app: any = this.cwd.getFile(path);
         if (typeof app === 'object') {
             return 'open: path is not a file: ' + path;
+        }
+
+        let f = this.cwd.getFile(path);
+        if (typeof f === 'object') {
+            return 'open: path is not a file: ' + path;
+        }
+        if (typeof f === 'string'){
+            let ext = f.split('.').pop();
+            if (ext in Processes.exts){
+                let appPath = Processes.exts[ext];
+                let app = this.cwd.getFile(appPath);
+                Processes.addWindow(new app(f));
+                return 'open: no app found for file: ' + path;
+            }
+            return '';
         }
         Processes.addWindow(new app());
         return '';

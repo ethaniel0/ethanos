@@ -1,0 +1,42 @@
+{
+    "name": "Web Dev",
+    "icon": "/assets/icons/present-web.svg",
+    "size": "10kB",
+    "projects": {
+        "EthanOS": {
+            "name": "EthanOS",
+            "description": "This is a project description",
+            "url": "",
+            "images": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "React JS", "Tailwind CSS", "Processing Java", "Figma"]
+        },
+        "WaffleHacks": {
+            "name": "WaffleHacks",
+            "description": "This is a project description",
+            "url": "wafflehacls.org",
+            "image": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase", "Figma", "Spotify API", "SoundCloud API"]
+        },
+        "Attest": {
+            "name": "Attest",
+            "description": "This is a project description",
+            "url": "https://www.covidattestation.com",
+            "image": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
+        },
+        "Babii": {
+            "name": "Babii project for HackDuke",
+            "description": "This is a project description",
+            "url": "",
+            "image": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
+        },
+        "WebStage": {
+            "name": "Webstage project for PennApps XXI",
+            "description": "This is a project description",
+            "url": "",
+            "image": ["/assets/icons/present-web.png"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
+        }
+    }
+}

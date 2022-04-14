@@ -3,7 +3,16 @@ import Application from '../../components/Application';
 import icon from './assets/icon.svg';
 import Processes from '../../components/Processes';
 import LandingPage from './LandingPage';
+import ProjectView from './ProjectView';
 import './Present.css';
+
+interface File {
+  name: string;
+  icon: string;
+  size: string;
+  projects: any;
+}
+
 
 class Present implements Application {
   name: string;
@@ -12,13 +21,13 @@ class Present implements Application {
   resizeable: boolean;
   code: Function;
   page: number;
-  file: string;
+  file: File;
   spawnPoint: number[];
   width: number;
   height: number;
 
 
-  constructor(file?: string){
+  constructor(file?: any){
     
     this.name = "Present";
     this.icon = icon;
@@ -32,10 +41,10 @@ class Present implements Application {
       this.page = 1;
     }
     else {
-      this.file = ''
+      this.file = null
       this.page = 0;
     }
-    this.code = this.landing;
+    this.code = this.app;
   }
 
   newObject(){
@@ -46,14 +55,14 @@ class Present implements Application {
     return (<LandingPage width={size[0]} height={size[1]} />)
   }
 
-  loadPage(){
-    return (<></>)
+  loadPage(size: number[]){
+    return (<ProjectView width={size[0]} height={size[1]} file={this.file} />)
   }
 
   app(size: number[]){
     return (<>
       {this.page === 0 && this.landing(size)}
-      {this.page === 1 && this.loadPage()}
+      {this.page === 1 && this.loadPage(size)}
     </>)
   }
 

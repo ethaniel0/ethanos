@@ -100,7 +100,7 @@ export default class Directory {
     getFiles(): string[] {
         let ret = [];
         for (let key in this.directory) {
-            if (typeof this.directory[key] === 'object') ret.push(key);
+            if (typeof this.directory[key] !== 'object') ret.push(key);
         }
         return ret;
     }
