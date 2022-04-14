@@ -1,6 +1,6 @@
 {
     "name": "Electrical Engineering",
-    "icon": "/assets/icons/robot.png",
+    "icon": "/assets/icons/present-elec.svg",
     "size": "10kB",
     "projects": {
         "Triangle": {

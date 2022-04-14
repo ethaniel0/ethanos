@@ -1,6 +1,6 @@
 {
     "name": "Applications",
-    "icon": "/assets/icons/present-web.png",
+    "icon": "/assets/icons/present-apps.svg",
     "size": "10kB",
     "projects": {
         "project1": {

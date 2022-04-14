@@ -1,6 +1,9 @@
 import Terminal from "../apps/Terminal/Terminal";
 import Present from "../apps/Present/Present";
 import presWeb from '../files/web.pres';
+import presElec from '../files/electrical.pres';
+import presHard from '../files/hardware.pres';
+import presApps from '../files/applications.pres';
 
 const FileSystem: any = {
     directories: {
@@ -11,7 +14,10 @@ const FileSystem: any = {
             },
             'User': {
                 'Desktop': {
-                    "web.pres": presWeb
+                    "web.pres": presWeb,
+                    "applications.pres": presApps,
+                    "electrical.pres": presElec,
+                    "hardware.pres": presHard
                 },
                 'Program Files': {
                     

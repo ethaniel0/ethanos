@@ -1,6 +1,6 @@
 {
     "name": "Hardware / Mechanical Engineering",
-    "icon": "/assets/icons/present-web.png",
+    "icon": "/assets/icons/present-mech.svg",
     "size": "10kB",
     "projects": {
         "project1": {
