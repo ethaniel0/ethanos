@@ -21,7 +21,7 @@ class Present implements Application {
   resizeable: boolean;
   code: Function;
   page: number;
-  file: File;
+  file: string;
   spawnPoint: number[];
   width: number;
   height: number;
@@ -56,7 +56,7 @@ class Present implements Application {
   }
 
   loadPage(size: number[]){
-    return (<ProjectView width={size[0]} height={size[1]} file={this.file} />)
+    return (<ProjectView width={size[0]} height={size[1]} filePath={this.file} />)
   }
 
   app(size: number[]){

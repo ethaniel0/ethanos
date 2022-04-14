@@ -2,6 +2,22 @@
     font-family: UbuntuTitle;
     src: url(./assets/Ubuntu-Title.ttf);
 }
+@font-face {
+    font-family: QuickSand;
+    src: url(./assets/Quicksand-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: QuickSand;
+    src: url(./assets/Quicksand-SemiBold.ttf);
+    font-weight: semibold;
+}
+
+@font-face {
+    font-family: QuickSand;
+    src: url(./assets/Quicksand-Bold.ttf);
+    font-weight: bold;
+}
+
 
 #showcase-grid {
     width: min(75%, 45rem);
@@ -15,4 +31,19 @@
 }
 #showcase-grid > div:hover {
     transform: scale(105%);
+}
+
+.proj-list:nth-child(2n+1) {
+    flex-direction: row;
+    text-align: left;
+}
+.proj-list:nth-child(2n+1) img {
+    margin-right: 1.5rem;
+}
+.proj-list:nth-child(2n) {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+.proj-list:nth-child(2n) img {
+    margin-left: 1.5rem;
 }

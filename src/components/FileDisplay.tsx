@@ -10,7 +10,6 @@ interface AppProps {
 const FileDisplay = ({path, image, name}: AppProps) => {
   let cmd = new CommandLine(path);
   function click(){
-    console.log('CLICKING');
     cmd.command(`open ${name}`);
   }
   return (
