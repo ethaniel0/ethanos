@@ -30,6 +30,8 @@ export default function Desktop(){
     let copy = windows.filter(w => w.key !== code);
     setWindows(copy);
   }
+  Processes.setWindows = setWindows;
+  Processes.windows = windows;
 
   // load files with useeffect
   useEffect(() => {
@@ -37,7 +39,6 @@ export default function Desktop(){
       let dir = new Directory('/E/User/Desktop');
       let fs: any = {};
       for (let file of dir.getFiles()){
-        console.log(dir.getFile(file));
         let resp = await fetch(dir.getFile(file));
         let json = await resp.json();
         fs[file] = json;

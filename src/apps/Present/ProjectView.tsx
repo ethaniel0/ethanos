@@ -57,8 +57,6 @@ const ProjectView = ( { filePath, width }: AppProps ) => {
                                 <span className='text-2xl font-semibold mb-4 block'>{name}</span>
                                 <span>{proj.shortDesc}</span>
                             </div>
-                            
-
                         </div>
                     )
                 })}

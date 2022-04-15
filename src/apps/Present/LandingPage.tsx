@@ -44,17 +44,11 @@ const LandingPage = ({ width, height }: AppProps) => {
                     {/* <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div> */}
                     <img src="/assets/icons/robot.jpg" alt="" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
-                <div onClick={() => cmd.command("open hardware.pres")}>
-                    <h1 className='text-3xl text-center'>hardware</h1>
+                <div onClick={() => cmd.command("open research.pres")}>
+                    <h1 className='text-3xl text-center'>research</h1>
                     <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div>
                     {/* <img src="" alt="" className='w-1/4 h-1/4' /> */}
                 </div>
-                <div>
-                    <h1 className='text-3xl text-center'>fun</h1>
-                    <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div>
-                    {/* <img src="" alt="" className='w-1/4 h-1/4' /> */}
-                </div>
-                
 
             </div>
             

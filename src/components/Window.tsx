@@ -23,7 +23,8 @@ export default function Window(props: AppProps){
     width: size[0],
     height: size[1],
     backgroundColor: '#fff',
-    border: '1px solid #C4C4C4',
+    border: '1px solid #B4B4B4',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.4)',
     borderRadius: '5px',
     overflow: 'hidden',
     zIndex: 1,
@@ -186,9 +187,14 @@ export default function Window(props: AppProps){
     setwindowStyles(copy);
   }
 
+  function windowClick(e: any){
+    stopProp(e);
+    Processes.bringWindowToFront(code);
+  }
+
   return (
-    <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords}>
-        <div ref={ref} onClick={stopProp} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
+    <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords} onMouseDown={windowClick}>
+        <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
           <nav className='navbar flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
             <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
             <div className='flex'>
