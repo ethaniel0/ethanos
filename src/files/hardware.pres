@@ -9,6 +9,7 @@
             "shortDesc": "",
             "url": "",
             "images": ["/assets/icons/present-web.png"],
+            "captions": ["Caption"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         },
         "project2": {
@@ -17,6 +18,7 @@
             "shortDesc": "",
             "url": "",
             "images": ["/assets/icons/present-web.png"],
+            "captions": ["Caption"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         }
     }

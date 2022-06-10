@@ -41,7 +41,7 @@ export default function Taskbar(props: TaskbarProps){
   setInterval(() => setDay(getDay()), 1000);
 
   return (
-    <div className='relative flex justify-between px-1 h-12 mt-2'>
+    <div id='taskbar' className='relative flex justify-between px-1 h-12 mt-2'>
         {/* quick actions */}
         <div className={'h-full rounded-xl' + (quickTasks ? ' mx-1' : '')} style={{background: 'rgb(0, 0, 0, 0.6)'}}></div>
         {/* apps */}

@@ -32,17 +32,15 @@ const LandingPage = ({ width, height }: AppProps) => {
             <div id='showcase-grid' className={'grid w-3/4 mt-8 gap-x-24 gap-y-8 mb-24' + (width >= 670 ? ' grid-cols-2' : ' grid-cols-1')}>
                 <div onClick={() => cmd.command("open web.pres")}>
                     <h1 className='text-3xl text-center'>web dev</h1>
-                    <img src="/assets/icons/wafflehacks-icon.png" alt="" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
+                    <img src="/assets/icons/wafflehacks-icon.png" alt="My web dev projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
                 <div onClick={() => cmd.command("open applications.pres")}>
                     <h1 className='text-3xl text-center'>applications</h1>
-                    <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div>
-                    {/* <img src="" alt="" className='w-1/4 h-1/4' /> */}
+                    <img src="/assets/icons/satellite-icon.png" alt="My programming / algorithms projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
-                <div onClick={() => cmd.command("open electronics.pres")}>
+                <div onClick={() => cmd.command("open electrical.pres")}>
                     <h1 className='text-3xl text-center'>electronics</h1>
-                    {/* <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div> */}
-                    <img src="/assets/icons/robot.jpg" alt="" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
+                    <img src="/assets/icons/robot.jpg" alt="My electrical engineering projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
                 <div onClick={() => cmd.command("open research.pres")}>
                     <h1 className='text-3xl text-center'>research</h1>

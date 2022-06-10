@@ -3,20 +3,22 @@
     "icon": "/assets/icons/present-apps.svg",
     "size": "10kB",
     "projects": {
-        "project1": {
-            "name": "Project 1",
+        "Satellite Image Analysis": {
+            "name": "Satellite Image Analysis",
             "description": "This is a project description",
-            "shortDesc": "",
-            "url": "",
-            "images": ["/assets/icons/present-web.png"],
+            "shortDesc": "An all-code way to analyze satellite images",
+            "url": "https://github.com/ethaniel0/satellite-data-analysis",
+            "images": ["/assets/icons/satellite-icon.png"],
+            "captions": ["A land classification of Muscat, Oman"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         },
-        "project2": {
-            "name": "Project 2",
-            "description": "This is a project description",
-            "shortDesc": "",
-            "url": "",
-            "images": ["/assets/icons/present-web.png"],
+        "NGrammer": {
+            "name": "NGrammer",
+            "description": "As a fun project, my friend and I decided to compete in making Google NGrams analyzers. We wanted to find words that were extremely alike in popularity, the word with the shortest lifespan, etc. So this is the culmination - thousands of asynchrolous API calls in Python and a time series analyzer in Java.",
+            "shortDesc": "Analyzing the popularity of words over time",
+            "url": "https://github.com/ethaniel0/ngrammer",
+            "images": ["/assets/icons/ngrammer1.png", "/assets/icons/ngrammer2.png"],
+            "captions": ["\"ECVs\" is the closest word in popularity trends to Rick Astley", "\"Carpentier\" has the sharpest peak in popularity"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         }
     }

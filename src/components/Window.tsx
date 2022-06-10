@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
-import { useRef } from 'react';
 
 interface AppProps {
   app: Application,

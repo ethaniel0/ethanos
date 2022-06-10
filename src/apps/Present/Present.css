@@ -57,3 +57,7 @@
     margin-right: 0 !important;
     margin-bottom: 0.5rem;
 }
+
+.proj-img {
+    transition: left 0.3s ease, z-index 0.3s ease;
+}

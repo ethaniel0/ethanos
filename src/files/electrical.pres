@@ -9,6 +9,7 @@
             "shortDesc": "",
             "url": "",
             "images": ["/assets/icons/present-web.png"],
+            "captions": ["Caption"],
             "technologies": ["HTML", "CSS", "JavaScript", "Web Bluetooth API", "Arduino", "ESP32", "C++"]
         },
         "Grad Cap": {
@@ -16,7 +17,8 @@
             "description": "This is a project description",
             "shortDesc": "",
             "url": "",
-            "images": ["/assets/icons/present-web.png"],
+            "images": ["/assets/icons/gradcap.png", "/assets/icons/gradcap-img.jpg", "/assets/icons/gradcap-phone.png", "/assets/icons/snake playthrough.mp4"],
+            "captions": ["My grad cap displaying my school logo", "My grad cap displaying a garden I drew on my phone", "Phone interface - you can draw, change brightness, and import images", "Me playing Snake on my grad cap (this was a fan favorite)"],
             "technologies": ["HTML", "CSS", "JavaScript", "Web Bluetooth API", "ESP32", "C++"]
         },
         "Robot": {
@@ -24,7 +26,8 @@
             "description": "This is a project description",
             "shortDesc": "",
             "url": "",
-            "images": ["/assets/icons/present-web.png"],
+            "images": ["/assets/icons/robot.jpg"],
+            "captions": ["Caption"],
             "technologies": ["Arduino", "RFID", "Color Sensor", "Servos"]
         }
     }
