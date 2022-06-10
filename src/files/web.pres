@@ -7,7 +7,7 @@
             "name": "EthanOS",
             "description": "This is a project description",
             "shortDesc": "A mock operating system, designed to include the best parts of MacOS and Windows. And to show off my projects.",
-            "url": "/",
+            "url": "https://github.com/ethaniel0/ethanos",
             "images": ["/assets/icons/ethanos-bkg.png", "/assets/app imgs/terminal.png"],
             "captions": ["Caption", "Caption"],
             "technologies": ["HTML", "CSS", "JavaScript", "React JS", "Tailwind CSS", "Processing Java", "Figma"]
