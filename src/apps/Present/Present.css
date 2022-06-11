@@ -18,6 +18,10 @@
     font-weight: bold;
 }
 
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/AvenirNextLTPro-Regular.otf);
+}
 
 #showcase-grid {
     width: min(75%, 45rem);
@@ -60,4 +64,12 @@
 
 .proj-img {
     transition: left 0.3s ease, z-index 0.3s ease;
+}
+
+.proj-item .proj-sdesc {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.proj-item:hover .proj-sdesc {
+    opacity: 1;
 }
