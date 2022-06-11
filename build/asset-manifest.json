@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.9a734d10.css",
-    "main.js": "/static/js/main.279fb412.js",
+    "main.css": "/static/css/main.09584bc2.css",
+    "main.js": "/static/js/main.cc07c2de.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
     "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
     "static/media/Quicksand-SemiBold.ttf": "/static/media/Quicksand-SemiBold.f36a86e2ff447dc869f0.ttf",
     "static/media/Quicksand-Bold.ttf": "/static/media/Quicksand-Bold.4c3d23174e1f233b946d.ttf",
+    "static/media/AvenirNextLTPro-Regular.otf": "/static/media/AvenirNextLTPro-Regular.94f2f163d4b698242fef.otf",
     "static/media/Ubuntu-Title.ttf": "/static/media/Ubuntu-Title.2b5febb9b8d936b29fed.ttf",
-    "static/media/web.pres": "/static/media/web.2ae0e94e5b62488053dd.pres",
-    "static/media/research.pres": "/static/media/research.36adde556995b2a5d5e1.pres",
-    "static/media/electrical.pres": "/static/media/electrical.2e96b6e5f95e904dc161.pres",
+    "static/media/web.pres": "/static/media/web.30ec0e2bbec1c2404f30.pres",
+    "static/media/electrical.pres": "/static/media/electrical.f86f046f1bb45a5d2f6e.pres",
     "static/media/applications.pres": "/static/media/applications.0b75f22ac525b19d4b52.pres",
     "static/media/icon.svg": "/static/media/icon.743833e9faed1abcef579432c7e0ed42.svg",
+    "static/media/research.pres": "/static/media/research.80734b46ff91745599f4.pres",
     "index.html": "/index.html",
-    "main.9a734d10.css.map": "/static/css/main.9a734d10.css.map",
-    "main.279fb412.js.map": "/static/js/main.279fb412.js.map",
+    "main.09584bc2.css.map": "/static/css/main.09584bc2.css.map",
+    "main.cc07c2de.js.map": "/static/js/main.cc07c2de.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a734d10.css",
-    "static/js/main.279fb412.js"
+    "static/css/main.09584bc2.css",
+    "static/js/main.cc07c2de.js"
   ]
 }

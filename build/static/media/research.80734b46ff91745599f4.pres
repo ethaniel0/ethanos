@@ -1,0 +1,25 @@
+{
+    "name": "Research Studies",
+    "icon": "/assets/icons/present-research.svg",
+    "size": "10kB",
+    "projects": {
+        "CET-CNN": {
+            "name": "CET-CNN: Modular Hierarchical Image Classification Using Conditional-Execution Tree CNNs",
+            "description": "This is a project description",
+            "shortDesc": "A Modular Tree-Structured Neural Network for Tree-Structured Datasets",
+            "url": "https://projectboard.world/isef/project/robo067---conditional-execution-tree-cnns",
+            "images": ["/assets/icons/cetcnn.png"],
+            "captions": ["Caption"],
+            "technologies": ["HTML", "CSS", "JavaScript", "React JS", "Tailwind CSS", "Processing Java", "Figma"]
+        },
+        "Water Purification": {
+            "name": "A Comparison of Photocatalysis and Electrocoagulation for Azo Dye Treatment and a Novel Use of H2 PEM Fuel Cells for Simultaneous Renewable Energy Generation",
+            "description": "This is a project description",
+            "shortDesc": "",
+            "url": "http://dawningresearch.org/Papers/2020/JDR2020003.pdf",
+            "images": ["/assets/icons/scires ec.jpg"],
+            "captions": ["Caption"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase", "Figma", "Spotify API", "SoundCloud API"]
+        }
+    }
+}
