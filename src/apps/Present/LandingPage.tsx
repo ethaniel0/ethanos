@@ -1,12 +1,13 @@
 import * as React from 'react'
-import CommandLine from '../../components/CommandLine';
+import Directory from '../../components/Directory';
 interface AppProps {
     width: number;
     height: number;
-  }
+    setFile: Function;
+}
 
-const LandingPage = ({ width, height }: AppProps) => {
-    let cmd = new CommandLine('/E/User/Desktop');
+const LandingPage = ({ width, setFile }: AppProps) => {
+    let cwd = new Directory('/E/User/Desktop');
 
     return (
         <div className='text-gray-100 flex flex-col items-center overflow-scroll' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
@@ -30,19 +31,19 @@ const LandingPage = ({ width, height }: AppProps) => {
                 <span className='text-4xl block mt-8 text-center'>Check out some of my favorite projects:</span>
             </div>
             <div id='showcase-grid' className={'grid w-3/4 mt-8 gap-x-24 gap-y-8 mb-24' + (width >= 670 ? ' grid-cols-2' : ' grid-cols-1')}>
-                <div onClick={() => cmd.command("open web.pres")}>
+                <div onClick={() => setFile(cwd.getFile('web.pres'))}>
                     <h1 className='text-3xl text-center'>web dev</h1>
                     <img src="/assets/icons/wafflehacks-icon.png" alt="My web dev projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
-                <div onClick={() => cmd.command("open applications.pres")}>
+                <div onClick={() => setFile(cwd.getFile('applications.pres'))}>
                     <h1 className='text-3xl text-center'>applications</h1>
                     <img src="/assets/icons/satellite-icon.png" alt="My programming / algorithms projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
-                <div onClick={() => cmd.command("open electrical.pres")}>
+                <div onClick={() => setFile(cwd.getFile('electrical.pres'))}>
                     <h1 className='text-3xl text-center'>electronics</h1>
                     <img src="/assets/icons/robot.jpg" alt="My electrical engineering projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300' />
                 </div>
-                <div onClick={() => cmd.command("open research.pres")}>
+                <div onClick={() => setFile(cwd.getFile('research.pres'))}>
                     <h1 className='text-3xl text-center'>research</h1>
                     <div className='w-72 h-72 bg-gray-200 rounded-2xl'></div>
                     {/* <img src="" alt="" className='w-1/4 h-1/4' /> */}

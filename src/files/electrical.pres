@@ -8,8 +8,8 @@
             "description": "This is a project description",
             "shortDesc": "",
             "url": "",
-            "images": ["/assets/icons/present-web.png"],
-            "captions": ["Caption"],
+            "images": ["/assets/icons/triangle main.png", "/assets/icons/triangle side view.png"],
+            "captions": ["Caption", ""],
             "technologies": ["HTML", "CSS", "JavaScript", "Web Bluetooth API", "Arduino", "ESP32", "C++"]
         },
         "Grad Cap": {

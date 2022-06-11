@@ -5,7 +5,7 @@
     "projects": {
         "EthanOS": {
             "name": "EthanOS",
-            "description": "This is a project description",
+            "description": "Well, you're looking at it. I built EthanOS using React, and I made it function as close to a real OS as I could. It features a fully functional command line, which can be accessed through the terminal and by the OS and other apps. Each application has a separate file and can open with a save file - as is done with the Present application. The background was also custom-made made using Perlin Noise. I had a lot of fun making it, and i hope you enjoy it too!",
             "shortDesc": "A mock operating system, designed to include the best parts of MacOS and Windows. And to show off my projects.",
             "url": "https://github.com/ethaniel0/ethanos",
             "images": ["/assets/icons/ethanos-bkg.png", "/assets/app imgs/terminal.png"],

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ImageTurnstile from './ImageTurnstile';
+import CommandLine from '../../components/CommandLine';
 
 interface Project {
     name: string;
@@ -25,9 +26,10 @@ interface AppProps {
     filePath: string;
     width: number;
     height: number;
+    setPage: Function;
 }
 
-const ProjectView = ( { filePath, width }: AppProps ) => {
+const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
     const [file, setFile] = useState({
         name: "Web Dev Projects",
         icon: "/assets/icons/present-web.svg",
@@ -37,8 +39,11 @@ const ProjectView = ( { filePath, width }: AppProps ) => {
 
     const [viewProject, setViewProject] = useState("");
 
+    const cmd = new CommandLine('/E/Applications');
+
     useEffect(() => {
         async function loadFile() {
+            console.log(filePath);
             let resp = await fetch(filePath);
             let json = await resp.json();
             setFile(json);
@@ -46,12 +51,16 @@ const ProjectView = ( { filePath, width }: AppProps ) => {
        loadFile();
     }, [filePath]);
 
+    function toMainWindow(){
+        setPage(0);
+    }
 
     return (
         <div className='pb-12' style={{fontFamily: 'Quicksand', backgroundColor: '#242A3E', minHeight: '100%'}}>
             {
                 viewProject === '' ?
             <>
+                <span onClick={toMainWindow} className='text-white pt-4 pl-4 mb-[-2rem] text-2xl block cursor-pointer hover:text-gray-400'>&lt; To Homepage</span>
                 <h1 className='text-center text-white font-bold text-3xl pt-6 font-bold pb-12'>{file.name}</h1>
 
                 {file && (
@@ -80,7 +89,7 @@ const ProjectView = ( { filePath, width }: AppProps ) => {
                 <div className='flex flex-wrap px-8  mb-12 justify-center'>
                     <ImageTurnstile images={file.projects[viewProject].images} captions={file.projects[viewProject].captions} width={width} />
                 </div>
-                <span className='text-white text-2xl text-center w-full block px-12' >{file.projects[viewProject].description}</span>
+                <span className='text-white text-xl text-center w-full block px-12' >{file.projects[viewProject].description}</span>
                 
 
             </>

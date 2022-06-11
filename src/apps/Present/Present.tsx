@@ -2,8 +2,8 @@ import * as React from 'react'
 import Application from '../../components/Application';
 import icon from './assets/icon.svg';
 import Processes from '../../components/Processes';
-import LandingPage from './LandingPage';
-import ProjectView from './ProjectView';
+// import LandingPage from './LandingPage';
+import PresentApp from './PresentApp';
 import './Present.css';
 
 interface File {
@@ -55,18 +55,19 @@ class Present implements Application {
     return new Present();
   }
   
-  landing(size: number[]){
-    return (<LandingPage width={size[0]} height={size[1]} />)
-  }
+  // landing(size: number[]){
+  //   return (<LandingPage width={size[0]} height={size[1]} />)
+  // }
 
-  loadPage(size: number[]){
-    return (<ProjectView width={size[0]} height={size[1]} filePath={this.file} />)
-  }
+  // loadPage(size: number[], closeWindow: Function){
+  //   return (<ProjectView width={size[0]} height={size[1]} filePath={this.file} closeWindow={closeWindow} />)
+  // }
 
-  app(size: number[]){
+  app(size: number[], closeWindow: Function){
     return (<>
-      {this.page === 0 && this.landing(size)}
-      {this.page === 1 && this.loadPage(size)}
+      {/* {this.page === 0 && this.landing(size)}
+      {this.page === 1 && this.loadPage(size, closeWindow)} */}
+      <PresentApp size={size} file={this.file} />
     </>)
   }
 

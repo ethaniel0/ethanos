@@ -191,6 +191,11 @@ export default function Window(props: AppProps){
     Processes.bringWindowToFront(code);
   }
 
+  function closeWindow(){
+    console.log('removing', code);
+    Processes.removeWindow(code)
+  }
+
   return (
     <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords} onMouseDown={windowClick}>
         <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
@@ -199,11 +204,11 @@ export default function Window(props: AppProps){
             <div className='flex'>
               <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
               <div className='bg-yellow-500' style={circleStyles}></div>
-              <div onClick={() => Processes.removeWindow(code)} className='bg-red-600' style={circleStyles}></div>
+              <div onClick={closeWindow} className='bg-red-600' style={circleStyles}></div>
             </div>
           </nav>
           <div style={{width: '100%', height: '100%', overflow: 'scroll'}}>
-            {app.code(isFullScreen ? [window.innerWidth, ref.current.clientHeight] : [getNum(windowStyles.width), getNum(windowStyles.height)])}
+            {app.code(isFullScreen ? [window.innerWidth, ref.current.clientHeight] : [getNum(windowStyles.width), getNum(windowStyles.height)], closeWindow)}
           </div>
           {/* top */}
           <Draggable onDrag={shiftTop} position={{x: 0, y: 0}}>

@@ -67,7 +67,6 @@ export default class CommandLine{
             case 'open': 
                 if (args.length === 0) return 'open: no file specified';
                 return this.openWindow(args[0]);
-                
             case 'cat':
                 return this.cat(args);
             case 'clear':

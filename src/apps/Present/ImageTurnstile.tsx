@@ -13,6 +13,8 @@ const ImageTurnstile = (props: AppProps) => {
     const width = props.width;
     const [index, setIndex] = useState(0);
 
+    const imgHeight = width * 0.25;
+
     return (
         <>
         {images.length <= 2 
@@ -20,11 +22,11 @@ const ImageTurnstile = (props: AppProps) => {
             images.map((img, ind) => (
                 <div className='m-4'>
                     {img.endsWith('.mp4') ? (
-                        <video style={{height: width*0.3 + 'px', minHeight: '20rem'}} className="rounded-lg object-cover" controls>
+                        <video style={{height: imgHeight + 'px', minHeight: '20rem'}} className="rounded-lg object-cover" controls>
                             <source src={img} type='video/mp4' />
                         </video>
                     ) : (
-                        <img key={ind} src={img} alt="" style={{height: width*0.3 + 'px', minHeight: '20rem'}} className="rounded-lg object-cover" />
+                        <img key={ind} src={img} alt="" style={{height: imgHeight + 'px', minHeight: '20rem'}} className="rounded-lg object-cover" />
                     )}
                     <span className='text-white text-center block w-full'>{captions[ind]}</span>
                 </div>
@@ -44,11 +46,11 @@ const ImageTurnstile = (props: AppProps) => {
                                 }}
                         >
                             {img.endsWith('.mp4') ? (
-                                <video style={{height: width*0.3 + 'px', minHeight: '20rem', maxWidth: 'none'}} className="rounded-lg object-fit block" controls>
+                                <video style={{height: imgHeight + 'px', minHeight: '20rem', maxWidth: 'none'}} className="rounded-lg object-fit block" controls>
                                     <source src={img} type='video/mp4' />
                                 </video>
                             ) : (
-                                <img key={ind} src={img} alt="" style={{height: width*0.3 + 'px', minHeight: '20rem', maxWidth: 'none'}} className="rounded-lg object-fit block" />
+                                <img key={ind} src={img} alt="" style={{height: imgHeight + 'px', minHeight: '20rem', maxWidth: 'none'}} className="rounded-lg object-fit block" />
                             )}
                             {
                                 ind === index && <span className='text-white text-center block m-0 p-2'>{captions[ind]}</span>
