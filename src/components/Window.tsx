@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
+import { faPeopleArrowsLeftRight } from '@fortawesome/free-solid-svg-icons';
 
 interface AppProps {
   app: Application,
@@ -63,7 +64,7 @@ export default function Window(props: AppProps){
   }
 
   function onDrag(e: any, data: any){
-    setCoords({x: data.x, y: data.y});
+    setCoords({x: data.x, y: Math.max(0, data.y)});
   }
 
   function getNum(s: string){
@@ -197,10 +198,16 @@ export default function Window(props: AppProps){
   }
 
   return (
-    <Draggable bounds='parent' handle='.navbar' onDrag={onDrag} position={coords} onMouseDown={windowClick}>
+    <Draggable bounds='' handle='.navbar' onDrag={onDrag} position={coords} onMouseDown={windowClick}>
         <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
           <nav className='navbar flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
-            <div>File &nbsp;&nbsp; Edit &nbsp;&nbsp; View</div>
+            <div className='flex gap-4'>
+              {
+                Object.keys(app.menu).map(key => (
+                  <span className='cursor-pointer'>{key}</span>
+                ) )
+              }
+            </div>
             <div className='flex'>
               <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
               <div className='bg-yellow-500' style={circleStyles}></div>

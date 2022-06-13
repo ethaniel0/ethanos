@@ -6,14 +6,6 @@ import Processes from '../../components/Processes';
 import PresentApp from './PresentApp';
 import './Present.css';
 
-interface File {
-  name: string;
-  icon: string;
-  size: string;
-  projects: any;
-}
-
-
 class Present implements Application {
   name: string;
   icon: string;
@@ -27,6 +19,7 @@ class Present implements Application {
   height: number;
   minWidth: number;
   minHeight: number;
+  menu: any;
 
 
   constructor(file?: any){
@@ -39,6 +32,16 @@ class Present implements Application {
     this.resizeable = false;
     this.spawnPoint = [...Processes.windowSpawnPoint];
     Processes.cycleSpawnPoint();
+    this.menu = {
+      "File": {
+        "New Window": () => {},
+        "Open Project": () => {}
+      },
+      "Window": {
+        "Full Screen": () => {},
+        "Close Window": () => {}
+      },
+    };
     
     if (file){
       this.file = file;
@@ -55,28 +58,12 @@ class Present implements Application {
     return new Present();
   }
   
-  // landing(size: number[]){
-  //   return (<LandingPage width={size[0]} height={size[1]} />)
-  // }
-
-  // loadPage(size: number[], closeWindow: Function){
-  //   return (<ProjectView width={size[0]} height={size[1]} filePath={this.file} closeWindow={closeWindow} />)
-  // }
-
   app(size: number[], closeWindow: Function){
     return (<>
-      {/* {this.page === 0 && this.landing(size)}
-      {this.page === 1 && this.loadPage(size, closeWindow)} */}
       <PresentApp size={size} file={this.file} />
     </>)
   }
 
 }
-
-// const Present = () => {
-//   return (
-//     <div>Present</div>
-//   )
-// }
 
 export default Present

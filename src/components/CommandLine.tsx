@@ -94,6 +94,14 @@ export default class CommandLine{
         }
         if (typeof f === 'string'){
             let ext = f.split('.').pop();
+            if (ext == 'lnk'){
+                fetch(app).then(resp => resp.json()).then(json => {
+                    console.log(json.url.startsWith('mailto:'))
+                    window.open(json.url, json.url.startsWith('maito:') ? '_self' : '_blank');
+                })
+                console.log(app);
+                return '';
+            }
             if (ext in Processes.exts){
                 let appPath = Processes.exts[ext];
                 let app = this.cwd.getFile(appPath);

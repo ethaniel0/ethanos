@@ -41,22 +41,20 @@ export default function Taskbar(props: TaskbarProps){
   setInterval(() => setDay(getDay()), 1000);
 
   return (
-    <div id='taskbar' className='relative flex justify-between px-1 h-12 mt-2'>
-        {/* quick actions */}
-        <div className={'h-full rounded-xl' + (quickTasks ? ' mx-1' : '')} style={{background: 'rgb(0, 0, 0, 0.6)'}}></div>
+    <div id='taskbar' className='relative flex justify-between h-16' style={{zIndex: 100000}}>
         {/* apps */}
-        <div className='grow rounded-xl h-full mx-1 flex items-center px-2 justify-start' style={{background: 'rgb(0, 0, 0, 0.6)'}}>
+        <div className='grow h-full flex items-center px-2 justify-start border-r-2 border-white' style={{background: 'rgb(90, 90, 90)'}}>
             <AppDrawer />
             {pinnedApps.map((path: string, index: number) => {
               let app = cmd.cwd.getFile(path);
               if (typeof app === 'object') return;
               app = new app();
-              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-10 h-10 ml-2' onClick={() => cmd.command('open ' + path)} />
+              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
             })}
             
         </div>
         {/* info */}
-        <div className='w-48 rounded-xl h-full mx-1 text-white flex justify-around items-center' style={{background: 'rgb(0, 0, 0, 0.6)'}}>
+        <div className='w-48 h-full text-white flex justify-around items-center' style={{background: 'rgb(90, 90, 90)'}}>
           {/* sound */}
           <FontAwesomeIcon icon={faVolumeUp} className='text-xl' />
           {/* time */}

@@ -9,4 +9,5 @@ export default interface Application {
   minHeight?: number;
   resizeable: boolean;
   newObject: Function;
+  menu: any;
 }

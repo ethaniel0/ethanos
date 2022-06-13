@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Directory from '../../components/Directory';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLongArrowAltDown } from '@fortawesome/free-solid-svg-icons'
 interface AppProps {
     width: number;
     height: number;
@@ -12,24 +14,7 @@ const LandingPage = ({ width, setFile }: AppProps) => {
     return (
         <div className='text-gray-100 flex flex-col items-center overflow-scroll' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
             <h1 className='text-5xl text-center pt-4'>hello world!</h1>
-            <div className='w-1/2 text-left self-center mt-8'>
-                <span className='text-5xl text-center mt-4'>I'm <span className='text-violet-400'>Ethan</span>!</span>
-                <br />
-                <span className='text-4xl mt-4 block'>I'm also a:</span>
-                <span className='text-4xl block'><span style={{color: '#FA6666'}}>coder</span> , <span  style={{color: '#FFC671'}}>engineer</span> , <span  style={{color: '#FA66AD'}}>designer</span> , <span  style={{color: '#69E4CE'}}>master of puns</span></span>
-                <span className='text-4xl block mt-8 flex items-center flex-wrap'>Check me out on:
-                    <div className='inline-flex ml-4 flex-wrap'>
-                        <a href="https://github.com/ethaniel0" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/github.svg" alt="" /></a>
-                        <a href="https://www.linkedin.com/in/ethan-horowitz-163b791ab/" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/linkedin.svg" alt="" /></a>
-                        <a href="https://devpost.com/ethanhorowitz07?ref_content=user-portfolio" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/devpost.svg" alt="" /></a>
-                        <a href="https://replit.com/@EthanHorowitz" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/replit.svg" alt="" /></a>
-                        <a href="mailto:ethan.horowitz@duke.edu"><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/mail.svg" alt="" /></a>
-
-                    </div>
-                </span>
-                {/* <a className='underline' href="https://github.com/ethaniel0" target="_blank">GitHub</a> <a className='underline' href="https://devpost.com/ethanhorowitz07?ref_content=user-portfolio" target="_blank">Devpost</a> <a className='underline' href="https://www.linkedin.com/in/ethan-horowitz-163b791ab/" target="_blank">LinkedIn</a> </span> */}
-                <span className='text-4xl block mt-8 text-center'>Check out some of my favorite projects:</span>
-            </div>
+            <h2 className='text-4xl mt-8'>Here's my stuff <svg className='inline-block w-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill='white' d="M342.6 374.6l-128 128C208.4 508.9 200.2 512 191.1 512s-16.38-3.125-22.63-9.375l-127.1-128c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 402.8V80C160 71.19 152.8 64 144 64H32C14.33 64 0 49.69 0 32s14.33-32 32-32h112C188.1 0 224 35.88 224 80v322.8l73.37-73.38c12.5-12.5 32.75-12.5 45.25 0S355.1 362.1 342.6 374.6z"/></svg></h2>
             <div id='showcase-grid' className={'grid w-3/4 mt-8 gap-x-24 gap-y-8 mb-24' + (width >= 670 ? ' grid-cols-2' : ' grid-cols-1')}>
                 <div onClick={() => setFile(cwd.getFile('web.pres'))}>
                     <h1 className='text-3xl text-center'>web dev</h1>

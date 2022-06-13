@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Quicksand';
+    src: url('Quicksand-VariableFont_wght.ttf') format('truetype');
+}
+
 :root {
     --resize-wid: 3px;
     --top-h: 0;
@@ -71,4 +76,12 @@
     top: var(--bottom-h);
     left: var(--left-w);
     cursor: nesw-resize;
+}
+
+#taskbar > div {
+    backdrop-filter: blur(2px);
+}
+
+#desktop-black {
+    clip-path: polygon(27% 0, 100% 0, 100% 100%, 0% 100%);
 }

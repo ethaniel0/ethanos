@@ -1,7 +1,6 @@
 {
     "name": "Web Dev Projects",
     "icon": "/assets/icons/present-web.svg",
-    "size": "10kB",
     "projects": {
         "EthanOS": {
             "name": "EthanOS",
@@ -12,9 +11,9 @@
             "captions": ["Caption", "Caption"],
             "technologies": ["HTML", "CSS", "JavaScript", "React JS", "Tailwind CSS", "Processing Java", "Figma"]
         },
-        "WaffleHacks": {
-            "name": "WaffleHacks",
-            "description": "This is a project description",
+        "WaffleHacks 2022": {
+            "name": "WaffleHacks 2022",
+            "description": "WaffleHacks is a fully virtual hackathon made by and for college students. After participating in its debut hackathon in 2021, I joined the organizing team and technology teams. My main role was to develop the website, which I made responsive with animations, a fluid design, and a working music player. I also embedded a scavenger hunt inside, featuring draggable elements, hidden text, riddles, and games that reveal clues to find the hidden waffle.",
             "shortDesc": "A fully-online hackathon made for university students, by university students. I implemented the front end, making it responsive and fun.",
             "url": "https://wafflehacks.org",
             "images": ["/assets/icons/wafflehacks-icon.png"],
@@ -32,11 +31,11 @@
         },
         "Babii": {
             "name": "Babii project for HackDuke",
-            "description": "This is a project description",
+            "description": "Babii is a system designed to allow parents to detect when their baby is crawling out of its crib. Parents often fear that their baby is going to crawl out, fall, and hurt themself. To help with this struggle, our team created a camera that mounts to the crib and detects if the baby is trying to crawl out. If the server detects that the baby might be in danger of crawling out, it'll immediately text and notify the parents, so they can stop their baby before anything bad happens. There's also an online portal so parents can watch their baby in real time.",
             "shortDesc": "Allowing new parents to save the day by notifying them if their baby is crawling out of their crib at night. Hackathon submission for HackDuke 2021.",
             "url": "https://devpost.com/software/babii",
-            "images": ["/assets/icons/babii-icon.png"],
-            "captions": ["Caption"],
+            "images": ["https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/238/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/815/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/893/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/887/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/717/091/datas/gallery.jpg"],
+            "captions": ["Caption 1", "Caption 2", "Caption 3", "Caption 4", "Caption 5"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
         },
         "Webstage": {

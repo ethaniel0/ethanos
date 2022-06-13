@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ImageTurnstile from './ImageTurnstile';
-import CommandLine from '../../components/CommandLine';
 
 interface Project {
     name: string;
@@ -39,11 +38,8 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
 
     const [viewProject, setViewProject] = useState("");
 
-    const cmd = new CommandLine('/E/Applications');
-
     useEffect(() => {
         async function loadFile() {
-            console.log(filePath);
             let resp = await fetch(filePath);
             let json = await resp.json();
             setFile(json);
@@ -68,21 +64,10 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                     {Object.keys(file.projects).map((name, ind) => {
                         let proj = file.projects[name];
                         return (
-                            // <div key={ind} className={'proj-list flex items-center text-white' + (width < 600 ? ' column' : '')} onClick={() => setViewProject(name)}>
-                            //     <img src={proj.images.length > 0 ? proj.images[0] : ''} alt="" className='w-56 h-56 object-cover object-center shadow-lg shadow-gray-600 border-2 border-gray-200 hover:scale-105 transition-transform duration-400 ease rounded-md' />
-                            //     <div className='w-1/2'>
-                            //         <span className='text-2xl font-semibold mb-4 block'>{name}</span>
-                            //         <span>{proj.shortDesc}</span>
-                            //     </div>
-                            // </div>
                             <div key={ind} className='proj-item relative flex flex-col items-center text-white m-8 hover:scale-110 transition-transform duration-400 ease w-64' onClick={() => setViewProject(name)}>
                                 <img src={proj.images.length > 0 ? proj.images[0] : ''} alt="" className='w-64 h-64 object-cover object-center shadow-lg shadow-gray-600 border-2 border-gray-200 rounded-md' />
                                 <span className='absolute top-0 left-0 text-gray-900 w-full font-bold bg-[rgba(255,255,255,0.8)] text-center p-2 rounded-t-md'>{name}</span>
                                 <span className='proj-sdesc text-left p-3 absolute bottom-0 left-0 w-full text-gray-900 bg-white rounded-b-md text-sm'>{proj.shortDesc}</span>
-                                {/* <div className='w-1/2'>
-                                    <span className='text-2xl font-semibold mb-4 block'>{name}</span>
-                                    <span>{proj.shortDesc}</span>
-                                </div> */}
                             </div>
                         )
                     })}

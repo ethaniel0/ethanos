@@ -1,7 +1,6 @@
 {
     "name": "Research Studies",
     "icon": "/assets/icons/present-research.svg",
-    "size": "10kB",
     "projects": {
         "CET-CNN": {
             "name": "CET-CNN: Modular Hierarchical Image Classification Using Conditional-Execution Tree CNNs",

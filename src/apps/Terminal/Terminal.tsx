@@ -18,6 +18,7 @@ export default class Terminal implements Application  {
     resizeable: boolean;
     lines: string[];
     spawnPoint: number[];
+    menu: any;
 
     constructor(){
         this.name = 'Terminal';
@@ -27,6 +28,15 @@ export default class Terminal implements Application  {
         this.code = () => <UI />;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
+        this.menu = {
+            "File": {
+              "New Window": () => {},
+            },
+            "Window": {
+              "Full Screen": () => {},
+              "Close Window": () => {}
+            },
+          };
     }
 
     newObject(){
