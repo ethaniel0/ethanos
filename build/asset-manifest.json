@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c7108bbf.css",
-    "main.js": "/static/js/main.47464d68.js",
+    "main.css": "/static/css/main.80891c2f.css",
+    "main.js": "/static/js/main.419f3b46.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
     "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
     "static/media/Quicksand-SemiBold.ttf": "/static/media/Quicksand-SemiBold.f36a86e2ff447dc869f0.ttf",
@@ -11,20 +11,22 @@
     "static/media/web.pres": "/static/media/web.1977b46c680773066104.pres",
     "static/media/electrical.pres": "/static/media/electrical.3e0357431f1c880b93f3.pres",
     "static/media/applications.pres": "/static/media/applications.5dafb856152153eb5952.pres",
+    "static/media/icon2.svg": "/static/media/icon2.22e96ecc574e6a331e82793fb7f49aad.svg",
     "static/media/icon.svg": "/static/media/icon.743833e9faed1abcef579432c7e0ed42.svg",
     "static/media/research.pres": "/static/media/research.95d3e76bcd07f071f032.pres",
     "index.html": "/index.html",
-    "static/media/devpost.lnk": "/static/media/devpost.525d6d6e2ddc0e6c9d82.lnk",
-    "static/media/linkedin.lnk": "/static/media/linkedin.4c38043be804f57e655c.lnk",
-    "static/media/replit.lnk": "/static/media/replit.5bdf3aea3170a2ee1b8a.lnk",
-    "static/media/github.lnk": "/static/media/github.c9593d6221236a1455e9.lnk",
-    "static/media/mail.lnk": "/static/media/mail.35209c42083942dddc75.lnk",
-    "main.c7108bbf.css.map": "/static/css/main.c7108bbf.css.map",
-    "main.47464d68.js.map": "/static/js/main.47464d68.js.map",
+    "static/media/devpost.lnk": "/static/media/devpost.b8b0ec0cd6a8f4db7e4b.lnk",
+    "static/media/linkedin.lnk": "/static/media/linkedin.2d448ab23ecadccd4440.lnk",
+    "static/media/replit.lnk": "/static/media/replit.2fd5231cc604d2cfea24.lnk",
+    "static/media/github.lnk": "/static/media/github.0bf2bf169fb01050a8ee.lnk",
+    "static/media/mail.lnk": "/static/media/mail.b5b93bbd957368d8561a.lnk",
+    "static/media/presentMobile.lnk": "/static/media/presentMobile.b2fc32f3bc0ca7d19afc.lnk",
+    "main.80891c2f.css.map": "/static/css/main.80891c2f.css.map",
+    "main.419f3b46.js.map": "/static/js/main.419f3b46.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7108bbf.css",
-    "static/js/main.47464d68.js"
+    "static/css/main.80891c2f.css",
+    "static/js/main.419f3b46.js"
   ]
 }
