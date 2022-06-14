@@ -96,8 +96,10 @@ export default class CommandLine{
             let ext = f.split('.').pop();
             if (ext == 'lnk'){
                 fetch(app).then(resp => resp.json()).then(json => {
-                    console.log(json.url.startsWith('mailto:'))
-                    window.open(json.url, json.url.startsWith('maito:') ? '_self' : '_blank');
+                    if (json.onsite){
+                        this.openWindow(json.url);
+                    }
+                    else window.open(json.url, json.url.startsWith('maito:') ? '_self' : '_blank');
                 })
                 console.log(app);
                 return '';

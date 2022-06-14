@@ -7,6 +7,7 @@ import Window from './Window';
 import Application from './Application';
 import Directory from './Directory';
 import FileDisplay from './FileDisplay';
+import { faMinimize } from '@fortawesome/free-solid-svg-icons';
 
 interface File {
     name: string;
@@ -25,9 +26,12 @@ var fileLayout: any = {
 
 export default function Desktop(){
   const [windows, setWindows]: [React.ReactElement<Window, any>[], Function] = useState([])
-  const [files, setFiles]: [any, Function] = useState([])
+  const [files, setFiles]: [any, Function] = useState((new Directory('/E/User/Desktop')).getFiles())
+  const [apps, setApps]: [any, Function] = useState((new Directory('/E/User/Homescreen')).getFiles())
   const [sstart, setSStart]: [any, Function] = useState([-1, -1]);
   const [send, setSEnd]: [any, Function] = useState([-1, -1]);
+  const [ratio, setRatio]: [number, Function] = useState(1);
+  const [skew, setSkew]: [number, Function] = useState(12);
   let desktop = useRef(null);
 
   Processes.addWindow = function(app: Application) {
@@ -44,21 +48,6 @@ export default function Desktop(){
   Processes.setWindows = setWindows;
   Processes.windows = windows;
 
-  // load files with useeffect
-  useEffect(() => {
-    async function loadFiles(){
-      let dir = new Directory('/E/User/Desktop');
-      let fs: any = {};
-      for (let file of dir.getFiles()){
-        let resp = await fetch(dir.getFile(file));
-        let json = await resp.json();
-        fs[file] = json;
-      }
-      setFiles(fs);
-    }
-    loadFiles();
-  }, [])
-
   function setSelect(e: any){
     let top = desktop.current.getBoundingClientRect().top;
     setSStart([e.clientX, e.clientY - top]);
@@ -74,34 +63,39 @@ export default function Desktop(){
     setSEnd([-1, -1]);
   }
 
+  useEffect(() => {
+    function handleResize() {
+      setRatio(window.innerWidth / window.innerHeight);
+      setSkew(12*window.innerWidth / window.innerHeight);
+    }
+    setRatio(window.innerWidth / window.innerHeight);
+    setSkew(12*window.innerWidth / window.innerHeight);
+    window.addEventListener('resize', handleResize);
+  })
+
 
   return (
     <div id='desktop' onMouseDown={setSelect} onMouseMove={setDrag} onMouseUp={clearSelect} className='relative flex flex-col w-screen h-screen bg-cover bg-center overflow-hidden' style={{backgroundImage: 'url(/assets/bkg.png)'}}>
       <div className='absolute top-0 left-0 w-full h-full  bg-cover' style={{backgroundImage: 'url(/assets/bkg.png)', fontFamily: 'Quicksand'}}>
-        <div id='desktop-black' className='absolute right-0 w-4/5 h-full bg-neutral-900'>
-          <div className='grid grid-cols-2 grid-rows-3 absolute right-0 w-10/12 h-4/5'>
-            <span className='text-white font-bold self-end text-6xl' style={{left: '40vw', top: '20vh', paddingLeft: '20%'}}>Hi, I'm Ethan</span>
+        <div id='desktop-black' className='absolute right-0 bg-neutral-900'>
+          <div id='bkg-table' className='grid grid-cols-2 grid-rows-3 absolute right-0 w-full h-4/5 md:w-10/12'>
+            <div className='order-1 md:hidden'></div>
+            <span id='bkg-hi' className='text-white font-bold self-end text-6xl order-3 md:order-none' style={{left: '40vw', top: '20vh', paddingLeft: '20%'}}>Hi, I'm Ethan</span>
             
-            <img src="/assets/face.png" alt="" className='row-span-3 justify-self-center self-center' style={{maxHeight: '60vh', maxWidth: '100%', right: '6vw', top: '3vh'}} />
+            <img id='bkg-face' src="/assets/face.png" alt="" className='row-span-3 justify-self-center self-center p-4 md:p-0 order-2 md:order-none' style={{maxHeight: '60vh', maxWidth: '100%', right: '6vw', top: '3vh'}} />
             
-            <div className='row-span-2 text-white self-center relative' style={{left: '-6%'}}>
-              <span className='text-5xl mt-4 block' style={{paddingLeft: '10%'}}>I'm also a:</span>
+
+            <div className='backg-desc row-span-2 text-white self-center relative order-4 col-span-2 text-center md:text-left md:order-none md:col-auto' style={{left: '-6%', transform: `skew(-${skew}deg)`}}>
+              <span className='text-5xl mt-4 block' style={{transform: `skew(${skew}deg)`}}>I'm a:</span>
                 <span className='text-5xl block'>
-                  <span style={{color: '#FA6666', paddingLeft: '6%'}}>coder</span>, <span  style={{color: '#FFC671'}}>engineer</span>,<br />
-                  <span  style={{color: '#FA66AD', paddingLeft: '3%'}}>designer</span>, and <br />
-                  <span  style={{color: '#69E4CE'}}>master of puns</span>
+                  <span style={{color: '#FA6666', display: 'inline-block', transform: `skew(${skew}deg)`}}>coder</span><span style={{display: 'inline-block', transform: `skew(${skew}deg)`}}>,</span> <span style={{color: '#FFC671',  display: 'inline-block', transform: `skew(${skew}deg)`}}>engineer</span><span style={{display: 'inline-block', transform: `skew(${skew}deg)`}}>,&nbsp;</span>
+                  <span  style={{color: '#FA66AD', display: 'inline-block', transform: `skew(${skew}deg)`}}>designer</span><span style={{display: 'inline-block', transform: `skew(${skew}deg)`}}>,</span> <span style={{display: 'inline-block', transform: `skew(${skew}deg)`}}>and</span> <br />
+                  <span  style={{color: '#69E4CE', display: 'inline-block', transform: `skew(${skew}deg)`}}>master of puns</span>
               </span>
             </div>
           </div>
-          <div className='text-white absolute text-4xl w-full flex justify-between' style={{bottom: '15%', paddingLeft: '8%', paddingRight: '6%'}}>
-            <span >← Check out my stuff</span>
-            <div className='inline-flex ml-4 flex-wrap'>
-                {/* <a href="https://github.com/ethaniel0" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/github.svg" alt="" /></a>
-                <a href="https://www.linkedin.com/in/ethan-horowitz-163b791ab/" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/linkedin.svg" alt="" /></a>
-                <a href="https://devpost.com/ethanhorowitz07?ref_content=user-portfolio" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/devpost.svg" alt="" /></a>
-                <a href="https://replit.com/@EthanHorowitz" target='_blank'><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/replit.svg" alt="" /></a>
-                <a href="mailto:ethan.horowitz@duke.edu"><img className='h-12 mr-4 mb-4 cursor-pointer' src="/assets/icons/mail.svg" alt="" /></a> */}
-            </div>
+          <div className='text-white absolute hidden md:block text-4xl w-full' style={{bottom: '15%', paddingLeft: '8%', paddingRight: '6%'}}>
+            <span>← Check out my stuff</span>
           </div>
           
         </div>
@@ -113,15 +107,21 @@ export default function Desktop(){
           {windows.map((appl) => appl)}
         </div>
 
-        <div className='p-6 flex flex-col flex-wrap absolute'>
-          {Object.keys(files).map((name, ind) => {
-            let file = files[name];
-            return <FileDisplay key={ind} path='/E/User/Desktop' image={file.icon} name={name} pos={fileLayout[name]} />
+        <div className='p-6 hidden md:flex flex-col flex-wrap absolute'>
+          {files.map((name: string, ind: number) => {
+            // let file = files[name];
+            return <FileDisplay key={ind} path='/E/User/Desktop' name={name} pos={fileLayout[name]} />
+          })}
+        </div>
+
+        <div className='p-6 grid w-full md:hidden grid-cols-4 absolute'>
+          {apps.map((name: string, ind: number) => {
+            return <FileDisplay key={ind} path='/E/User/Homescreen' name={name} pos={fileLayout[name]} mobile={true} />
           })}
         </div>
         
         {sstart[0] !== send[0] &&  
-          <div id='desktop-select' className='absolute bg-[rgba(59,130,246,0.4)] border-[1px] border-blue-800' style={{top: Math.min(sstart[1], send[1]), left: Math.min(sstart[0], send[0]), width: Math.abs(sstart[0] - send[0]), height: Math.abs(sstart[1] - send[1])}}></div>
+          <div id='desktop-select' className='absolute hidden md:block bg-[rgba(59,130,246,0.4)] border-[1px] border-blue-800' style={{top: Math.min(sstart[1], send[1]), left: Math.min(sstart[0], send[0]), width: Math.abs(sstart[0] - send[0]), height: Math.abs(sstart[1] - send[1])}}></div>
         }
       </div>
       <Taskbar quickTasks={[]} />

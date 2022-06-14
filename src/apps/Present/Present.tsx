@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Application from '../../components/Application';
 import icon from './assets/icon.svg';
+import icon2 from './assets/icon2.svg';
 import Processes from '../../components/Processes';
 // import LandingPage from './LandingPage';
 import PresentApp from './PresentApp';
@@ -9,6 +10,7 @@ import './Present.css';
 class Present implements Application {
   name: string;
   icon: string;
+  icon2: string;
   defaultSize: string[];
   resizeable: boolean;
   code: Function;
@@ -26,6 +28,7 @@ class Present implements Application {
     
     this.name = "Present";
     this.icon = icon;
+    this.icon2 = icon2;
     this.defaultSize = [window.innerWidth * 0.7 + 'px', window.innerHeight * 0.8 + 'px'];
     this.minWidth = 400;
     this.minHeight= 400;
