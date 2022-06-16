@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.68b41710.css",
-    "main.js": "/static/js/main.523e418d.js",
+    "main.css": "/static/css/main.ee8f81ec.css",
+    "main.js": "/static/js/main.2ac5131e.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
     "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
     "static/media/Quicksand-SemiBold.ttf": "/static/media/Quicksand-SemiBold.f36a86e2ff447dc869f0.ttf",
@@ -21,12 +21,12 @@
     "static/media/github.lnk": "/static/media/github.0bf2bf169fb01050a8ee.lnk",
     "static/media/mail.lnk": "/static/media/mail.b5b93bbd957368d8561a.lnk",
     "static/media/presentMobile.lnk": "/static/media/presentMobile.b2fc32f3bc0ca7d19afc.lnk",
-    "main.68b41710.css.map": "/static/css/main.68b41710.css.map",
-    "main.523e418d.js.map": "/static/js/main.523e418d.js.map",
+    "main.ee8f81ec.css.map": "/static/css/main.ee8f81ec.css.map",
+    "main.2ac5131e.js.map": "/static/js/main.2ac5131e.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.68b41710.css",
-    "static/js/main.523e418d.js"
+    "static/css/main.ee8f81ec.css",
+    "static/js/main.2ac5131e.js"
   ]
 }
