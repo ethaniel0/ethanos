@@ -202,7 +202,7 @@ export default function Window(props: AppProps){
   return (
     <Draggable bounds='' handle='.navbar' disabled={screen[0] <= 768} onDrag={onDrag} position={screen[0] > 768 ? coords : {x: 0, y: 0}} onMouseDown={windowClick}>
         <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
-          <nav className='navbar flex justify-end md:justify-between items-center px-2 md:h-12 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
+          <nav className='navbar flex justify-end md:justify-between items-center px-2 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
             <div className='md:flex gap-4 hidden'>
               {
                 Object.keys(app.menu).map(key => (
@@ -213,7 +213,7 @@ export default function Window(props: AppProps){
             <div className='flex'>
               <div onClick={fullScreen} className='window-circle bg-green-600 hidden md:block'></div>
               <div className='window-circle bg-yellow-500 hidden md:block'></div>
-              <div onClick={closeWindow} className='window-circle bg-red-600 flex justify-center items-center hidden md:block'></div>
+              <div onClick={closeWindow} className='window-circle bg-red-600 justify-center items-center hidden md:block'></div>
             </div>
           </nav>
           <div style={{width: '100%', height: '100%', overflow: 'scroll'}}>
