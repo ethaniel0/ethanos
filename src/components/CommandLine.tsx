@@ -101,7 +101,6 @@ export default class CommandLine{
                     }
                     else window.open(json.url, json.url.startsWith('maito:') ? '_self' : '_blank');
                 })
-                console.log(app);
                 return '';
             }
             if (ext in Processes.exts){

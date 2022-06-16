@@ -11,7 +11,7 @@ interface AppProps {
 const FileApp = ({ path, name, index }: AppProps) => {
     const cmd = new CommandLine();
 
-   const [app, setApp] = useState({icon: '', icon2: ''});
+   const [app, setApp] = useState({icon: '', icon2: '', url: ''});
 
     useEffect(() => {
         async function loadApp(){   
@@ -21,8 +21,21 @@ const FileApp = ({ path, name, index }: AppProps) => {
         }
         loadApp();
     }, []);
+
+    function stopProp(e: any){
+        e.stopPropagation();
+        e.cancelBubble = true;
+    }
+
     return (
-        <img src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
+        <>
+        {
+            app.url ? 
+            <a href={app.url} onClick={stopProp}><img src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' /></a>
+            :
+            <img src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' />
+        }
+        </>
     )
 }
 

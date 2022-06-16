@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
@@ -31,15 +31,9 @@ export default function Window(props: AppProps){
     boxSizing: 'border-box'
   });
   const [code, setCode] = useState(props.code);
+  const [screen, setScreen]: [number[], Function] = useState([0, 0]);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
-
-  let circleStyles = {
-    width: '0.8rem',
-    height: '0.8rem',
-    borderRadius: '50%',
-    marginLeft: '0.5rem',
-  }
 
   function fullScreen(){
     let copy = {...windowStyles};
@@ -197,11 +191,19 @@ export default function Window(props: AppProps){
     Processes.removeWindow(code)
   }
 
+  useEffect(() => {
+    function handleResize() {
+      setScreen([window.innerWidth, window.innerHeight]);
+    }
+    setScreen([window.innerWidth, window.innerHeight]);
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <Draggable bounds='' handle='.navbar' onDrag={onDrag} position={coords} onMouseDown={windowClick}>
+    <Draggable bounds='' handle='.navbar' disabled={screen[0] <= 768} onDrag={onDrag} position={screen[0] > 768 ? coords : {x: 0, y: 0}} onMouseDown={windowClick}>
         <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
-          <nav className='navbar flex justify-between items-center px-2 h-6' style={{backgroundColor: '#c5c5c4'}}>
-            <div className='flex gap-4'>
+          <nav className='navbar flex justify-end md:justify-between items-center px-2 md:h-12 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
+            <div className='md:flex gap-4 hidden'>
               {
                 Object.keys(app.menu).map(key => (
                   <span className='cursor-pointer'>{key}</span>
@@ -209,9 +211,9 @@ export default function Window(props: AppProps){
               }
             </div>
             <div className='flex'>
-              <div onClick={fullScreen} className='bg-green-600' style={circleStyles}></div>
-              <div className='bg-yellow-500' style={circleStyles}></div>
-              <div onClick={closeWindow} className='bg-red-600' style={circleStyles}></div>
+              <div onClick={fullScreen} className='window-circle bg-green-600 hidden md:block'></div>
+              <div className='window-circle bg-yellow-500 hidden md:block'></div>
+              <div onClick={closeWindow} className='window-circle bg-red-600 flex justify-center items-center hidden md:block'></div>
             </div>
           </nav>
           <div style={{width: '100%', height: '100%', overflow: 'scroll'}}>

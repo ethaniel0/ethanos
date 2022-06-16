@@ -78,8 +78,6 @@
     cursor: nesw-resize;
 }
 
-
-
 #desktop-black {
     @apply w-4/5 h-full;
     clip-path: polygon(27% 0, 100% 0, 100% 100%, 0% 100%);
@@ -87,6 +85,13 @@
 
 #taskbar .apps, #taskbar .info {
     background: rgb(90, 90, 90);
+}
+
+.window-circle {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -98,10 +103,13 @@
     #taskbar .apps2 {
         background: rgba(194, 194, 194, 0.8);
         border-radius: 1.2rem;
-        width: 90%;
-        position: absolute;
+        /* width: 90%; */
+        flex-basis: 90%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        /* position: absolute; */
         border: none;
-        bottom: 1rem;
+        /* bottom: 1rem; */
         left: 5%;
         display: flex;
         justify-content: space-around;
@@ -113,18 +121,35 @@
         height: calc(100% - 6.5rem);
     }
     #bkg-face {
-        padding-top: 35%;
+        padding-top: 40%;
     }
     #bkg-hi {
         grid-row: span 2 / span 2;
         align-self: center;
         padding-top: 15%;
+        font-size: min(14vw, 3.75rem);
     }
     
     .backg-desc, .backg-desc * {
         transform: none !important;
-        font-size: min(9vw, 2.3rem);
+        font-size: min(7vw, 2.3rem);
         left: unset !important;
+    }
+
+    .window {
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    .window .navbar {
+        padding: 0;
+    }
+
+    .window-circle {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0;
     }
     
 }

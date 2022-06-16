@@ -6,9 +6,7 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import CommandLine from './CommandLine';
 import FileApp from './FileApp';
 
-interface TaskbarProps {
-  quickTasks: string[];
-}
+
 
 function getTime(){
   let d = new Date();
@@ -29,8 +27,7 @@ function getDay(){
   return week + ' ' + month + '/' + day;
 }
 
-export default function Taskbar(props: TaskbarProps){
-  let {quickTasks} = props;
+export default function Taskbar(){
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
   const [pinnedApps, setPinnedApps] = useState([
@@ -48,7 +45,7 @@ export default function Taskbar(props: TaskbarProps){
   setInterval(() => setDay(getDay()), 1000);
 
   return (
-    <div id='taskbar' className='relative flex justify-between h-16' style={{zIndex: 100000}}>
+    <div id='taskbar' className='relative flex justify-center mb-4 md:mb-0 md:justify-between h-16' style={{zIndex: 100000}}>
         {/* apps */}
         <div className='apps hidden grow md:flex items-center px-2 justify-start border-r-2 border-white'>
             <AppDrawer />

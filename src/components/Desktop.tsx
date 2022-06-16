@@ -8,6 +8,7 @@ import Application from './Application';
 import Directory from './Directory';
 import FileDisplay from './FileDisplay';
 import { faMinimize } from '@fortawesome/free-solid-svg-icons';
+import HomeBar from './HomeBar';
 
 interface File {
     name: string;
@@ -30,7 +31,7 @@ export default function Desktop(){
   const [apps, setApps]: [any, Function] = useState((new Directory('/E/User/Homescreen')).getFiles())
   const [sstart, setSStart]: [any, Function] = useState([-1, -1]);
   const [send, setSEnd]: [any, Function] = useState([-1, -1]);
-  const [ratio, setRatio]: [number, Function] = useState(1);
+  const [windowWidth, setWindowWidth]: [number, Function] = useState(1);
   const [skew, setSkew]: [number, Function] = useState(12);
   let desktop = useRef(null);
 
@@ -65,17 +66,20 @@ export default function Desktop(){
 
   useEffect(() => {
     function handleResize() {
-      setRatio(window.innerWidth / window.innerHeight);
+      setWindowWidth(window.innerWidth);
       setSkew(12*window.innerWidth / window.innerHeight);
+      document.getElementById('desktop').style.height = window.innerHeight + 'px';
     }
-    setRatio(window.innerWidth / window.innerHeight);
+    setWindowWidth(window.innerWidth);
     setSkew(12*window.innerWidth / window.innerHeight);
     window.addEventListener('resize', handleResize);
+    document.getElementById('desktop').style.height = window.innerHeight + 'px';
   })
 
 
   return (
     <div id='desktop' onMouseDown={setSelect} onMouseMove={setDrag} onMouseUp={clearSelect} className='relative flex flex-col w-screen h-screen bg-cover bg-center overflow-hidden' style={{backgroundImage: 'url(/assets/bkg.png)'}}>
+      {/* background */}
       <div className='absolute top-0 left-0 w-full h-full  bg-cover' style={{backgroundImage: 'url(/assets/bkg.png)', fontFamily: 'Quicksand'}}>
         <div id='desktop-black' className='absolute right-0 bg-neutral-900'>
           <div id='bkg-table' className='grid grid-cols-2 grid-rows-3 absolute right-0 w-full h-4/5 md:w-10/12'>
@@ -94,13 +98,14 @@ export default function Desktop(){
               </span>
             </div>
           </div>
-          <div className='text-white absolute hidden md:block text-4xl w-full' style={{bottom: '15%', paddingLeft: '8%', paddingRight: '6%'}}>
+          <div className='text-white absolute hidden md:block text-4xl w-full' style={{bottom: 'min(15%, 10vw)', paddingLeft: '8%', paddingRight: '6%'}}>
             <span>← Check out my stuff</span>
           </div>
           
         </div>
       </div>
 
+      {/* apps */}
       <div ref={desktop} style={{width: '100%', flexGrow: 1,  position: 'relative'}}>
         
         <div className='absolute l-0 t-0 w-full h-full'>
@@ -124,7 +129,12 @@ export default function Desktop(){
           <div id='desktop-select' className='absolute hidden md:block bg-[rgba(59,130,246,0.4)] border-[1px] border-blue-800' style={{top: Math.min(sstart[1], send[1]), left: Math.min(sstart[0], send[0]), width: Math.abs(sstart[0] - send[0]), height: Math.abs(sstart[1] - send[1])}}></div>
         }
       </div>
-      <Taskbar quickTasks={[]} />
+      
+      {/* taskbar */}
+      {
+        windowWidth > 768 ? <Taskbar /> : windows.length == 0 ? <Taskbar /> : <HomeBar />
+      }
+      
     </div>
   );
   
