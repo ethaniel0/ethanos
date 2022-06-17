@@ -77,3 +77,22 @@
 .ts-img {
     transition: left 0.3s ease, right 0.3s ease;
 }
+
+.swiper {
+    max-width: 60%;
+}
+.swiper-wrapper {
+    align-items: center;
+}
+.swiper-button-next, .swiper-button-prev {
+    color: white;
+    mix-blend-mode: difference;
+}
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper-slide img, .swiper-slide video {
+    max-height: 30rem;
+}

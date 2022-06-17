@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ImageTurnstile from './ImageTurnstile';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { EffectCoverflow } from "swiper";
+
+// Import Swiper styles
+import 'swiper/css';
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+
 
 interface Project {
     name: string;
@@ -82,11 +92,42 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                 {
                     file.projects[viewProject].url && <span className='text-center block text-white text-xl pb-8'>Check it out <a href={file.projects[viewProject].url} target='_blank' className='text-orange-400'>here</a></span>
                 }
-                <div className='flex flex-wrap px-8  mb-12 justify-center'>
-                    <ImageTurnstile images={file.projects[viewProject].images} captions={file.projects[viewProject].captions} width={width} />
-                </div>
-                <span className='text-white text-xl text-center w-full block px-12' >{file.projects[viewProject].description}</span>
                 
+
+                {/* <div className='flex flex-wrap px-8  mb-12 justify-center'>
+                    <ImageTurnstile images={file.projects[viewProject].images} captions={file.projects[viewProject].captions} width={width} />
+                </div> */}
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={30}
+                    loop={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Pagination, Navigation]}
+                    className="mySwiper mb-8"
+                >
+                    {
+                        file.projects[viewProject].images.map((img, ind) => (
+                            <SwiperSlide key={ind}>
+                                {img.endsWith('.mp4') ? (
+                                    <video controls>
+                                        <source src={img} type='video/mp4' />
+                                    </video>
+                                ) : (
+                                    <img key={ind} src={img} alt="" />
+                                )}
+                               
+                            </SwiperSlide>
+                            )
+                        )
+                    }
+                </Swiper>
+
+                <div className='flex justify-center'>
+                    <span className={'text-white text-xl text-justify block px-12' + (width > 768 ? ' w-5/12' : ' w-11/12')} >{file.projects[viewProject].description}</span>
+                </div>
 
             </>
             }

@@ -30,10 +30,13 @@ export default function Window(props: AppProps){
     zIndex: 1,
     boxSizing: 'border-box'
   });
+  
   const [code, setCode] = useState(props.code);
   const [screen, setScreen]: [number[], Function] = useState([0, 0]);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
+
+  const prevSize = useRef([size[0], size[1], coords]);
 
   function fullScreen(){
     let copy = {...windowStyles};
@@ -71,114 +74,48 @@ export default function Window(props: AppProps){
     return parseInt(c);
   }
 
-  function shiftTop(e: any, data: any){
+  function updateWindowStyles(styles: any){
+    if (isFullScreen) setFullScreen(false);
+    setwindowStyles(styles);
+  }
+
+  function onResize(data: any, func1: Function, func2?: Function){
     let copy = {...windowStyles};
-    
+    let prevCoords = {...coords};
+    Object.assign(prevCoords, func1(data, copy));
+    if (func2) Object.assign(prevCoords, func2(data, copy));
+    updateWindowStyles(copy);
+    setCoords(prevCoords);
+  }
+  function shiftTop(data: any, copy: any){    
     let curHeight = getNum(copy.height);
     let y = coords.y;
     let dy = data.y;
     y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
     let newHeight = curHeight + (coords.y - y);
     copy.height = newHeight + 'px';
-
-    setwindowStyles(copy);
-    setCoords({x: coords.x, y: y});
+    return {y: y}
   }
-  function shiftBottom(e: any, data: any){
-    let copy = {...windowStyles};
-    
+  function shiftBottom(data: any, copy: any){    
     let curHeight = getNum(copy.height);
     let newHeight = Math.max(minHeight, curHeight + data.deltaY);
     copy.height = newHeight + 'px';
-    setwindowStyles(copy);
+    return {}
   }
-  function shiftLeft(e: any, data: any){
-    let copy = {...windowStyles};
-    
+  function shiftLeft(data: any, copy: any){    
     let curWidth = getNum(copy.width);
     let x = coords.x;
     let dx = data.x;
     x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
     let newWidth = curWidth + (coords.x - x);
     copy.width = newWidth + 'px';
-
-    setwindowStyles(copy);
-    setCoords({x: x, y: coords.y});
+    return {x: x};
   }
-  function shiftRight(e: any, data: any){
-    let copy = {...windowStyles};
-    
+  function shiftRight(data: any, copy: any){    
     let curWidth = getNum(copy.width);
     let newWidth = Math.max(minWidth, curWidth + data.deltaX);
     copy.width = newWidth + 'px';
-    setwindowStyles(copy);
-  }
-  function shiftTopLeft(e: any, data: any){
-    let copy = {...windowStyles};
-    
-    let curHeight = getNum(copy.height);
-    let y = coords.y;
-    let dy = data.y;
-    y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
-    let newHeight = curHeight + (coords.y - y);
-    copy.height = newHeight + 'px';
-
-    let curWidth = getNum(copy.width);
-    let x = coords.x;
-    let dx = data.x;
-    x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
-    let newWidth = curWidth + (coords.x - x);
-    copy.width = newWidth + 'px';
-
-    setwindowStyles(copy);
-    setCoords({x: x, y: y});
-  }
-  function shiftTopRight(e: any, data: any){
-    let copy = {...windowStyles};
-    
-    let curHeight = getNum(copy.height);
-    let y = coords.y;
-    let dy = data.y;
-    y = Math.min(Math.max(y + dy, 0), y + curHeight - minHeight);
-    let newHeight = curHeight + (coords.y - y);
-    copy.height = newHeight + 'px';
-
-    let curWidth = getNum(copy.width);
-    let newWidth = Math.max(minWidth, curWidth + data.deltaX);
-    copy.width = newWidth + 'px';
-
-    setwindowStyles(copy);
-    setCoords({x: coords.x, y: y});
-  }
-  function shiftBottomLeft(e: any, data: any){
-    let copy = {...windowStyles};
-    
-    let curHeight = getNum(copy.height);
-    let newHeight = Math.max(minHeight, curHeight + data.deltaY);
-    copy.height = newHeight + 'px';
-
-    let curWidth = getNum(copy.width);
-    let x = coords.x;
-    let dx = data.x;
-    x = Math.min(Math.max(x + dx, 0), x + curWidth - minWidth);
-    let newWidth = curWidth + (coords.x - x);
-    copy.width = newWidth + 'px';
-
-    setwindowStyles(copy);
-    setCoords({x: x, y: coords.y});
-  }
-  function shiftBottomRight(e: any, data: any){
-    let copy = {...windowStyles};
-    
-    let curHeight = getNum(copy.height);
-    let newHeight = Math.max(minHeight, curHeight + data.deltaY);
-    copy.height = newHeight + 'px';
-
-    let curWidth = getNum(copy.width);
-    let newWidth = Math.max(minWidth, curWidth + data.deltaX);
-    copy.width = newWidth + 'px';
-
-    setwindowStyles(copy);
+    return {};
   }
 
   function windowClick(e: any){
@@ -202,7 +139,7 @@ export default function Window(props: AppProps){
   return (
     <Draggable bounds='' handle='.navbar' disabled={screen[0] <= 768} onDrag={onDrag} position={screen[0] > 768 ? coords : {x: 0, y: 0}} onMouseDown={windowClick}>
         <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
-          <nav className='navbar flex justify-end md:justify-between items-center px-2 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
+          <nav onDoubleClick={fullScreen} className='navbar flex justify-end md:justify-between items-center px-2 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
             <div className='md:flex gap-4 hidden'>
               {
                 Object.keys(app.menu).map(key => (
@@ -220,35 +157,35 @@ export default function Window(props: AppProps){
             {app.code(isFullScreen ? [window.innerWidth, ref.current.clientHeight] : [getNum(windowStyles.width), getNum(windowStyles.height)], closeWindow)}
           </div>
           {/* top */}
-          <Draggable onDrag={shiftTop} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftTop)} position={{x: 0, y: 0}}>
             <div className='resize-area top'></div>
           </Draggable>
           {/* left */}
-          <Draggable onDrag={shiftLeft} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftLeft)} position={{x: 0, y: 0}}>
             <div className='resize-area left'></div>
           </Draggable>
           {/* bottom */}
-          <Draggable onDrag={shiftBottom} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftBottom)} position={{x: 0, y: 0}}>
             <div className='resize-area bottom'></div>
           </Draggable>
           {/* right */}
-          <Draggable onDrag={shiftRight} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftRight)} position={{x: 0, y: 0}}>
             <div className='resize-area right'></div>
           </Draggable>
           {/* top right */}
-          <Draggable onDrag={shiftTopRight} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftTop, shiftRight)} position={{x: 0, y: 0}}>
             <div className='resize-area tr'></div>
           </Draggable>
           {/* top left */}
-          <Draggable onDrag={shiftTopLeft} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftTop, shiftLeft)} position={{x: 0, y: 0}}>
             <div className='resize-area tl'></div>
           </Draggable>
           {/* bottom right */}
-          <Draggable onDrag={shiftBottomRight} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftBottom, shiftRight)} position={{x: 0, y: 0}}>
             <div className='resize-area br'></div>
           </Draggable>
           {/* bottom left */}
-          <Draggable onDrag={shiftBottomLeft} position={{x: 0, y: 0}}>
+          <Draggable onDrag={(e: any, data: any) => onResize(data, shiftBottom, shiftLeft)} position={{x: 0, y: 0}}>
             <div className='resize-area bl'></div>
           </Draggable>
         </div>
