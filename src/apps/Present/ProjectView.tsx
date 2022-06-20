@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import ImageTurnstile from './ImageTurnstile';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { EffectCoverflow } from "swiper";
-
+import { Navigation, Pagination } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
 import "swiper/css/pagination";
@@ -92,11 +89,7 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                 {
                     file.projects[viewProject].url && <span className='text-center block text-white text-xl pb-8'>Check it out <a href={file.projects[viewProject].url} target='_blank' className='text-orange-400'>here</a></span>
                 }
-                
 
-                {/* <div className='flex flex-wrap px-8  mb-12 justify-center'>
-                    <ImageTurnstile images={file.projects[viewProject].images} captions={file.projects[viewProject].captions} width={width} />
-                </div> */}
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={30}
@@ -106,7 +99,7 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                     }}
                     navigation={true}
                     modules={[Pagination, Navigation]}
-                    className="mySwiper mb-8"
+                    className={"mySwiper mb-8" + (width > 768 ? ' width-big' : ' width-small')}
                 >
                     {
                         file.projects[viewProject].images.map((img, ind) => (
