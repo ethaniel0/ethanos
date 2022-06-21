@@ -4,11 +4,11 @@
     "projects": {
         "Satellite Image Analysis": {
             "name": "Satellite Image Analysis",
-            "description": "This is a project description",
+            "description": "As an introductory project working with satellite images, I tried to classify areas of an image into water, buildings, ground, vegetation and other classes. As I was having some trouble with software compatability, I used Python to read, crop, combine, and analyze Sentinel-2 satellite images.",
             "shortDesc": "An all-code way to analyze satellite images",
             "url": "https://github.com/ethaniel0/satellite-data-analysis",
             "images": ["/assets/icons/satellite-icon.png"],
-            "captions": ["A land classification of Muscat, Oman"],
+            "captions": ["A land area classification of Muscat, Oman"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         },
         "NGrammer": {

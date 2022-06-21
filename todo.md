@@ -4,6 +4,7 @@
     - add images and description for Webstage
 
 - applications
+    - add another image or two for satellite imaging
     - add description for satellite imaging
     - add one more image for ngrammer
 

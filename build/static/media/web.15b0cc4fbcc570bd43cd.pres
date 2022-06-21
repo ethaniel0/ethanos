@@ -8,7 +8,7 @@
             "shortDesc": "A mock operating system, designed to include the best parts of MacOS and Windows. And to show off my projects.",
             "url": "https://github.com/ethaniel0/ethanos",
             "images": ["/assets/icons/ethanos-bkg.png", "/assets/app imgs/terminal.png"],
-            "captions": ["Caption", "Caption"],
+            "captions": ["Background for EthanOS, made using 2D Perlin Noise in Processing Java", "Terminal app for EthanOS"],
             "technologies": ["HTML", "CSS", "JavaScript", "React JS", "Tailwind CSS", "Processing Java", "Figma"]
         },
         "WaffleHacks 2022": {
@@ -16,17 +16,17 @@
             "description": "WaffleHacks is a fully virtual hackathon made by and for college students. After participating in its debut hackathon in 2021, I joined the organizing team and technology teams. My main role was to develop the website, which I made responsive with animations, a fluid design, and a working music player. I also embedded a scavenger hunt inside, featuring draggable elements, hidden text, riddles, and games that reveal clues to find the hidden waffle.",
             "shortDesc": "A fully-online hackathon made for university students, by university students. I implemented the front end, making it responsive and fun.",
             "url": "https://wafflehacks.org",
-            "images": ["/assets/icons/wafflehacks-icon.png"],
-            "captions": ["Caption"],
+            "images": ["/assets/icons/wafflehacks-icon.png", "/assets/icons/wh-2.png", "/assets/icons/wh-3.png", "/assets/icons/wh-4.png", "/assets/icons/wh-5.png"],
+            "captions": ["WaffleHacks Main Page", "Tracks", "Platformer game I made for the in-site scavenger hunt", "Minesweeper-like game I made for the in-site scavenger hunt", "Scavenger hunt win screen"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase", "Figma", "Spotify API", "SoundCloud API"]
         },
         "Attest": {
             "name": "Attest",
-            "description": "This is a project description",
+            "description": "Attest is a website I developed to help my synagogue reopen safely after the height of the pandemic. I volunteered to create an easy-to-use web application for staff and visitors to attest they don’t have COVID symptoms. It includes all NY state-mandated questions and others my synagogue wanted to include. The front end was made in standard HTML/CSS/JS, backend in NodeJS, and database with Google FireStore. Submissions are viewable in real time by synagogue administrators on the site and on a downloadable Excel spreadsheet. The system was in use from August 2020 to I believe February 2022.",
             "shortDesc": "A COVID-19 attestation webapp that I designed and built to help my temple when they needed it the most",
             "url": "https://www.covidattestation.com",
-            "images": ["/assets/icons/attest-icon.png"],
-            "captions": ["Caption"],
+            "images": ["/assets/icons/attest-icon.png", "/assets/icons/attest form 1.png", "/assets/icons/attest form 2.png", "/assets/icons/attest login.png", "/assets/icons/attest sheet.png"],
+            "captions": ["Landing page", "Beginning part of the form, will be replicated for all attestees in the form", "Attestation form", "Admin login", "Data view, one column for each day (this can be changed to view a single day as well)"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
         },
         "Babii": {
@@ -35,7 +35,7 @@
             "shortDesc": "Allowing new parents to save the day by notifying them if their baby is crawling out of their crib at night. Hackathon submission for HackDuke 2021.",
             "url": "https://devpost.com/software/babii",
             "images": ["https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/238/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/815/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/893/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/887/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/717/091/datas/gallery.jpg"],
-            "captions": ["Caption 1", "Caption 2", "Caption 3", "Caption 4", "Caption 5"],
+            "captions": ["Babii Intro Page", "How to use the \"CatchCam\"", "Login Page", "The baby is safe based on height detection of the pumpkin", "The baby is climbing the crib based on height detection of the pumpkin"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
         },
         "Webstage": {
