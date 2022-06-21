@@ -84,7 +84,7 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
             : <>
                 <span onClick={() => setViewProject("")} className='text-white pt-4 pl-4 mb-[-1rem] text-2xl block cursor-pointer hover:text-gray-400'>Back</span>
                 <div className='flex justify-center'>
-                    <h1 style={{maxWidth: '80%'}} className={'text-center text-white font-bold text-3xl pt-6 font-bold' + (file.projects[viewProject].url ? ' pb-4' : ' pb-12')}>{file.projects[viewProject].name}</h1>
+                    <h1 style={{maxWidth: '80%'}} className={'text-center text-white font-bold text-3xl pt-6 font-bold' + (file.projects[viewProject].url ? ' pb-4' : ' pb-2 sm:pb-12')}>{file.projects[viewProject].name}</h1>
                 </div>
                 {
                     file.projects[viewProject].url && <span className='text-center block text-white text-xl pb-8'>Check it out <a href={file.projects[viewProject].url} target='_blank' className='text-orange-400'>here</a></span>
@@ -94,16 +94,16 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                     slidesPerView={1}
                     spaceBetween={30}
                     loop={true}
-                    pagination={{
-                      clickable: true,
-                    }}
+                    // pagination={{
+                    //   clickable: true,
+                    // }}
                     navigation={true}
-                    modules={[Pagination, Navigation]}
+                    modules={[Navigation]}
                     className={"mySwiper mb-8" + (width > 768 ? ' width-big' : ' width-small')}
                 >
                     {
                         file.projects[viewProject].images.map((img, ind) => (
-                            <SwiperSlide key={ind}>
+                            <SwiperSlide key={ind} className='flex-col'>
                                 {img.endsWith('.mp4') ? (
                                     <video controls>
                                         <source src={img} type='video/mp4' />
@@ -111,6 +111,7 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                                 ) : (
                                     <img key={ind} src={img} alt="" />
                                 )}
+                                <span className='block text-white text-center mt-2 text-xl'>{file.projects[viewProject].captions[ind]}</span>
                                
                             </SwiperSlide>
                             )
