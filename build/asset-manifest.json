@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.3b4e2a4c.css",
-    "main.js": "/static/js/main.3cb509cb.js",
+    "main.js": "/static/js/main.31815660.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
     "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
     "static/media/Quicksand-SemiBold.ttf": "/static/media/Quicksand-SemiBold.f36a86e2ff447dc869f0.ttf",
     "static/media/Quicksand-Bold.ttf": "/static/media/Quicksand-Bold.4c3d23174e1f233b946d.ttf",
     "static/media/AvenirNextLTPro-Regular.otf": "/static/media/AvenirNextLTPro-Regular.94f2f163d4b698242fef.otf",
     "static/media/Ubuntu-Title.ttf": "/static/media/Ubuntu-Title.2b5febb9b8d936b29fed.ttf",
-    "static/media/web.pres": "/static/media/web.15b0cc4fbcc570bd43cd.pres",
+    "static/media/web.pres": "/static/media/web.1529f89df97a07793009.pres",
     "static/media/applications.pres": "/static/media/applications.3f142f6f33ed2e1a6628.pres",
     "static/media/electrical.pres": "/static/media/electrical.3e0357431f1c880b93f3.pres",
     "static/media/icon2.svg": "/static/media/icon2.22e96ecc574e6a331e82793fb7f49aad.svg",
@@ -22,11 +22,11 @@
     "static/media/mail.lnk": "/static/media/mail.b5b93bbd957368d8561a.lnk",
     "static/media/presentMobile.lnk": "/static/media/presentMobile.b2fc32f3bc0ca7d19afc.lnk",
     "main.3b4e2a4c.css.map": "/static/css/main.3b4e2a4c.css.map",
-    "main.3cb509cb.js.map": "/static/js/main.3cb509cb.js.map",
+    "main.31815660.js.map": "/static/js/main.31815660.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3b4e2a4c.css",
-    "static/js/main.3cb509cb.js"
+    "static/js/main.31815660.js"
   ]
 }

@@ -37,15 +37,6 @@
             "images": ["https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/238/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/815/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/893/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/887/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/717/091/datas/gallery.jpg"],
             "captions": ["Babii Intro Page", "How to use the \"CatchCam\"", "Login Page", "The baby is safe based on height detection of the pumpkin", "The baby is climbing the crib based on height detection of the pumpkin"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
-        },
-        "Webstage": {
-            "name": "Webstage project for PennApps XXI",
-            "description": "This is a project description",
-            "shortDesc": "An online streaming platform where a performer can host virtual concerts for their audience. Hackathon submission for PenApps XXI.",
-            "url": "",
-            "images": ["/assets/icons/webstage-icon.png"],
-            "captions": ["Caption"],
-            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
         }
     }
 }
