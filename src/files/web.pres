@@ -37,6 +37,15 @@
             "images": ["https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/238/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/815/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/893/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/716/887/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/717/091/datas/gallery.jpg"],
             "captions": ["Babii Intro Page", "How to use the \"CatchCam\"", "Login Page", "The baby is safe based on height detection of the pumpkin", "The baby is climbing the crib based on height detection of the pumpkin"],
             "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
+        },
+        "Webstage": {
+            "name": "Webstage project for PennApps XXI",
+            "description": "WebStage is an online streaming platform where a performer can perform for their audience. Users can make accounts with their email or with Google sign-in. Once they do so, they can create their own \"stages\" with set times to perform, and they can also buy tickets and go to the stages of other musicians. We used Figma to design and prototype the site. For the front-end, we used HTML/CSS/JS. For the back-end, we used Node.js with Express.js for the server and WebRTC for the live-streaming. We also used Firebase and Cloud Firestore.",
+            "shortDesc": "An online streaming platform where a performer can host virtual concerts for their audience. Hackathon submission for PenApps XXI.",
+            "url": "https://webstage.ethanhorowitz.repl.co",
+            "images": ["/assets/icons/webstage-icon.png", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/216/415/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/216/417/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/216/422/datas/gallery.jpg", "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/216/421/datas/gallery.jpg"],
+            "captions": ["Webstage landing page", "Profile page", "Creating a new stage", "Hosting a stage", "Viewing a stage"],
+            "technologies": ["HTML", "CSS", "JavaScript", "Node.js",  "Tailwind CSS", "Firebase"]
         }
     }
 }
