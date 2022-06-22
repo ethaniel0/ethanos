@@ -89,7 +89,10 @@
 }
 .swiper-button-next, .swiper-button-prev {
     color: white;
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 0.25em;
+    padding: 1.75rem 1.25rem;
 }
 .swiper-slide {
     display: flex;
