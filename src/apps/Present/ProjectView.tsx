@@ -91,6 +91,7 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
                 }
 
                 <Swiper
+                    autoHeight={true}
                     slidesPerView={1}
                     spaceBetween={30}
                     loop={true}
