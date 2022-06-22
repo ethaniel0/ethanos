@@ -1,22 +1,14 @@
 # TODO
 - web dev
     - add images to EthanOS
-    - add images and description for Webstage
 
 - applications
     - add another image or two for satellite imaging
-    - add description for satellite imaging
     - add one more image for ngrammer
 
 - electronics
     - add a video of the triangle
-    - add captions for triangle photos
-    - add triangle description
-
-    - add grad cap description
-
     - add more robot pics / robot video
-    - add robot description
 
 - research
     - add more CET-CNN images
