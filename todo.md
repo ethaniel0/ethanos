@@ -10,13 +10,6 @@
     - add a video of the triangle
     - add more robot pics / robot video
 
-- research
-    - add more CET-CNN images
-    - add CET-CNN description
-
-    - add more water purification pictures
-    - add water purification description
-
 - make notepad
 - make a file explorer app
 - make a calculator app
