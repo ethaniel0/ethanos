@@ -30,9 +30,15 @@ function getDay(){
 export default function Taskbar(){
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
+  const [tray, showTray] = useState(false);
   const [pinnedApps, setPinnedApps] = useState([
     '/E/Applications/Present.app',
     '/E/Applications/Terminal.app'
+  ]);
+  const [drawerApps, setDrawerApps] = useState([
+    '/E/Applications/Present.app',
+    '/E/Applications/Terminal.app',
+    '/E/Applications/Notepad.app'
   ]);
   const [mobileDock, setmobileDock] = useState([
     '/E/Applications/Present.app',
@@ -45,40 +51,51 @@ export default function Taskbar(){
   setInterval(() => setDay(getDay()), 1000);
 
   return (
-    <div id='taskbar' className='relative flex justify-center mb-4 md:mb-0 md:justify-between h-16' style={{zIndex: 100000}}>
-        {/* apps */}
-        <div className='apps hidden grow md:flex items-center px-2 justify-start border-r-2 border-white'>
-            <AppDrawer />
-            {pinnedApps.map((path: string, index: number) => {
+    <>
+      <div id='apptray' className='absolute h-48 w-48 p-2 left-2 flex gap-2 rounded-lg' style={{bottom: tray ? '4.5rem' : '-15rem'}}>
+          {drawerApps.map((path: string, index: number) => {
               let app = cmd.cwd.getFile(path);
-              if (typeof app === 'object') return;
+              if (typeof app === 'object') return null;
               app = new app();
-              return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
+              return <img key={`apptray-${index}`} src={app.icon} alt="" className='w-12 h-12' onClick={() => cmd.command('open ' + path)} />
             })}
-            
-        </div>
-        <div className='apps2 md:hidden grow h-full flex items-center px-2 justify-around border-r-2 border-white'>
-            {mobileDock.map((path: string, index: number) => {
-              let app = cmd.cwd.getFile(path);
-              if (typeof app === 'object') return;
-              if (typeof app === 'string') return <FileApp key={`taskbar-${index}`} path={path} name={app} index={index} />;
-              else if (typeof app === 'function') app = new app();
-              return <img key={`taskbar-${index}`} src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
-            })}
-            
-        </div>
 
-        {/* info */}
-        <div className='info hidden md:flex w-48 h-full text-white justify-around items-center' style={{background: 'rgb(90, 90, 90)'}}>
-          {/* sound */}
-          <FontAwesomeIcon icon={faVolumeUp} className='text-xl' />
-          {/* time */}
-          <div className='flex flex-col text-center'>
-            <span className='text-lg' style={{marginBottom: '-5px'}}>{time}</span>
-            <span className='text-base'>{day}</span>
+      </div>
+      <div id='taskbar' className='relative flex justify-center mb-4 md:mb-0 md:justify-between h-16' style={{zIndex: 100000}}>
+          {/* apps */}
+          <div className='apps hidden grow md:flex items-center px-2 justify-start border-r-2 border-white'>
+              <AppDrawer tray={tray} showTray={showTray} />
+              {pinnedApps.map((path: string, index: number) => {
+                let app = cmd.cwd.getFile(path);
+                if (typeof app === 'object') return null;
+                app = new app();
+                return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
+              })}
+              
           </div>
-        </div>
-    </div>
+          <div className='apps2 md:hidden grow h-full flex items-center px-2 justify-around border-r-2 border-white'>
+              {mobileDock.map((path: string, index: number) => {
+                let app = cmd.cwd.getFile(path);
+                if (typeof app === 'object') return;
+                if (typeof app === 'string') return <FileApp key={`taskbar-${index}`} path={path} name={app} index={index} />;
+                else if (typeof app === 'function') app = new app();
+                return <img key={`taskbar-${index}`} src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
+              })}
+              
+          </div>
+
+          {/* info */}
+          <div className='info hidden md:flex w-48 h-full text-white justify-around items-center' style={{background: 'rgb(90, 90, 90)'}}>
+            {/* sound */}
+            <FontAwesomeIcon icon={faVolumeUp} className='text-xl' />
+            {/* time */}
+            <div className='flex flex-col text-center'>
+              <span className='text-lg' style={{marginBottom: '-5px'}}>{time}</span>
+              <span className='text-base'>{day}</span>
+            </div>
+          </div>
+      </div>
+    </>
   );
   
 }

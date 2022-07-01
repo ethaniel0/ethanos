@@ -6,3 +6,4 @@ declare module "*.svg";
 declare module "*.ttf";
 declare module "*.pres";
 declare module "*.lnk";
+declare module "*.txt";

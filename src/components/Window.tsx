@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
-import { faPeopleArrowsLeftRight } from '@fortawesome/free-solid-svg-icons';
 
 interface AppProps {
   app: Application,
@@ -35,8 +34,6 @@ export default function Window(props: AppProps){
   const [screen, setScreen]: [number[], Function] = useState([0, 0]);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
-
-  const prevSize = useRef([size[0], size[1], coords]);
 
   function fullScreen(){
     let copy = {...windowStyles};
@@ -124,7 +121,6 @@ export default function Window(props: AppProps){
   }
 
   function closeWindow(){
-    console.log('removing', code);
     Processes.removeWindow(code)
   }
 
@@ -138,12 +134,13 @@ export default function Window(props: AppProps){
 
   return (
     <Draggable bounds='' handle='.navbar' disabled={screen[0] <= 768} onDrag={onDrag} position={screen[0] > 768 ? coords : {x: 0, y: 0}} onMouseDown={windowClick}>
-        <div ref={ref} onClick={windowClick} className={'window  ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
+        <div ref={ref} onClick={windowClick} className={'window flex flex-col overflow-hidden ' + (isFullScreen ? ' no-drag' : '')} style={windowStyles as any}>
+          {/* navbar */}
           <nav onDoubleClick={fullScreen} className='navbar flex justify-end md:justify-between items-center px-2 md:h-6' style={{backgroundColor: '#c5c5c4'}}>
             <div className='md:flex gap-4 hidden'>
               {
                 Object.keys(app.menu).map(key => (
-                  <span className='cursor-pointer'>{key}</span>
+                  <span key={key} className='cursor-pointer'>{key}</span>
                 ) )
               }
             </div>
@@ -153,9 +150,14 @@ export default function Window(props: AppProps){
               <div onClick={closeWindow} className='window-circle bg-red-600 justify-center items-center hidden md:block'></div>
             </div>
           </nav>
-          <div style={{width: '100%', height: '100%', overflow: 'scroll'}}>
+
+          {/* window body */}
+          <div style={{width: '100%', flexGrow: 1, overflow: 'scroll'}}>
             {app.code(isFullScreen ? [window.innerWidth, ref.current.clientHeight] : [getNum(windowStyles.width), getNum(windowStyles.height)], closeWindow)}
           </div>
+
+          {/* window edges */}
+
           {/* top */}
           <Draggable onDrag={(e: any, data: any) => onResize(data, shiftTop)} position={{x: 0, y: 0}}>
             <div className='resize-area top'></div>

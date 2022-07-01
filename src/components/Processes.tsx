@@ -12,6 +12,7 @@ interface ProcessesLayout {
     bringWindowToFront: Function;
     cycleSpawnPoint: Function;
     exts: any; // extensions
+    defaultIcons: any;
 }
 
 let Processes: ProcessesLayout = {
@@ -50,6 +51,12 @@ let Processes: ProcessesLayout = {
     exts: {
         'bash': '/E/Applications/Terminal.app',
         'pres': '/E/Applications/Present.app',
+        'txt': '/E/Applications/Notepad.app'
+    },
+    defaultIcons: {
+        'bash': '/assets/icons/Terminal icon.svg',
+        'pres': '/assets/icons/Present icon.svg',
+        'txt': '/assets/icons/Notepad icon.svg'
     }
 }
 

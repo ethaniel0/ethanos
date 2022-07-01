@@ -87,6 +87,13 @@
     background: rgb(90, 90, 90);
 }
 
+#apptray {
+    transition: bottom 0.5s ease;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: rgba(156, 163, 175, 0.6);
+}
+
 .window-circle {
     width: 0.8rem;
     height: 0.8rem;

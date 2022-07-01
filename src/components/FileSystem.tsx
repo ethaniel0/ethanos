@@ -1,5 +1,6 @@
 import Terminal from "../apps/Terminal/Terminal";
 import Present from "../apps/Present/Present";
+import Notepad from "../apps/Notepad/Notepad";
 import presWeb from '../files/web.pres';
 import presElec from '../files/electrical.pres';
 import presResearch from '../files/research.pres';
@@ -16,7 +17,8 @@ const FileSystem: any = {
         'E': {
             'Applications': {
                 'Present.app': null,
-                'Terminal.app': null
+                'Terminal.app': null,
+                'Notepad.app': null
             },
             'User': {
                 'Desktop': {
@@ -45,6 +47,7 @@ const FileSystem: any = {
     initDirectories: function() {
         this.directories.E.Applications['Present.app'] = Present;
         this.directories.E.Applications['Terminal.app'] = Terminal;
+        this.directories.E.Applications['Notepad.app'] = Notepad;
     }
 
 }

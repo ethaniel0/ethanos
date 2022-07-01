@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Directory from './Directory';
 import CommandLine from './CommandLine';
+import Processes from './Processes';
 
 interface AppProps {
     name: string;
@@ -11,13 +12,18 @@ interface AppProps {
     mobile?: boolean;
 }
 
+function getExt(path: string){
+  let parts = path.split('.');
+  return parts[parts.length - 1];
+}
+
 const FileDisplay = ({path, name, pos, mobile}: AppProps) => {
   let cmd = new CommandLine(path);
   function click(){
-    console.log('name:', name);
     cmd.command(`open ${name}`);
   }
-  let [image, setImage] = useState('');
+
+  let [image, setImage] = useState(Processes.defaultIcons[getExt(name)]);
   let [url, setURL]: [string, Function] = useState('');
 
   useEffect(() => {
@@ -31,7 +37,12 @@ const FileDisplay = ({path, name, pos, mobile}: AppProps) => {
         return setImage(mobile ? app.icon2 ? app.icon2 : app.icon : app.icon);
       }
       let resp = await fetch(file);
-      let json = await resp.json();
+      try{
+        var json = await resp.json();
+      }
+      catch {
+        return;
+      }
 
       if (json.onsite){
         loadFiles(json.url, true);
