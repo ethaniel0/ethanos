@@ -119,7 +119,9 @@ export default class CommandLine{
         return '';
     }
     async cat(args: string[]): Promise<string>{
+        if (args.length == 0) return "cat: no file specified"
         let file = this.cwd.getFile(args[0]);
+        if (!file) return `cat: file does not exist: ${args[0]}`;
         let resp = await fetch(file);
         let text = await resp.text();
         return text;
