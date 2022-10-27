@@ -6,7 +6,8 @@ import CommandLine from "../../components/CommandLine";
 const UI = () => {
 
     const [lines, setLines] = useState([]);
-    const [commandLine, setCommandLine] = useState(new CommandLine('/E'))
+    const [commandLine, setCommandLine] = useState(new CommandLine('/E'));
+    const [prevCommands, setPrevCommands] = useState([]);
     const name = useRef('/');
     
     let ref = useRef(null);
@@ -31,21 +32,22 @@ const UI = () => {
         ref.current.terminal.write(`${name.current}> `);
     }, [])
 
-    function callCommand(line: string){
-        let resp = commandLine.command(line);
+    async function callCommand(line: string){
+        setPrevCommands([...prevCommands, line]);
+        let resp = await commandLine.command(line);
         setLines([...lines, line]);
         let pathname = commandLine.cwd.getName();
         name.current = pathname === '/' ? '$' : pathname;
         return resp;
     }
 
-    function onData(data: string) {
+    async function onData(data: string) {
         
         const code = data.charCodeAt(0);
         
         let escapeChar = code === 27;
         if (code === 13) {
-            let response = callCommand(input.current);
+            let response = await callCommand(input.current);
             if (response.length > 0) {
                 ref.current.terminal.write(
                     "\r\n" + response + "\r\n"
@@ -70,7 +72,6 @@ const UI = () => {
                 for (let i = 0; i <= after.length; i++){
                     ref.current.terminal.write('\b');
                 }
-
             }
             input.current = cur.substring(0, cursor.current-1) + cur.substring(cursor.current);
             cursor.current--;
@@ -79,14 +80,14 @@ const UI = () => {
         else if (escapeChar){ // allow arrow keys
             let key = data.substring(1, data.length);
             if (key === '[D' && cursor.current > 0){ // left arrow
-                // ref.current.terminal.write("\b");
                 ref.current.terminal.write('\x1b[D');
                 cursor.current--;
             }
-            if (key === '[C' && cursor.current < input.current.length){ // left arrow
+            if (key === '[C' && cursor.current < input.current.length){ // right arrow
                 ref.current.terminal.write('\x1b[C');
                 cursor.current++;
             }
+            console.log(key);
         }
         else if (code < 32) { // Disable control Keys such as arrow keys
             return;

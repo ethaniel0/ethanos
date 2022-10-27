@@ -8,7 +8,6 @@ const PresentApp = ({size, file}: any) => {
     const [page, setPage] = useState(file ? 1 : 0);
     const [filename, setFile] = useState(file);
     return (
-
     <>
         {
             page === 0 ? 

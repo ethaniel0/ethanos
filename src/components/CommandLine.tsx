@@ -50,13 +50,17 @@ export default class CommandLine{
         if (curString.length > 0) parts.push(curString);
         return parts;
     }
-    command(input: string): string{
+    async command(input: string): Promise<string>{
         let parts = this.parseCommand(input);
         let command = parts[0];
         let args = parts.slice(1);
         switch(command){
             case 'cd':
-                let d = this.cwd.get(args[0] || '');
+                let path = args[0];
+                if (!path) return 'cd: no directory provided';
+                if (!path.startsWith('/') && !path.startsWith('.')) path = './' + path;
+                console.log('path:', path);
+                let d = this.cwd.get(path);
                 if (d !== null){
                     this.cwd = d;
                     return '';
@@ -68,7 +72,7 @@ export default class CommandLine{
                 if (args.length === 0) return 'open: no file specified';
                 return this.openWindow(args[0]);
             case 'cat':
-                return this.cat(args);
+                return await this.cat(args);
             case 'clear':
                 return this.clear();
             case 'help':
@@ -114,14 +118,23 @@ export default class CommandLine{
         Processes.addWindow(new app());
         return '';
     }
-    cat(args: string[]): string{
-        return '';
+    async cat(args: string[]): Promise<string>{
+        let file = this.cwd.getFile(args[0]);
+        let resp = await fetch(file);
+        let text = await resp.text();
+        return text;
     }
     clear(): string{
-        return '';
+        return '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n';
     }
     help(): string{
-        return '';
+        return `Commands:
+\rcd [dir]      - change directory
+\rls            - list directory contents
+\ropen [file]   - open a file
+\rcat [file]    - print file contents
+\rclear         - clear the screen
+\rhelp          - display this help message`;
     }
 
 }
