@@ -82,7 +82,15 @@ export default class CommandLine{
         }
     }  
     ls(args: string[]): string{
-        let dirs = this.cwd.getDirectories();
+        let cwd = this.cwd;
+        if (args.length > 0){
+            if (args.length == 1){
+                let newcwd = this.cwd.get(args[0]);
+                if (!newcwd) return `ls: directory "${args[0]}" does not exist`
+                cwd = newcwd;
+            }
+        }
+        let dirs = cwd.getDirectories();
         if (dirs.length === 0) return ' ';
         return dirs.join('    ');
     }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper';
+import Directory from '../../components/Directory';
 // Import Swiper styles
 import 'swiper/css';
 import "swiper/css/pagination";
@@ -33,24 +34,39 @@ interface AppProps {
     setPage: Function;
 }
 
-const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
+const AllProjects = ( { filePath, width, setPage }: AppProps ) => {
     const [file, setFile] = useState({
-        name: "Web Dev Projects",
-        icon: "/assets/icons/present-web.svg",
-        size: "10kB",
+        name: "All Projects",
+        icon: "",
+        size: "",
         projects: {}
     } as File);
 
     const [viewProject, setViewProject] = useState("");
 
+    let files = ['web.pres', 'applications.pres', 'electrical.pres', 'research.pres']
+
     useEffect(() => {
-        async function loadFile() {
-            let resp = await fetch(filePath);
-            let json = await resp.json();
-            setFile(json);
+        async function loadFiles() {
+            let allProjects = {
+                name: 'All Projects', 
+                icon: "",
+                size: "",
+                projects: {}
+            };
+            let cwd = new Directory('/E/User/Desktop');
+            for (let filepath of files){
+                let file = cwd.getFile(filepath);
+                let resp = await fetch(file);
+                let json = await resp.json();
+                Object.assign(allProjects.projects, json.projects);
+            }
+            setFile(allProjects);
         }
-       loadFile();
+       loadFiles();
     }, [filePath]);
+
+    console.log(file);
 
     function toMainWindow(){
         setPage(0);
@@ -128,4 +144,4 @@ const ProjectView = ( { filePath, width, setPage }: AppProps ) => {
     )
 }
 
-export default ProjectView
+export default AllProjects

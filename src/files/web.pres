@@ -13,8 +13,8 @@
         },
         "WaffleHacks 2022": {
             "name": "WaffleHacks 2022",
-            "description": "WaffleHacks is a fully virtual hackathon made by and for college students. After participating in its debut hackathon in 2021, I joined the organizing team and technology teams. My main role was to develop the website, which I made responsive with animations, a fluid design, and a working music player. I also embedded a scavenger hunt inside, featuring draggable elements, hidden text, riddles, and games that reveal clues to find the hidden waffle.",
-            "shortDesc": "A fully-online hackathon made for university students, by university students. I implemented the front end, making it responsive and fun.",
+            "description": "WaffleHacks is a fully virtual hackathon made by and for college students. After participating in its debut hackathon in 2021, I joined the organizing and technology teams. My main role in 2021 was to develop the website, which I made responsive with animations, a fluid design, and a working music player. I also embedded a scavenger hunt inside, featuring draggable elements, hidden text, riddles, and games that reveal clues to find the hidden waffle.",
+            "shortDesc": "A fully-online hackathon made for university students, by university students. I implement the front end, making it responsive and fun.",
             "url": "https://wafflehacks.org",
             "images": ["/assets/icons/wafflehacks-icon.png", "/assets/icons/wh-2.png", "/assets/icons/wh-3.png", "/assets/icons/wh-4.png", "/assets/icons/wh-5.png"],
             "captions": ["WaffleHacks Main Page", "Tracks", "Platformer game I made for the in-site scavenger hunt", "Minesweeper-like game I made for the in-site scavenger hunt", "Scavenger hunt win screen"],

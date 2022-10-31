@@ -11,6 +11,15 @@
             "captions": ["A land area classification of Muscat, Oman"],
             "technologies": ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap", "Git", "Github", "GitHub Pages"]
         },
+        "Spot The Spot": {
+            "name": "Spot The Spot",
+            "description": "For HackDuke 2022, my team and I made a parking lot monitoring system that detects and tells users exactly which parking spots are open using a custom-trained neural network. We found a pretrained vehicle recognition network to use with real parking lots, and for our interactive model we custom-trained a neural network to recognize if a 3D-printed car is in a parking space. Our project was awarded 1st place in the Energy and Environment track as well as the Avanade sponsor prize.",
+            "shortDesc": "Efficient parking lot monitoring",
+            "url": "https://devpost.com/software/spot-the-spot",
+            "images": ["https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/268/363/datas/gallery.jpg", "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/268/390/datas/gallery.jpg", "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/268/349/datas/gallery.jpg"],
+            "captions": ["Classification of model cars in a lodel parking lot", "Website to display parking lots and spots", "Physically mounted Raspberry PI and webcam on a lamppost"],
+            "technologies": ["Python", "TensorFlow", "Machine Learning", "Raspberry Pi"]
+        },
         "NGrammer": {
             "name": "NGrammer",
             "description": "As a fun project, my friend and I decided to compete in making Google NGrams analyzers. We wanted to find words that were extremely alike in popularity, the word with the shortest lifespan, etc. So this is the culmination - thousands of asynchrolous API calls in Python and a time series analyzer in Java.",
