@@ -1,6 +1,8 @@
 import Terminal from "../apps/Terminal/Terminal";
 import Present from "../apps/Present/Present";
 import Notepad from "../apps/Notepad/Notepad";
+import WH2022DC from "../apps/WH2022DC/WH2022DC";
+import FaceAPI from "../apps/FaceAPI/FaceAPI";
 import presWeb from '../files/web.pres';
 import presElec from '../files/electrical.pres';
 import presResearch from '../files/research.pres';
@@ -18,7 +20,9 @@ const FileSystem: any = {
             'Applications': {
                 'Present.app': null,
                 'Terminal.app': null,
-                'Notepad.app': null
+                'Notepad.app': null,
+                "WaffleHacks2022Clue2.app": null,
+                "FaceAPI.app": null
             },
             'User': {
                 'Desktop': {
@@ -48,6 +52,8 @@ const FileSystem: any = {
         this.directories.E.Applications['Present.app'] = Present;
         this.directories.E.Applications['Terminal.app'] = Terminal;
         this.directories.E.Applications['Notepad.app'] = Notepad;
+        this.directories.E.Applications["WaffleHacks2022Clue2.app"] = WH2022DC;
+        this.directories.E.Applications["FaceAPI.app"] = FaceAPI;
     }
 
 }

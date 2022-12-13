@@ -38,7 +38,9 @@ export default function Taskbar(){
   const [drawerApps, setDrawerApps] = useState([
     '/E/Applications/Present.app',
     '/E/Applications/Terminal.app',
-    '/E/Applications/Notepad.app'
+    '/E/Applications/Notepad.app',
+    '/E/Applications/WaffleHacks2022Clue2.app',
+    '/E/Applications/FaceAPI.app',
   ]);
   const [mobileDock, setmobileDock] = useState([
     '/E/Applications/Present.app',
@@ -52,7 +54,7 @@ export default function Taskbar(){
 
   return (
     <>
-      <div id='apptray' className='absolute h-48 w-48 p-2 left-2 flex gap-2 rounded-lg' style={{bottom: tray ? '4.5rem' : '-15rem'}}>
+      <div id='apptray' className='absolute w-48 p-2 left-2 rounded-lg grid grid-cols-3 gap-2 overflow-y-scroll' style={{bottom: tray ? '4.5rem' : '-15rem'}}>
           {drawerApps.map((path: string, index: number) => {
               let app = cmd.cwd.getFile(path);
               if (typeof app === 'object') return null;
