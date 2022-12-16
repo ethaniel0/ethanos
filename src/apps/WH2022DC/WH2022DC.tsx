@@ -2,6 +2,7 @@ import * as React from "react";
 import Application from "../../components/Application";
 import icon from './icon.svg';
 import Processes from "../../components/Processes";
+import UI from './UI';
 
 
 export default class WH2022DC implements Application  {
@@ -19,7 +20,7 @@ export default class WH2022DC implements Application  {
         this.icon = icon;
         this.defaultSize = ['720px', '360px'];
         this.resizeable = true;
-        this.code = () => <iframe className="w-full h-full" src="/wh2022dc"></iframe>;
+        this.code = () => <UI />;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
         this.menu = {
