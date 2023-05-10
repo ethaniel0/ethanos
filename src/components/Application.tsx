@@ -4,7 +4,7 @@ export default interface Application {
   name: string;
   icon: string;
   icon2?: string;
-  defaultSize: string[];
+  defaultSize: number[];
   spawnPoint: number[];
   minWidth?: number;
   minHeight?: number;

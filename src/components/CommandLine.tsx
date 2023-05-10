@@ -59,7 +59,6 @@ export default class CommandLine{
                 let path = args[0];
                 if (!path) return 'cd: no directory provided';
                 if (!path.startsWith('/') && !path.startsWith('.')) path = './' + path;
-                console.log('path:', path);
                 let d = this.cwd.get(path);
                 if (d !== null){
                     this.cwd = d;

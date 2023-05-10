@@ -48,6 +48,7 @@ const UI = () => {
         let escapeChar = code === 27;
         if (code === 13) {
             let response = await callCommand(input.current);
+            response = response.split('\n').join('\r\n');
             if (response.length > 0) {
                 ref.current.terminal.write(
                     "\r\n" + response + "\r\n"
@@ -87,9 +88,17 @@ const UI = () => {
                 ref.current.terminal.write('\x1b[C');
                 cursor.current++;
             }
-            console.log(key);
+            if (key === '[A'){ // up arrow
+                if (prevCommands.length > 0){
+                    let prev = prevCommands[prevCommands.length - 1];
+                    ref.current.terminal.write('\b \b'.repeat(cursor.current));
+                    input.current = prev;
+                    cursor.current = prev.length;
+                    ref.current.terminal.write(prev);
+                }
+            }
         }
-        else if (code < 32) { // Disable control Keys such as arrow keys
+        else if (code < 32) { // Disable control Keys
             return;
         } else { // Add general key press characters to the terminal
             let cur = input.current;

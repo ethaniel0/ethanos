@@ -7,7 +7,6 @@ import Window from './Window';
 import Application from './Application';
 import Directory from './Directory';
 import FileDisplay from './FileDisplay';
-import { faMinimize } from '@fortawesome/free-solid-svg-icons';
 import HomeBar from './HomeBar';
 
 interface File {
@@ -64,6 +63,11 @@ export default function Desktop(){
     setSEnd([-1, -1]);
   }
 
+  function stopProp(e: any){
+    e.cancelbubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+  }
+
   useEffect(() => {
     function handleResize() {
       setWindowWidth(window.innerWidth);
@@ -105,20 +109,16 @@ export default function Desktop(){
         </div>
       </div>
 
-      {/* apps */}
       <div ref={desktop} style={{width: '100%', flexGrow: 1,  position: 'relative'}}>
         
-        <div className='absolute l-0 t-0 w-full h-full'>
-          {windows.map((appl) => appl)}
-        </div>
-
+        {/* files for desktop */}
         <div className='p-6 hidden md:flex flex-col flex-wrap absolute'>
           {files.map((name: string, ind: number) => {
-            // let file = files[name];
             return <FileDisplay key={ind} path='/E/User/Desktop' name={name} pos={fileLayout[name]} />
           })}
         </div>
 
+        {/* apps for home screen */}
         <div className='p-6 grid w-full md:hidden grid-cols-4 absolute'>
           {apps.map((name: string, ind: number) => {
             return <FileDisplay key={ind} path='/E/User/Homescreen' name={name} pos={fileLayout[name]} mobile={true} />
@@ -129,12 +129,14 @@ export default function Desktop(){
           <div id='desktop-select' className='absolute hidden md:block bg-[rgba(59,130,246,0.4)] border-[1px] border-blue-800' style={{top: Math.min(sstart[1], send[1]), left: Math.min(sstart[0], send[0]), width: Math.abs(sstart[0] - send[0]), height: Math.abs(sstart[1] - send[1])}}></div>
         }
       </div>
-      
+
+      {windows.map((appl) => appl)}
+
       {/* taskbar */}
       {
         windowWidth > 768 ? <Taskbar /> : windows.length == 0 ? <Taskbar /> : <HomeBar />
       }
-      
+
     </div>
   );
   

@@ -1,16 +1,14 @@
 import * as React from 'react'
 import Directory from '../../components/Directory';
 interface AppProps {
-    width: number;
-    height: number;
     setFile: Function;
 }
 
-const LandingPage = ({ width, setFile }: AppProps) => {
+const LandingPage = ({ setFile }: AppProps) => {
     let cwd = new Directory('/E/User/Desktop');
 
     return (
-        <div className='text-gray-100 flex flex-col items-center overflow-scroll' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
+        <div className='text-gray-100 flex flex-col items-center' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
             <h1 className='text-5xl text-center pt-4'>Hello World!</h1>
             <h3 className='text-2xl text-center pt-4' style={{fontFamily: 'Quicksand'}}>My skills:</h3>
             <p className='text-lg text-center px-4 flex flex-wrap justify-center' style={{fontFamily: 'Quicksand', maxWidth: '50rem'}}>
@@ -30,7 +28,7 @@ const LandingPage = ({ width, setFile }: AppProps) => {
             <div className='mt-4'>
                 <h1 onClick={() => setFile("", 2)} className='text-3xl text-center text-orange-200 underline hover:text-orange-300 cursor-pointer'>All Projects</h1>
             </div>
-            <div id='showcase-grid' className={'grid w-3/4 mt-4 gap-x-24 gap-y-8 mb-24' + (width >= 670 ? ' grid-cols-2' : ' grid-cols-1')}>
+            <div id='showcase-grid' className={'grid w-3/4 mt-4 gap-x-24 gap-y-8 mb-24 grid-cols-1 @lg:grid-cols-2'}>
                 <div onClick={() => setFile(cwd.getFile('web.pres'))}>
                     <h1 className='text-3xl text-center'>web dev</h1>
                     <img src="/assets/icons/wafflehacks-icon.png" alt="My web dev projects" className='w-72 h-72 rounded-2xl border-2 border-gray-300 object-cover' />

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.9773cfb2.css",
-    "main.js": "/static/js/main.74e8effd.js",
+    "main.css": "/static/css/main.2eb08a95.css",
+    "main.js": "/static/js/main.a3a35eaf.js",
     "static/js/787.d9b9b801.chunk.js": "/static/js/787.d9b9b801.chunk.js",
     "static/media/icon.png": "/static/media/icon.5d192e13a4c909dc488b.png",
     "static/media/Quicksand-VariableFont_wght.ttf": "/static/media/Quicksand-VariableFont_wght.92e1d0f3321b53e20d2b.ttf",
@@ -22,12 +22,12 @@
     "static/media/github.lnk": "/static/media/github.0bf2bf169fb01050a8ee.lnk",
     "static/media/mail.lnk": "/static/media/mail.b5b93bbd957368d8561a.lnk",
     "static/media/presentMobile.lnk": "/static/media/presentMobile.b2fc32f3bc0ca7d19afc.lnk",
-    "main.9773cfb2.css.map": "/static/css/main.9773cfb2.css.map",
-    "main.74e8effd.js.map": "/static/js/main.74e8effd.js.map",
+    "main.2eb08a95.css.map": "/static/css/main.2eb08a95.css.map",
+    "main.a3a35eaf.js.map": "/static/js/main.a3a35eaf.js.map",
     "787.d9b9b801.chunk.js.map": "/static/js/787.d9b9b801.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9773cfb2.css",
-    "static/js/main.74e8effd.js"
+    "static/css/main.2eb08a95.css",
+    "static/js/main.a3a35eaf.js"
   ]
 }

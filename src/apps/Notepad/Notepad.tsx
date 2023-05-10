@@ -9,7 +9,7 @@ export default class Notepad implements Application  {
     code: Function;
     name: string;
     icon: string;
-    defaultSize: string[];
+    defaultSize: number[];
     resizeable: boolean;
     lines: string[];
     spawnPoint: number[];
@@ -19,7 +19,7 @@ export default class Notepad implements Application  {
     constructor(file?: any){
         this.name = 'Terminal';
         this.icon = icon;
-        this.defaultSize = ['500px', '300px'];
+        this.defaultSize = [500, 300];
         this.resizeable = true;
         
         this.lines = [];
@@ -41,7 +41,7 @@ export default class Notepad implements Application  {
         return new Notepad();
     }
 
-    app(size: number[], closeWindow: Function){
+    app(closeWindow: Function){
         return (<>
             <UI filePath={this.file} />
         </>)

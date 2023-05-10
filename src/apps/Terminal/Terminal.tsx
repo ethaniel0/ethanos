@@ -9,7 +9,7 @@ export default class Terminal implements Application  {
     code: Function;
     name: string;
     icon: string;
-    defaultSize: string[];
+    defaultSize: number[];
     resizeable: boolean;
     lines: string[];
     spawnPoint: number[];
@@ -18,7 +18,7 @@ export default class Terminal implements Application  {
     constructor(){
         this.name = 'Terminal';
         this.icon = icon;
-        this.defaultSize = ['500px', '300px'];
+        this.defaultSize = [500, 300];
         this.resizeable = true;
         this.code = () => <UI />;
         this.lines = [];

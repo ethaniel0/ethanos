@@ -8,28 +8,26 @@ import PresentApp from './PresentApp';
 import './Present.css';
 
 class Present implements Application {
+  code: Function;
   name: string;
   icon: string;
   icon2: string;
-  defaultSize: string[];
-  resizeable: boolean;
-  code: Function;
-  page: number;
-  file: string;
+  defaultSize: number[];
   spawnPoint: number[];
-  width: number;
-  height: number;
   minWidth: number;
   minHeight: number;
+  resizeable: boolean;
   menu: any;
 
-
+  page: number;
+  file: string;
+  
   constructor(file?: any){
     
     this.name = "Present";
     this.icon = icon;
     this.icon2 = icon2;
-    this.defaultSize = [window.innerWidth * 0.7 + 'px', window.innerHeight * 0.8 + 'px'];
+    this.defaultSize = [window.innerWidth * 0.7, window.innerHeight * 0.8];
     this.minWidth = 400;
     this.minHeight= 400;
     this.resizeable = false;
@@ -61,10 +59,8 @@ class Present implements Application {
     return new Present();
   }
   
-  app(size: number[], closeWindow: Function){
-    return (<>
-      <PresentApp size={size} file={this.file} />
-    </>)
+  app(closeWindow: Function){
+    return <PresentApp file={this.file} />
   }
 
 }

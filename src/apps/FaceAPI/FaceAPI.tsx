@@ -8,7 +8,7 @@ export default class WH2022DC implements Application  {
     code: Function;
     name: string;
     icon: string;
-    defaultSize: string[];
+    defaultSize: number[];
     resizeable: boolean;
     lines: string[];
     spawnPoint: number[];
@@ -17,7 +17,7 @@ export default class WH2022DC implements Application  {
     constructor(){
         this.name = 'WaffleHacks Clue 2';
         this.icon = icon;
-        this.defaultSize = ['720px', '360px'];
+        this.defaultSize = [720, 360];
         this.resizeable = true;
         this.code = () => <iframe className="w-full h-full" src="https://face-2.ethanhorowitz.repl.co" allow="camera"></iframe>;
         this.lines = [];
