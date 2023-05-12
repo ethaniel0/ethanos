@@ -5,24 +5,31 @@ import Processes from './Processes';
 import Draggable from "react-draggable";
 import Resizeable from './reusables/Resizeable';
 import WindowNavbar from './reusables/WindowNavbar';
+import { useContext } from 'react';
+import { BottomBarContext } from './Desktop';
 
 interface AppProps {
   app: Application,
-  code: string
+  windowCode: string,
+  startFullScreen?: boolean
 }
 
-export default function Window(props: AppProps){
+export default function Window({app, windowCode, startFullScreen}: AppProps){
+  if (!startFullScreen) startFullScreen = false;
 
-  let app = props.app;
   let ref = useRef(null);
   let minWidth = app.minWidth || 200;
   let minHeight = app.minHeight || 200;
-  const [isFullScreen, setFullScreen]: [boolean, Function] = useState(false);
+  const [isFullScreen, setFullScreen]: [boolean, Function] = useState(startFullScreen);
   
-  const [code, setCode] = useState(props.code);
-  const [screen, setScreen]: [number[], Function] = useState([0, 0]);
+  const [code, setCode] = useState(windowCode);
+  const [closing, setClosing] = useState(false);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
+
+  let bottomBarHeight = useContext(BottomBarContext);
+
+  if (bottomBarHeight == 0) bottomBarHeight = 64;
 
   function xyMove(x: number, y: number) {
     if (x == null) x = coords.x;
@@ -49,14 +56,15 @@ export default function Window(props: AppProps){
   }
 
   function closeWindow(){
-    Processes.removeWindow(code);
+    setClosing(true);
+    setTimeout(() => {
+      Processes.removeWindow(code);
+    }, 500);
   }
 
   useEffect(() => {
     function handleResize() {
       let width = window.innerWidth;
-      let height = window.innerHeight;
-      setScreen([width, height]);
       if (width > 0 && width <= 768) setFullScreen(true);
     }
     handleResize();
@@ -65,7 +73,7 @@ export default function Window(props: AppProps){
 
   return (
     <Draggable bounds='' handle='.navbar' disabled={isFullScreen} onDrag={onDrag} position={isFullScreen ? {x: 0, y: 0} : coords} onMouseDown={windowClick}>
-      <div ref={ref} className={'window absolute flex flex-col overflow-hidden rounded-md' + (isFullScreen ? ' no-drag flex-grow w-screen h-full' : '')} onClick={windowClick}>
+      <div ref={ref} className={'window absolute flex flex-col overflow-hidden rounded-md' + (isFullScreen ? ' no-drag flex-grow w-screen h-full' : '') + (closing ? ' closing' : '')} onClick={windowClick}>
         <Resizeable 
           width={app.defaultSize[0]} 
           height={app.defaultSize[1]} 
@@ -73,7 +81,7 @@ export default function Window(props: AppProps){
           move={xyMove} 
           minWidth={minWidth} 
           minHeight={minHeight}
-          style={isFullScreen ? {border: 'none', width: '100%', height: '100%'} : {border: '1px solid #B4B4B4'}}
+          style={isFullScreen ? {border: 'none', width: '100%', height: `calc(100% - ${bottomBarHeight}px)`} : {border: '1px solid #B4B4B4'}}
         >
           <div className='w-full h-full bg-white flex flex-col'>
 

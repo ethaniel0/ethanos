@@ -101,6 +101,37 @@
     margin-left: 0.5rem;
 }
 
+.window {
+    animation: openWindow 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.window.closing {
+    animation: closeWindow 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes openWindow {
+    0% {
+        scale: 0.5;
+    }
+    50% {
+        scale: 1.1;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes closeWindow {
+    0% {
+        scale: 1;
+    }
+    100% {
+        scale: 0;
+    }
+}
+
 @media (max-width: 768px) {
     #desktop-black {
         @apply w-full bottom-0;

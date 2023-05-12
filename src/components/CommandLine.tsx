@@ -94,19 +94,19 @@ export default class CommandLine{
         return dirs.join('    ');
     }
     openWindow(path: string): string {
-        let app: any = this.cwd.getFile(path);
-        if (typeof app === 'object') {
+        let f: any = this.cwd.getFile(path);
+        if (f == undefined) return;
+        if (typeof f === 'object') {
             return 'open: path is not a file: ' + path;
         }
 
-        let f = this.cwd.getFile(path);
         if (typeof f === 'object') {
             return 'open: path is not a file: ' + path;
         }
         if (typeof f === 'string'){
             let ext = f.split('.').pop();
             if (ext == 'lnk'){
-                fetch(app).then(resp => resp.json()).then(json => {
+                fetch(f).then(resp => resp.json()).then(json => {
                     if (json.onsite){
                         this.openWindow(json.url);
                     }
@@ -122,7 +122,7 @@ export default class CommandLine{
             }
             return '';
         }
-        Processes.addWindow(new app());
+        Processes.addWindow(new f());
         return '';
     }
     async cat(args: string[]): Promise<string>{

@@ -2,6 +2,7 @@ import Terminal from "../apps/Terminal/Terminal";
 import Present from "../apps/Present/Present";
 import Notepad from "../apps/Notepad/Notepad";
 import WH2022DC from "../apps/WH2022DC/WH2022DC";
+import Welcome from "../apps/Welcome/Welcome";
 import FaceAPI from "../apps/FaceAPI/FaceAPI";
 import presWeb from '../files/web.pres';
 import presElec from '../files/electrical.pres';
@@ -18,6 +19,7 @@ const FileSystem: any = {
     directories: {
         'E': {
             'Applications': {
+                'Welcome.app': null,
                 'Present.app': null,
                 'Terminal.app': null,
                 'Notepad.app': null,
@@ -49,6 +51,7 @@ const FileSystem: any = {
         }
     },
     initDirectories: function() {
+        this.directories.E.Applications['Welcome.app'] = Welcome;
         this.directories.E.Applications['Present.app'] = Present;
         this.directories.E.Applications['Terminal.app'] = Terminal;
         this.directories.E.Applications['Notepad.app'] = Notepad;

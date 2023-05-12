@@ -1,6 +1,5 @@
 import Application from './Application';
 import { ReactElement } from 'react';
-import Window from './Window';
 
 interface ProcessesLayout {
     windows: ReactElement<Window, any>[];

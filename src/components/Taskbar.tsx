@@ -27,11 +27,13 @@ function getDay(){
   return week + ' ' + month + '/' + day;
 }
 
+
 export default function Taskbar(){
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
   const [tray, showTray] = useState(false);
   const [pinnedApps, setPinnedApps] = useState([
+    '/E/Applications/Welcome.app',
     '/E/Applications/Present.app',
     '/E/Applications/Terminal.app'
   ]);
@@ -71,7 +73,8 @@ export default function Taskbar(){
                 let app = cmd.cwd.getFile(path);
                 if (typeof app === 'object') return null;
                 app = new app();
-                return <img key={`taskbar-${index}`} src={app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
+                let name = path.split('/').pop().split('.')[0];
+                return <img title={name} key={`taskbar-${index}`} src={app.icon} alt={name + " app"} className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
               })}
               
           </div>

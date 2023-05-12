@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import bkg from '../assets/bkg.png';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, createContext } from 'react';
 import Taskbar from './Taskbar';
 import Processes from './Processes';
 import Window from './Window';
@@ -8,6 +8,7 @@ import Application from './Application';
 import Directory from './Directory';
 import FileDisplay from './FileDisplay';
 import HomeBar from './HomeBar';
+import Welcome from '../apps/Welcome/Welcome';
 
 interface File {
     name: string;
@@ -24,6 +25,8 @@ var fileLayout: any = {
   "mail.lnk": [-1, -2.3]
 }
 
+export const BottomBarContext = createContext(64);
+
 export default function Desktop(){
   const [windows, setWindows]: [React.ReactElement<Window, any>[], Function] = useState([])
   const [files, setFiles]: [any, Function] = useState((new Directory('/E/User/Desktop')).getFiles())
@@ -34,9 +37,13 @@ export default function Desktop(){
   const [skew, setSkew]: [number, Function] = useState(12);
   let desktop = useRef(null);
 
-  Processes.addWindow = function(app: Application) {
+  const [bottomBarHeight, setBottomBarHeight]: [number, Function] = useState(0);
+  const bottomBar = useRef(null);
+
+  Processes.addWindow = function(app: Application, startFullScreen?: boolean) {
+    if (!startFullScreen) startFullScreen = false;
     let key = Math.round(Math.random()*1e15) + '';
-    let window = <Window app={app} key={key} code={key} />
+    let window = <Window app={app} key={key} windowCode={key} startFullScreen={startFullScreen} />
     let copy = [...windows];
     copy.push(window);
     setWindows(copy);
@@ -63,11 +70,6 @@ export default function Desktop(){
     setSEnd([-1, -1]);
   }
 
-  function stopProp(e: any){
-    e.cancelbubble = true;
-    if (e.stopPropagation) e.stopPropagation();
-  }
-
   useEffect(() => {
     function handleResize() {
       setWindowWidth(window.innerWidth);
@@ -78,7 +80,14 @@ export default function Desktop(){
     setSkew(12*window.innerWidth / window.innerHeight);
     window.addEventListener('resize', handleResize);
     document.getElementById('desktop').style.height = window.innerHeight + 'px';
-  })
+
+    if(bottomBar.current){
+      setBottomBarHeight(bottomBar.current.getBoundingClientRect().height);
+    }
+
+    let start = new Welcome();
+    Processes.addWindow(start, true);
+  }, [])
 
 
   return (
@@ -129,12 +138,18 @@ export default function Desktop(){
           <div id='desktop-select' className='absolute hidden md:block bg-[rgba(59,130,246,0.4)] border-[1px] border-blue-800' style={{top: Math.min(sstart[1], send[1]), left: Math.min(sstart[0], send[0]), width: Math.abs(sstart[0] - send[0]), height: Math.abs(sstart[1] - send[1])}}></div>
         }
       </div>
-
-      {windows.map((appl) => appl)}
+      
+      <BottomBarContext.Provider value={bottomBarHeight}>
+        {windows.map((appl) => appl)}
+      </BottomBarContext.Provider>
 
       {/* taskbar */}
       {
-        windowWidth > 768 ? <Taskbar /> : windows.length == 0 ? <Taskbar /> : <HomeBar />
+        windowWidth > 768 ? 
+          <div ref={bottomBar}><Taskbar /> </div>
+            : windows.length == 0 ? 
+              <Taskbar /> 
+              : <HomeBar />
       }
 
     </div>
