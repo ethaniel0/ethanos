@@ -10,24 +10,28 @@
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@tailwindcss/container-queries": "^0.1.1",
     "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^17.0.40",
-    "@types/react-dom": "^17.0.13",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "firebase": "^10.0.0",
     "font-awesome": "^4.7.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "framer-motion": "^10.12.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-draggable": "^4.4.4",
     "react-helmet": "^6.1.0",
     "react-resizable": "^3.0.4",
     "react-resizeable": "^0.2.6",
     "react-scripts": "5.0.0",
+    "react-sortablejs": "^6.1.4",
     "slick-carousel": "^1.8.1",
+    "sortablejs": "^1.15.0",
     "swiper": "^8.2.4",
+    "tailwind-merge": "^1.13.2",
     "ts-loader": "^9.2.8",
     "web-vitals": "^2.1.4",
     "webpack-cli": "^4.9.2",
-    "xterm-for-react": "^1.0.4"
+    "xterm-for-react-18": "^1.0.28"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-slick": "^0.23.8"
+    "@types/react-slick": "^0.23.8",
+    "@types/sortablejs": "^1.15.1"
   }
 }

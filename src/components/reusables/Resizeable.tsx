@@ -25,8 +25,18 @@ const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, 
     if (!minHeight) minHeight = 0;
 
     const [size, setSize] = useState({width, height});
+    const [resizing, setResizing] = useState(false);
 
     const ref = useRef(null);
+
+    const refTop = useRef(null);
+    const refBottom = useRef(null);
+    const refLeft = useRef(null);
+    const refRight = useRef(null);
+    const refTopRight = useRef(null);
+    const refTopLeft = useRef(null);
+    const refBottomRight = useRef(null);
+    const refBottomLeft = useRef(null);
 
     const lastMove = useRef(false);
 
@@ -39,6 +49,7 @@ const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, 
 
     function onResize(e: any, data: DraggableData, ...funcs: Function[]){
         stopProp(e);
+        setResizing(true);
         let newSize = {width: 0, height: 0};
         Object.assign(newSize, size);
         let newMove: any = {x: null, y: null};
@@ -74,68 +85,72 @@ const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, 
                 lastMove.current = false;
             }
         }
-      }
+    }
 
-      function shiftTop(e: any, data: DraggableData){    
-        let rect = ref.current.getBoundingClientRect();
-        let h = rect.top + rect.height - e.y;
-        return [{y: e.y}, {height: h}];
-      }
-      function shiftBottom(e: any, data: DraggableData){    
-        let rect = ref.current.getBoundingClientRect();
-        let y = e.y - rect.top;
-        return [{}, {height: y}];
-      }
-      function shiftLeft(e: any, data: DraggableData){    
-        let rect = ref.current.getBoundingClientRect();
-        let w = rect.left + rect.width - e.x;
-        return [{x: e.x}, {width: w}];
-      }
-      function shiftRight(e: any, data: DraggableData){    
-        let rect = ref.current.getBoundingClientRect();
-        let w = e.x - rect.left;
-        return [{}, {width: w}];
-      }
+    function shiftTop(e: any, data: DraggableData){    
+    let rect = ref.current.getBoundingClientRect();
+    let h = rect.top + rect.height - e.y;
+    return [{y: e.y}, {height: h}];
+    }
+    function shiftBottom(e: any, data: DraggableData){    
+    let rect = ref.current.getBoundingClientRect();
+    let y = e.y - rect.top;
+    return [{}, {height: y}];
+    }
+    function shiftLeft(e: any, data: DraggableData){    
+    let rect = ref.current.getBoundingClientRect();
+    let w = rect.left + rect.width - e.x;
+    return [{x: e.x}, {width: w}];
+    }
+    function shiftRight(e: any, data: DraggableData){    
+    let rect = ref.current.getBoundingClientRect();
+    let w = e.x - rect.left;
+    return [{}, {width: w}];
+    }
 
       
   return (
     <div ref={ref} className="resizeable " style={{width: forceSize ? width : size.width, height: forceSize ? height :size.height, ...style}}>
     
-        {children}
+        <div className='w-full h-full relative'>
+            {children}
+            <div className={"absolute top-0 left-0 w-full h-full " + (!resizing ? 'hidden' : '')}></div>
+        </div>
+        
 
         {/* window edges */}
 
         {/* top */}
-        <Draggable onDrag={(e: any, data: DraggableData) => onResize(e, data, shiftTop)} position={{x: 0, y: 0}}>
-        <div className='resize-area top'></div>
+        <Draggable nodeRef={refTop} onDrag={(e: any, data: DraggableData) => onResize(e, data, shiftTop)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refTop} className='resize-area top'></div>
         </Draggable>
         {/* left */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftLeft)} position={{x: 0, y: 0}}>
-        <div className='resize-area left'></div>
+        <Draggable nodeRef={refLeft} onDrag={(e: any, data: any) => onResize(e, data, shiftLeft)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refLeft} className='resize-area left'></div>
         </Draggable>
         {/* bottom */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftBottom)} position={{x: 0, y: 0}}>
-        <div className='resize-area bottom'></div>
+        <Draggable nodeRef={refBottom} onDrag={(e: any, data: any) => onResize(e, data, shiftBottom)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refBottom} className='resize-area bottom'></div>
         </Draggable>
         {/* right */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftRight)} position={{x: 0, y: 0}}>
-        <div className='resize-area right'></div>
+        <Draggable nodeRef={refRight} onDrag={(e: any, data: any) => onResize(e, data, shiftRight)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refRight} className='resize-area right'></div>
         </Draggable>
         {/* top right */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftTop, shiftRight)} position={{x: 0, y: 0}}>
-        <div className='resize-area tr'></div>
+        <Draggable nodeRef={refTopRight} onDrag={(e: any, data: any) => onResize(e, data, shiftTop, shiftRight)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refTopRight} className='resize-area tr'></div>
         </Draggable>
         {/* top left */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftTop, shiftLeft)} position={{x: 0, y: 0}}>
-        <div className='resize-area tl'></div>
+        <Draggable nodeRef={refTopLeft} onDrag={(e: any, data: any) => onResize(e, data, shiftTop, shiftLeft)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refTopLeft} className='resize-area tl'></div>
         </Draggable>
         {/* bottom right */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftBottom, shiftRight)} position={{x: 0, y: 0}}>
-        <div className='resize-area br'></div>
+        <Draggable nodeRef={refBottomRight} onDrag={(e: any, data: any) => onResize(e, data, shiftBottom, shiftRight)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refBottomRight} className='resize-area br'></div>
         </Draggable>
         {/* bottom left */}
-        <Draggable onDrag={(e: any, data: any) => onResize(e, data, shiftBottom, shiftLeft)} position={{x: 0, y: 0}}>
-        <div className='resize-area bl'></div>
+        <Draggable nodeRef={refBottomLeft} onDrag={(e: any, data: any) => onResize(e, data, shiftBottom, shiftLeft)} onStop={() => setResizing(false)} position={{x: 0, y: 0}}>
+        <div ref={refBottomLeft} className='resize-area bl'></div>
         </Draggable>
     </div>
   )

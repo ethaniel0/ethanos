@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { XTerm } from 'xterm-for-react';
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import CommandLine from "../../components/CommandLine";
+import styles from "./styles.module.css";
 
 const UI = () => {
 
@@ -18,19 +18,6 @@ const UI = () => {
     let cwd = commandLine.cwd;
     let pathname = cwd.getName();
     name.current = pathname === '/' ? '$' : pathname;
-
-    let mainStyles = {
-        background: 'black',
-        width: '100%',
-        height: '100%',
-        color: 'white',
-        padding: '0.5rem'
-    }
-
-    useEffect(() => {
-        // You can call any method in XTerm.js by using 'xterm xtermRef.current.terminal.[What you want to call]
-        ref.current.terminal.write(`${name.current}> `);
-    }, [])
 
     async function callCommand(line: string){
         setPrevCommands([...prevCommands, line]);
@@ -114,8 +101,8 @@ const UI = () => {
     }
 
     return (<>
-        <div className="terminal" style={mainStyles}>
-            <XTerm ref={ref} onData={onData} />    
+        <div className={"terminal " + styles.terminal_screen}>
+            <span>Terminal is being updated, check back soon!</span>
         </div>
     </>)
 }

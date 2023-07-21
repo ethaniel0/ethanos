@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext, createContext } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
 import Resizeable from './reusables/Resizeable';
 import WindowNavbar from './reusables/WindowNavbar';
-import { useContext } from 'react';
 import { BottomBarContext } from './Desktop';
 
 interface AppProps {
@@ -14,22 +13,27 @@ interface AppProps {
   startFullScreen?: boolean
 }
 
+export const WindowContext = createContext({
+  close: () => {},
+});
+
 export default function Window({app, windowCode, startFullScreen}: AppProps){
   if (!startFullScreen) startFullScreen = false;
 
-  let ref = useRef(null);
+  const ref = useRef(null);
   let minWidth = app.minWidth || 200;
   let minHeight = app.minHeight || 200;
   const [isFullScreen, setFullScreen]: [boolean, Function] = useState(startFullScreen);
   
-  const [code, setCode] = useState(windowCode);
+  const code = windowCode;
   const [closing, setClosing] = useState(false);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
+  let [firstRender, setFirstRender] = useState<boolean>(true);
 
   let bottomBarHeight = useContext(BottomBarContext);
 
-  if (bottomBarHeight == 0) bottomBarHeight = 64;
+  if (bottomBarHeight === 0) bottomBarHeight = 64;
 
   function xyMove(x: number, y: number) {
     if (x == null) x = coords.x;
@@ -69,33 +73,37 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
     }
     handleResize();
     window.addEventListener('resize', handleResize);
+    setTimeout(() => setFirstRender(false), 500);
+    
   }, []);
 
   return (
-    <Draggable bounds='' handle='.navbar' disabled={isFullScreen} onDrag={onDrag} position={isFullScreen ? {x: 0, y: 0} : coords} onMouseDown={windowClick}>
-      <div ref={ref} className={'window absolute flex flex-col overflow-hidden rounded-md' + (isFullScreen ? ' no-drag flex-grow w-screen h-full' : '') + (closing ? ' closing' : '')} onClick={windowClick}>
-        <Resizeable 
-          width={app.defaultSize[0]} 
-          height={app.defaultSize[1]} 
-          forceSize={isFullScreen} 
-          move={xyMove} 
-          minWidth={minWidth} 
-          minHeight={minHeight}
-          style={isFullScreen ? {border: 'none', width: '100%', height: `calc(100% - ${bottomBarHeight}px)`} : {border: '1px solid #B4B4B4'}}
-        >
-          <div className='w-full h-full bg-white flex flex-col'>
+    <WindowContext.Provider value={{close: closeWindow}}>
+      <Draggable nodeRef={ref} bounds='' handle='.navbar' disabled={isFullScreen} onDrag={onDrag} position={isFullScreen ? {x: 0, y: 0} : coords} onMouseDown={windowClick}>
+        <div ref={ref} className={'window' + (isFullScreen ? ' no-drag flex-grow w-screen h-full' : '') + (closing ? ' closing' : '') + (firstRender ? ' animate' : '')} onClick={windowClick}>
+          <Resizeable 
+            width={app.defaultSize[0]} 
+            height={app.defaultSize[1]} 
+            forceSize={isFullScreen} 
+            move={xyMove} 
+            minWidth={minWidth} 
+            minHeight={minHeight}
+            style={isFullScreen ? {border: 'none', width: '100%', height: `calc(100% - ${bottomBarHeight}px)`} : {border: '1px solid #B4B4B4'}}
+          >
+            <div className='w-full h-full flex flex-col'>
 
-            <WindowNavbar fullscreen={fullScreen} close={closeWindow} menu={app.menu} />
+              <WindowNavbar fullscreen={fullScreen} close={closeWindow} menu={app.menu} />
 
-            {/* window body */}
-            <div className="@container overflow-auto" style={{width: '100%', flexGrow: 1}}>
-              {app.code(closeWindow)}
+              {/* window body */}
+              <div className="@container overflow-hidden" style={{width: '100%', flexGrow: 1}}>
+                {app.code()}
+              </div>
+
             </div>
-
-          </div>
-        </Resizeable>
-      </div>
-    </Draggable>
+          </Resizeable>
+        </div>
+      </Draggable>
+    </WindowContext.Provider>
   );
   
 }

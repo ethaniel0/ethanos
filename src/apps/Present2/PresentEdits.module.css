@@ -1,0 +1,24 @@
+.table {
+    width: 100%;
+}
+.table tr td:first-child {
+    width: 20%;
+    font-weight: 700;
+    vertical-align:top;
+}
+
+.table tr td input{
+    @apply border-2 border-gray-600 px-2 py-px rounded-md;
+}
+.table tr td input[type=text]{
+    width: 80%;
+}
+.table tr td input[type=number]{
+    width: 6rem;
+    text-align: center;
+}
+
+.table tr td textarea{
+    @apply border-2 border-gray-600 px-2 py-px rounded-md text-base;
+    width: 80%;
+}

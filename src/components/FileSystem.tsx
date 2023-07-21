@@ -4,10 +4,9 @@ import Notepad from "../apps/Notepad/Notepad";
 import WH2022DC from "../apps/WH2022DC/WH2022DC";
 import Welcome from "../apps/Welcome/Welcome";
 import FaceAPI from "../apps/FaceAPI/FaceAPI";
-import presWeb from '../files/web.pres';
-import presElec from '../files/electrical.pres';
-import presResearch from '../files/research.pres';
-import presApps from '../files/applications.pres';
+import present2File from '../files/present2.lnk';
+import Present2 from "../apps/Present2/Present2";
+
 import devp from '../files/devpost.lnk';
 import git from '../files/github.lnk';
 import lin from '../files/linkedin.lnk';
@@ -21,6 +20,7 @@ const FileSystem: any = {
             'Applications': {
                 'Welcome.app': null,
                 'Present.app': null,
+                'Present2.app': null,
                 'Terminal.app': null,
                 'Notepad.app': null,
                 "WaffleHacks2022Clue2.app": null,
@@ -28,10 +28,7 @@ const FileSystem: any = {
             },
             'User': {
                 'Desktop': {
-                    "web.pres": presWeb,
-                    "applications.pres": presApps,
-                    "electrical.pres": presElec,
-                    "research.pres": presResearch,
+                    "Present.lnk": present2File,
                     "devpost.lnk": devp,
                     "github.lnk": git,
                     "linkedin.lnk": lin,
@@ -53,6 +50,7 @@ const FileSystem: any = {
     initDirectories: function() {
         this.directories.E.Applications['Welcome.app'] = Welcome;
         this.directories.E.Applications['Present.app'] = Present;
+        this.directories.E.Applications['Present2.app'] = Present2;
         this.directories.E.Applications['Terminal.app'] = Terminal;
         this.directories.E.Applications['Notepad.app'] = Notepad;
         this.directories.E.Applications["WaffleHacks2022Clue2.app"] = WH2022DC;

@@ -58,8 +58,8 @@ class Welcome implements Application {
     return new Welcome();
   }
   
-  app(closeWindow: Function){
-    return <UI closeWindow={closeWindow} />
+  app(){
+    return <UI />
   }
 
 }

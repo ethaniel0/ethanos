@@ -9,17 +9,22 @@ interface AppProps {
 }
 
 const FileApp = ({ path, name, index }: AppProps) => {
-    const cmd = new CommandLine();
-
    const [app, setApp] = useState({icon: '', icon2: '', url: ''});
 
     useEffect(() => {
+        let isCancelled = false;
         async function loadApp(){   
             let resp = await fetch(name);
             let json = await resp.json();
-            setApp(json);
+            if (!isCancelled){
+                setApp(json);
+            }
         }
-        loadApp();
+        loadApp().catch(console.error);
+
+        return () => {
+            isCancelled = true;
+          };
     }, []);
 
     function stopProp(e: any){

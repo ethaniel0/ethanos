@@ -7,3 +7,4 @@ declare module "*.ttf";
 declare module "*.pres";
 declare module "*.lnk";
 declare module "*.txt";
+declare module "*.module.css";

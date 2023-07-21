@@ -8,7 +8,7 @@ const LandingPage = ({ setFile }: AppProps) => {
     let cwd = new Directory('/E/User/Desktop');
 
     return (
-        <div className='text-gray-100 flex flex-col items-center' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
+        <div className='text-gray-100 flex flex-col items-center h-full overflow-auto' style={{fontFamily: 'UbuntuTitle', backgroundColor: '#242A3E', minHeight: '100%'}}>
             <h1 className='text-5xl text-center pt-4'>Hello World!</h1>
             <h3 className='text-2xl text-center pt-4' style={{fontFamily: 'Quicksand'}}>My skills:</h3>
             <p className='text-lg text-center px-4 flex flex-wrap justify-center' style={{fontFamily: 'Quicksand', maxWidth: '50rem'}}>

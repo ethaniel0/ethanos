@@ -31,7 +31,7 @@ const ProjectView = ( { filePath, setPage, backPage }: AppProps ) => {
     }, [filePath]);
 
     return (
-        <div className='pb-12' style={{fontFamily: 'Avenir', backgroundColor: '#242A3E', minHeight: '100%'}}>
+        <div className='pb-12 overflow-auto h-full' style={{fontFamily: 'Avenir', backgroundColor: '#242A3E', minHeight: '100%'}}>
             {
                 viewProject === '' ?
                 <ProjectLayoutView file={file} setProject={setViewProject} setPage={setPage} />

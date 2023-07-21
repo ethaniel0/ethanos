@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AppDrawer from './AppDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import CommandLine from './CommandLine';
 import FileApp from './FileApp';
-
-
 
 function getTime(){
   let d = new Date();
@@ -27,32 +25,41 @@ function getDay(){
   return week + ' ' + month + '/' + day;
 }
 
-
 export default function Taskbar(){
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
   const [tray, showTray] = useState(false);
   const [pinnedApps, setPinnedApps] = useState([
     '/E/Applications/Welcome.app',
-    '/E/Applications/Present.app',
+    '/E/Applications/Present2.app',
     '/E/Applications/Terminal.app'
   ]);
   const [drawerApps, setDrawerApps] = useState([
-    '/E/Applications/Present.app',
+    '/E/Applications/Present2.app',
     '/E/Applications/Terminal.app',
     '/E/Applications/Notepad.app',
     '/E/Applications/WaffleHacks2022Clue2.app',
     '/E/Applications/FaceAPI.app',
   ]);
   const [mobileDock, setmobileDock] = useState([
-    '/E/Applications/Present.app',
+    '/E/Applications/Present2.app',
     '/E/User/Desktop/mail.lnk',
     '/E/User/Desktop/devpost.lnk',
     '/E/User/Desktop/github.lnk',
   ]);
+
   const cmd = new CommandLine();
-  setInterval(() => setTime(getTime()), 1000);
-  setInterval(() => setDay(getDay()), 1000);
+
+  useEffect(() => {
+    let timeTimer = setInterval(() => setTime(getTime()), 1000);
+    let dayTimer = setInterval(() => setDay(getDay()), 1000);
+
+    return function cleanup() {
+      clearInterval(timeTimer);
+      clearInterval(dayTimer);
+    };
+  }, []);
+  
 
   return (
     <>

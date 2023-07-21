@@ -1,0 +1,131 @@
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/Avenir.ttc);
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Light-07.ttf);
+    font-weight: 100;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-LightOblique-08.ttf);
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Book-01.ttf);
+    font-weight: 200;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-BookOblique-02.ttf);
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Roman-12.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Medium-09.ttf);
+    font-weight: 400;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-MediumOblique-10.ttf);
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Heavy-05.ttf);
+    font-weight: 700;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-HeavyOblique-06.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-Black-03.ttf);
+    font-weight: 900;
+}
+@font-face {
+    font-family: Avenir;
+    src: url(./assets/fonts/Avenir-BlackOblique-04.ttf);
+    font-weight: 900;
+    font-style: italic;
+}
+
+#present2 * {
+    font-family: Avenir;
+}
+
+#present2 .project-card {
+    @apply relative inline-flex p-2 rounded-lg gap-2 text-left;
+    backdrop-filter: blur(40px);
+}
+#present2 .project-preview {
+    @apply p-2 rounded-lg backdrop-blur-lg gap-2;
+    position: absolute;
+    display: flex;
+    text-align: left;
+    z-index: 100;
+
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+    animation: 0.3s forwards ease-out bubbleExpand;
+}
+
+#present2 .project-preview.close {
+    animation: 0.3s forwards ease-out bubbleRetract;
+}
+
+#present2 .project-card .info {
+    @apply flex flex-col justify-between;
+}
+
+#present2 .project-card .image {
+    @apply w-24 h-24 sm:w-36 sm:h-36 rounded-md opacity-70 border-2 border-gray-500/50 bg-cover bg-center;
+}
+
+@keyframes expandOut {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bubbleExpand {
+    0% {
+        scale: 0.2;
+    }
+    60% {
+        scale: 1.05;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes bubbleRetract {
+    0% {
+        scale: 1;
+    }
+    40% {
+        scale: 1.05;
+    }
+    100% {
+        scale: 0;
+    }
+}
