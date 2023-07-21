@@ -38,7 +38,6 @@ const ProjectListTab = ({ projects, select, db, reloadPage, back }: ProjectListT
         let order = state.map((p) => p.id);
         let prevOrder = projects.map((p) => p.id);
         if (order == prevOrder || order.length == 0) return;
-        console.log('resetting order', projectList.map(p => p.displayTitle));
         let docRef = doc(db, 'Apps/Present');
         updateDoc(docRef, {
             Order: order

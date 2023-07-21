@@ -31,12 +31,16 @@ const Popup = ({proj, close, storage}: PopupProps) => {
 
     useEffect(() => {
         let projWithImages = {...proj};
+        setImageAvailable(true);
 
         for (let img of proj.images) {
+            if (img.img.startsWith('http')){
+                continue;
+            }
             dbUtils.loadImage(storage, img.img).then((url) => {
                 img.img = url;
                 setProject(projWithImages);
-                setImageAvailable(true);
+                
             })
         }
         

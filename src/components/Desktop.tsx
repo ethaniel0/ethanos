@@ -48,8 +48,12 @@ export default function Desktop(){
       setBottomBarHeight(bottomBar.current.getBoundingClientRect().height);
     }
 
-    let start = new Welcome();
-    Processes.addWindow(start, true);
+    if (!localStorage.getItem("welcome")){
+      localStorage.setItem("welcome", "true");
+      let start = new Welcome();
+      Processes.addWindow(start, true);
+    }
+    
   }, []);
 
 
