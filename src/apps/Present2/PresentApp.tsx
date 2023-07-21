@@ -25,6 +25,7 @@ const PresentApp = ({file}: any) => {
         dbUtils.loadProjects(db).then(async projects => {
             setProjects(projects);
             for (let i = 0; i < projects.length; i++){
+                if (projects[i].displayImg.startsWith('http')) continue;
                 dbUtils.loadImage(storage, projects[i].displayImg).then(img => {
                     projects[i].displayImg = img;
                     setProjects([...projects]);

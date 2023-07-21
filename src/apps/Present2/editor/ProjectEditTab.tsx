@@ -54,8 +54,8 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
 
         if (!displayImg.startsWith('https://firebasestorage.googleapis.com/')){
             const fileRef = ref(imagesRef, `${project.id}/displayImg`);
-            await uploadImage(ref(imagesRef, `${project.id}/displayImg`), displayImg);
-            updatedProject['displayImg'] = fileRef.fullPath;
+            let url = await uploadImage(ref(imagesRef, `${project.id}/displayImg`), displayImg);
+            updatedProject['displayImg'] = url;
         }
         updatedProject['images'] = [...images];
         // reupload images array regardless, upload any new images
@@ -63,8 +63,8 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
             let str = loadedImages[i];
             if (!str.startsWith('https://firebasestorage.googleapis.com/')){
                 const fileRef = ref(imagesRef, `${project.id}/img${i}.${ str.split(';')[0].split('/')[1] }`);
-                await uploadImage(fileRef, str);
-                updatedProject['images'][i].img = fileRef.fullPath;
+                let url = await uploadImage(fileRef, str);
+                updatedProject['images'][i].img = url;
             }
         }
         var docRef = doc(db, "Apps/Present/Projects", project.id);
