@@ -1,4 +1,4 @@
-import { Reorder } from 'framer-motion';
+import { ReactSortable } from "react-sortablejs";
 import * as React from 'react'
 import { CaptionedImage, Project } from '../types';
 import { useEffect, useState } from 'react';
@@ -152,8 +152,19 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
     }
 
     function addImage(){
-        setImages([...images, {img: "", caption: "", index: images.length}])
+        setImages([...images, {img: "", caption: "", index: images.length, id: images.length}])
         setLoadedImages([...loadedImages, ""]);
+    }
+
+    function setImageList(state: CaptionedImage[]){
+        let loadedImagesNew = state.map(p => loadedImages[p.index]);
+        for (let i = 0; i < state.length; i++){
+            state[i].index = i;
+            state[i].id = i;
+        }
+        setLoadedImages(loadedImagesNew);
+        setImages(state);
+        setNeedsToSave(true);
     }
 
     return (
@@ -216,9 +227,11 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
 
             <div className='ml-2'>
                 <span className='font-bold text-xl mb-4 block'>Images</span>
-                <Reorder.Group axis="y" values={images} onReorder={setImages} className='flex flex-col gap-4'>
-                    {images.map((image, ind) => (
-                        <Reorder.Item key={image.index} value={image} className='flex gap-2'>
+
+                <ReactSortable list={images} setList={setImageList} className='flex flex-col gap-2'>
+                    {
+                        images.map((p, ind) => (
+                            <div className='flex gap-2'>
                             <button onClick={() => {
                                 let imgs = images.slice(); 
                                 imgs.splice(ind, 1); 
@@ -230,15 +243,16 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                                 <img onClick={_ => updateImage(ind)} src={loadedImages[ind]} alt="Display Image" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
                             </div>
                             
-                            <textarea value={image.caption} onChange={(e => {
+                            <textarea value={p.caption} onChange={(e => {
                                 let imgs = images.slice(); 
                                 imgs[ind].caption = e.target.value; 
                                 setImages(imgs)
                             })} className='border-2 border-black rounded-md' />
-                        </Reorder.Item>
-                    ))}
+                        </div>
+                        ))
+                    }
                     <button onClick={addImage} className='px-2 py-1 border-2 border-black rounded-md'>Add Image</button>
-                </Reorder.Group>
+                </ReactSortable>
             </div>
         </div>
     )

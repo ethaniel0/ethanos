@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Project } from '../types';
 import { Firestore, addDoc, collection, doc, updateDoc } from 'firebase/firestore/lite';
-import { Reorder } from 'framer-motion';
 import { ReactSortable } from "react-sortablejs";
 import { useEffect, useState } from 'react';
 

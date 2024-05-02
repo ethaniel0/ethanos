@@ -19,8 +19,8 @@ const WindowNavbar = ({ fullscreen, close, style, menu }: WindowNavbarProps) => 
         <div className='md:flex gap-4 hidden'>
         {
             Object.keys(menu).map(key => (
-            <span key={key} className='cursor-pointer'>{key}</span>
-            ) )
+              <span key={key} className='cursor-pointer'>{key}</span>
+            ))
         }
         </div>
         <div className='flex'>

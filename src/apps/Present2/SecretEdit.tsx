@@ -21,7 +21,13 @@ export const SecretEdit = ({back}: SecretEditProps) => {
 
     async function loadProjects(){
         if (!db) return;
-        setProjects(await dbUtils.loadProjects(db, true));
+        let projects = await dbUtils.loadProjects(db, true);
+        for (let project of projects){
+            for (let image of project.images){
+                image.id = image.index;
+            }
+        }
+        setProjects(projects);
     }
 
     function signIn(){
