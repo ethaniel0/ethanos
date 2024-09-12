@@ -74,7 +74,7 @@ export default function Desktop(){
       {
         windowWidth > 768 ? 
           <div ref={bottomBar}><Taskbar /> </div>
-            : windows.length == 0 ? 
+            : windows.length === 0 ? 
               <Taskbar /> 
               : <HomeBar />
       }

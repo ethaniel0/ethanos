@@ -18,7 +18,6 @@ interface PopupProps {
 
 const Popup = ({proj, close, storage}: PopupProps) => {
     const [closing, setClosing] = React.useState<boolean>(false);
-    const [project, setProject] = React.useState<Project>(proj);
     const [imageAvailable, setImageAvailable] = React.useState<boolean>(false);
 
     function back(){
@@ -30,21 +29,15 @@ const Popup = ({proj, close, storage}: PopupProps) => {
     }
 
     useEffect(() => {
-        let projWithImages = {...proj};
         setImageAvailable(true);
-
         for (let img of proj.images) {
             if (img.img.startsWith('http')){
                 continue;
             }
             dbUtils.loadImage(storage, img.img).then((url) => {
                 img.img = url;
-                setProject(projWithImages);
-                
             })
         }
-        
-
     }, []);
 
     return (
@@ -63,7 +56,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
 
                 <h1 className='text-3xl font-extrabold text-center w-full'>{proj.title}</h1>
                 <div className='text-center pb-2'>
-                    <span className='text-lg'>Check it out <a href={proj.link} target='_blank' className='text-blue-600 font-bold'>here!</a></span>
+                    <span className='text-lg'>Check it out <a href={proj.link} target='_blank' rel="noreferrer" className='text-blue-600 font-bold'>here!</a></span>
                 </div>
                 
                 <div className='flex flex-col gap-4 w-full overflow-auto'>

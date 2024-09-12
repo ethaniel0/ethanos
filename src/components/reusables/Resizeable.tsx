@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
-import Application from '../Application';
-import Processes from '../Processes';
+import { useState, useRef } from 'react';
 import Draggable, { DraggableData } from "react-draggable";
 
 interface ResizeableProps {

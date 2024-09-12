@@ -19,7 +19,7 @@ export default class WH2022DC implements Application  {
         this.icon = icon;
         this.defaultSize = [720, 360];
         this.resizeable = true;
-        this.code = () => <iframe className="w-full h-full" src="https://bfd6afaa-c465-4fe4-b3e5-9231958eac68-00-c6zcsvocoe3f.kirk.replit.dev/" allow="camera"></iframe>;
+        this.code = () => <iframe title="Face API Workshop" className="w-full h-full" src="https://bfd6afaa-c465-4fe4-b3e5-9231958eac68-00-c6zcsvocoe3f.kirk.replit.dev/" allow="camera"></iframe>;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
         this.menu = {

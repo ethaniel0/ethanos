@@ -91,7 +91,6 @@ const UI = () => {
             <span>{cwd.path.trim()}&gt;</span>
             <span>{line}</span>
             <span style={{display: showCursor ? '' : 'none'}}>▌</span>
-            {/* <span>Terminal is being updated, check back soon!</span> */}
         </div>
     </>)
 }

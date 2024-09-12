@@ -88,7 +88,7 @@ export default function Taskbar(){
           <div className='apps2 md:hidden grow h-full flex items-center px-2 justify-around border-r-2 border-white'>
               {mobileDock.map((path: string, index: number) => {
                 let app = cmd.cwd.getFile(path);
-                if (typeof app === 'object') return;
+                if (typeof app === 'object') return null;
                 if (typeof app === 'string') return <FileApp key={`taskbar-${index}`} path={path} name={app} index={index} />;
                 else if (typeof app === 'function') app = new app();
                 return <img key={`taskbar-${index}`} src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' onClick={() => cmd.command('open ' + path)} />
