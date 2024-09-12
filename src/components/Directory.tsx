@@ -1,4 +1,4 @@
-import FileSystem from './FileSystem';
+ import FileSystem from './FileSystem';
 
 export default class Directory {
     path: string;

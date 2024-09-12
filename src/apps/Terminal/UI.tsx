@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import CommandLine from "../../components/CommandLine";
 import styles from "./styles.module.css";
 
@@ -8,12 +8,11 @@ const UI = () => {
     const [lines, setLines] = useState([]);
     const [commandLine, setCommandLine] = useState(new CommandLine('/E'));
     const [prevCommands, setPrevCommands] = useState([]);
+    const [showCursor, setShowCursor] = useState<boolean>(true);
+    const [line, setLine] = useState('');
     const name = useRef('/');
     
     let ref = useRef(null);
-
-    let input = useRef('');
-    let cursor = useRef(0);
 
     let cwd = commandLine.cwd;
     let pathname = cwd.getName();
@@ -28,81 +27,71 @@ const UI = () => {
         return resp;
     }
 
-    async function onData(data: string) {
-        
-        const code = data.charCodeAt(0);
-        
-        let escapeChar = code === 27;
-        if (code === 13) {
-            let response = await callCommand(input.current);
-            response = response.split('\n').join('\r\n');
-            if (response.length > 0) {
-                ref.current.terminal.write(
-                    "\r\n" + response + "\r\n"
-                );
+    async function onKey(e: React.KeyboardEvent<HTMLDivElement>){
+        if (e.key === 'Enter') {
+            if (line.trim() === 'clear'){
+                setLines([]);
+                setLine('');
+                return;
             }
-            else {
-                ref.current.terminal.write("\r\n");
-            }
-            ref.current.terminal.write(`${name.current}> `);
-            input.current = '';
-            cursor.current = 0;
-        } 
-        else if (code === 127){ // allow deleting characters
-            if (cursor.current === 0) return;
-            let cur = input.current;
-            if (cursor.current === input.current.length){
-                ref.current.terminal.write("\b \b");  
-            }
-            else {
-                let after = cur.substring(cursor.current);
-                ref.current.terminal.write('\b' + after + ' ');
-                for (let i = 0; i <= after.length; i++){
-                    ref.current.terminal.write('\b');
-                }
-            }
-            input.current = cur.substring(0, cursor.current-1) + cur.substring(cursor.current);
-            cursor.current--;
-            
+
+            let response = await callCommand(line.trim());
+            let responses = response.split('\n');
+            let cwd_prefix = cwd.path.trim() + '>';
+            setLines([...lines, cwd_prefix + line, ...responses]);
+            setLine('');
+            // scroll to bottom of div
+            setTimeout(() => {
+                ref.current.scrollTo({
+                    top: ref.current.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 100);
         }
-        else if (escapeChar){ // allow arrow keys
-            let key = data.substring(1, data.length);
-            if (key === '[D' && cursor.current > 0){ // left arrow
-                ref.current.terminal.write('\x1b[D');
-                cursor.current--;
-            }
-            if (key === '[C' && cursor.current < input.current.length){ // right arrow
-                ref.current.terminal.write('\x1b[C');
-                cursor.current++;
-            }
-            if (key === '[A'){ // up arrow
-                if (prevCommands.length > 0){
-                    let prev = prevCommands[prevCommands.length - 1];
-                    ref.current.terminal.write('\b \b'.repeat(cursor.current));
-                    input.current = prev;
-                    cursor.current = prev.length;
-                    ref.current.terminal.write(prev);
-                }
+        else if (e.key === 'Backspace'){
+            setLine(line.substring(0, line.length - 1));
+        }
+        else if (e.key === 'Tab') {
+            let lineParts = line.split(' ');
+            let lastTyped = lineParts[lineParts.length - 1];
+            if (lastTyped.length < 2) return;
+            let dirs = cwd.getDirectories();
+            let possible = dirs.filter(d => d.startsWith(lastTyped));
+            if (possible.length >= 1){
+                let line = lineParts.slice(0, lineParts.length - 1).join(' ') + ' ' + possible[0];
+                setLine(line.trim());
             }
         }
-        else if (code < 32) { // Disable control Keys
-            return;
-        } else { // Add general key press characters to the terminal
-            let cur = input.current;
-            let right = cur.substring(cursor.current);
-            ref.current.terminal.write(data + right);
-            for (let i = 0; i < right.length; i++){
-                ref.current.terminal.write('\b');
-            }
-            
-            input.current = cur.substring(0, cursor.current) + data + cur.substring(cursor.current);
-            cursor.current++;
+        else if (e.key.length === 1){
+            setLine(line + e.key);
         }
     }
+    
+    useEffect(() => {
+        function handleCursor(){
+            setShowCursor(cursor => !cursor);
+        }
+        let interval = setInterval(handleCursor, 750);
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
 
     return (<>
-        <div className={"terminal " + styles.terminal_screen}>
-            <span>Terminal is being updated, check back soon!</span>
+        <div onKeyDown={onKey}
+            className={"terminal " + styles.terminal_screen}
+            tabIndex={0}
+            ref={ref}
+            style={{overflow: 'auto'}}
+        >
+            <div>
+                {lines.map((line, i) => <div key={i}>{line}</div>)}
+            </div>
+            <span>{cwd.path.trim()}&gt;</span>
+            <span>{line}</span>
+            <span style={{display: showCursor ? '' : 'none'}}>▌</span>
+            {/* <span>Terminal is being updated, check back soon!</span> */}
         </div>
     </>)
 }

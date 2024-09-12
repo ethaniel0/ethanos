@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Project } from '../types';
-import { Firestore, addDoc, collection, doc, updateDoc } from 'firebase/firestore/lite';
+import { Firestore, addDoc, collection, doc, updateDoc, deleteDoc } from 'firebase/firestore/lite';
 import { ReactSortable } from "react-sortablejs";
 import { useEffect, useState } from 'react';
 
@@ -42,6 +42,25 @@ const ProjectListTab = ({ projects, select, db, reloadPage, back }: ProjectListT
             Order: order
         });
     }
+
+    function removeProject(ind: number){
+        console.log('removing project', ind);
+        let projectsCollection = collection(db, 'Apps/Present/Projects');
+        let project = projectList[ind];
+        let docRef = doc(projectsCollection, project.id);
+        console.log('deleting project', project.id);
+        
+        let newOrder = projectList.filter((_, i) => i != ind);
+        updateDoc(docRef, {
+            Order: newOrder
+        }).then(() => {
+            deleteDoc(docRef).then(async (_) => {
+                await reloadPage();
+            });
+        });
+
+    }
+
     return (
         <div className=''>
             <div className='w-full'>
@@ -51,7 +70,7 @@ const ProjectListTab = ({ projects, select, db, reloadPage, back }: ProjectListT
                 {
                     projectList.map((p, ind) => (
                         <div key={ind}>
-                            <span>|||</span> <button onClick={() => select(ind)} className='bg-gray-200 border-2 border-gray-600 px-4 py-2 rounded-md'>{p.displayTitle}</button>
+                            <span>|||</span> <button onClick={() => select(ind)} className='bg-gray-200 border-2 border-gray-600 px-4 py-2 rounded-md'>{p.displayTitle}</button> <button onClick={() => removeProject(ind)} className='bg-red-200 border-2 border-red-800 px-4 py-2 rounded-md'>-</button>
                         </div>
                     ))
                 }
