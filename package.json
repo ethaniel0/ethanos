@@ -15,13 +15,9 @@
     "@types/react-dom": "^18.2.6",
     "firebase": "^10.0.0",
     "font-awesome": "^4.7.0",
-    "framer-motion": "^10.12.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.4",
-    "react-helmet": "^6.1.0",
-    "react-resizable": "^3.0.4",
-    "react-resizeable": "^0.2.6",
     "react-scripts": "5.0.0",
     "react-sortablejs": "^6.1.4",
     "slick-carousel": "^1.8.1",
@@ -30,8 +26,7 @@
     "tailwind-merge": "^1.13.2",
     "ts-loader": "^9.2.8",
     "web-vitals": "^2.1.4",
-    "webpack-cli": "^4.9.2",
-    "xterm-for-react-18": "^1.0.28"
+    "webpack-cli": "^4.9.2"
   },
   "scripts": {
     "start": "react-scripts start",
