@@ -41,7 +41,7 @@ export default class Directory {
                 if (dir.getParent() == null) return new Directory('/');
                 curPath.pop();
             }
-            if (parts[0] == '.') parts.splice(0, 1);
+            if (parts[0] === '.') parts.splice(0, 1);
             let newpath = parts.join('/');
             let d = new Directory(curPath.join('/') + (newpath ? '/' + newpath : ""));
             if (d.directory == null) return null;

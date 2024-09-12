@@ -83,7 +83,7 @@ export default class CommandLine{
     ls(args: string[]): string{
         let cwd = this.cwd;
         if (args.length > 0){
-            if (args.length == 1){
+            if (args.length === 1){
                 let newcwd = this.cwd.get(args[0]);
                 if (!newcwd) return `ls: directory "${args[0]}" does not exist`
                 cwd = newcwd;
@@ -95,7 +95,7 @@ export default class CommandLine{
     }
     openWindow(path: string): string {
         let f: any = this.cwd.getFile(path);
-        if (f == undefined) return;
+        if (f === undefined) return;
         if (typeof f === 'object') {
             return 'open: path is not a file: ' + path;
         }
@@ -105,7 +105,7 @@ export default class CommandLine{
         }
         if (typeof f === 'string'){
             let ext = f.split('.').pop();
-            if (ext == 'lnk'){
+            if (ext === 'lnk'){
                 fetch(f).then(resp => resp.json()).then(json => {
                     if (json.onsite){
                         this.openWindow(json.url);
@@ -126,7 +126,7 @@ export default class CommandLine{
         return '';
     }
     async cat(args: string[]): Promise<string>{
-        if (args.length == 0) return "cat: no file specified"
+        if (args.length === 0) return "cat: no file specified"
         let file = this.cwd.getFile(args[0]);
         if (!file) return `cat: file does not exist: ${args[0]}`;
         let resp = await fetch(file);

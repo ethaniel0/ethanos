@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 const UI = () => {
 
     const [lines, setLines] = useState([]);
-    const [commandLine, setCommandLine] = useState(new CommandLine('/E'));
+    const commandLine = new CommandLine('/E');
     const [prevCommands, setPrevCommands] = useState([]);
     const [showCursor, setShowCursor] = useState<boolean>(true);
     const [line, setLine] = useState('');
