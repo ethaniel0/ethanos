@@ -31,18 +31,18 @@ export default function Taskbar(){
   const [tray, showTray] = useState(false);
   const [pinnedApps, setPinnedApps] = useState([
     '/E/Applications/Welcome.app',
-    '/E/Applications/Present2.app',
+    '/E/Applications/Present.app',
     '/E/Applications/Terminal.app'
   ]);
   const [drawerApps, setDrawerApps] = useState([
-    '/E/Applications/Present2.app',
+    '/E/Applications/Present.app',
     '/E/Applications/Terminal.app',
     '/E/Applications/Notepad.app',
     '/E/Applications/WaffleHacks2022Clue2.app',
     '/E/Applications/FaceAPI.app',
   ]);
   const [mobileDock, setmobileDock] = useState([
-    '/E/Applications/Present2.app',
+    '/E/Applications/Present.app',
     '/E/User/Desktop/mail.lnk',
     '/E/User/Desktop/devpost.lnk',
     '/E/User/Desktop/github.lnk',

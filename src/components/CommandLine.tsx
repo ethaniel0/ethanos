@@ -61,6 +61,7 @@ export default class CommandLine{
                 if (!path.startsWith('/') && !path.startsWith('.')) path = './' + path;
                 let d = this.cwd.get(path);
                 if (d !== null){
+                    console.log('setting cwd to', d);
                     this.cwd = d;
                     return '';
                 }

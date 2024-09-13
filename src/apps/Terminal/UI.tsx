@@ -6,24 +6,18 @@ import styles from "./styles.module.css";
 const UI = () => {
 
     const [lines, setLines] = useState([]);
-    const commandLine = new CommandLine('/E');
+    const [commandLine, _] = useState(new CommandLine('/E'));
     const [prevCommands, setPrevCommands] = useState([]);
     const [showCursor, setShowCursor] = useState<boolean>(true);
     const [line, setLine] = useState('');
-    const name = useRef('/');
+    const [cwd, setCwd] = useState(commandLine.cwd);
     
     let ref = useRef(null);
-
-    let cwd = commandLine.cwd;
-    let pathname = cwd.getName();
-    name.current = pathname === '/' ? '$' : pathname;
 
     async function callCommand(line: string){
         setPrevCommands([...prevCommands, line]);
         let resp = await commandLine.command(line);
         setLines([...lines, line]);
-        let pathname = commandLine.cwd.getName();
-        name.current = pathname === '/' ? '$' : pathname;
         return resp;
     }
 
@@ -36,6 +30,7 @@ const UI = () => {
             }
 
             let response = await callCommand(line.trim());
+            setCwd(commandLine.cwd);
             let responses = response.split('\n');
             let cwd_prefix = cwd.path.trim() + '>';
             setLines([...lines, cwd_prefix + line, ...responses]);
@@ -52,6 +47,8 @@ const UI = () => {
             setLine(line.substring(0, line.length - 1));
         }
         else if (e.key === 'Tab') {
+            e.preventDefault();
+            e.stopPropagation();
             let lineParts = line.split(' ');
             let lastTyped = lineParts[lineParts.length - 1];
             if (lastTyped.length < 2) return;

@@ -1,5 +1,4 @@
 import Terminal from "../apps/Terminal/Terminal";
-import Present from "../apps/Present/Present";
 import Notepad from "../apps/Notepad/Notepad";
 import WH2022DC from "../apps/WH2022DC/WH2022DC";
 import Welcome from "../apps/Welcome/Welcome";
@@ -20,7 +19,6 @@ const FileSystem: any = {
             'Applications': {
                 'Welcome.app': null,
                 'Present.app': null,
-                'Present2.app': null,
                 'Terminal.app': null,
                 'Notepad.app': null,
                 "WaffleHacks2022Clue2.app": null,
@@ -49,8 +47,7 @@ const FileSystem: any = {
     },
     initDirectories: function() {
         this.directories.E.Applications['Welcome.app'] = Welcome;
-        this.directories.E.Applications['Present.app'] = Present;
-        this.directories.E.Applications['Present2.app'] = Present2;
+        this.directories.E.Applications['Present.app'] = Present2;
         this.directories.E.Applications['Terminal.app'] = Terminal;
         this.directories.E.Applications['Notepad.app'] = Notepad;
         this.directories.E.Applications["WaffleHacks2022Clue2.app"] = WH2022DC;

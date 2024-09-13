@@ -35,24 +35,15 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
 
   if (bottomBarHeight === 0) bottomBarHeight = 64;
 
-  function xyMove(x: number, y: number) {
-    if (x == null) x = coords.x;
-    if (y == null) y = coords.y;
-    setCoords({x, y});
-  }
-
-  function fullScreen(){
-    setFullScreen(!isFullScreen);
-  }
+  function xyMove(x: number, y: number) { setCoords({x: x ?? coords.x, y: y ?? coords.y}); }
+  function fullScreen(){ setFullScreen(!isFullScreen); }
   
   function stopProp(e: any){
     e.cancelbubble = true;
     if (e.stopPropagation) e.stopPropagation();
   }
 
-  function onDrag(e: any, data: any){
-    setCoords({x: data.x, y: Math.max(0, data.y)});
-  }
+  function onDrag(e: any, data: any){ setCoords({x: data.x, y: Math.max(0, data.y)}); }
 
   function windowClick(e: any){
     stopProp(e);
@@ -73,8 +64,7 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
     }
     handleResize();
     window.addEventListener('resize', handleResize);
-    setTimeout(() => setFirstRender(false), 500);
-    
+    setTimeout(() => setFirstRender(false), 500); 
   }, []);
 
   return (
