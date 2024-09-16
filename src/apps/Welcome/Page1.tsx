@@ -15,7 +15,7 @@ const Page1 = ({ toPage, active, animate }: Page1Props) => {
         windowCtx.close();
         let cm = new CommandLine('E');
         setTimeout(() => {
-            cm.command('open Applications/Present2.app');
+            cm.command('open Applications/Present.app');
         }, 200);
     }
 

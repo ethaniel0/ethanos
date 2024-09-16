@@ -9,6 +9,7 @@ import Welcome from '../apps/Welcome/Welcome';
 import Background from './desktop/Background';
 import DesktopApps from './desktop/DesktopApps';
 import MobileApps from './desktop/MobileApps';
+import Present2 from '../apps/Present2/Present2';
 
 
 export const BottomBarContext = createContext(64);
@@ -53,6 +54,8 @@ export default function Desktop(){
       let start = new Welcome();
       Processes.addWindow(start, true);
     }
+    // let start = new Present2();
+    // Processes.addWindow(start, true);
     
   }, []);
 

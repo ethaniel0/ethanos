@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import { WindowContext } from '../../components/Window';
+import CommandLine from '../../components/CommandLine';
 
 interface Page2Props {
     active?: boolean
@@ -10,6 +11,15 @@ interface Page2Props {
 const Page3 = ({ active, animate }: Page2Props) => {
 
     const windowCtx = useContext(WindowContext);
+
+    function close()
+    {
+        windowCtx.close();
+        let cm = new CommandLine('E');
+        setTimeout(() => {
+            cm.command('open Applications/Present.app');
+        }, 200);
+    }
 
     return (
         // desktop
@@ -38,7 +48,7 @@ const Page3 = ({ active, animate }: Page2Props) => {
                 <span className="f8 text-xl absolute rotate-180 left-0 right-0 bottom-[1rem] m-[auto] font-bold" >Socials</span>  
             </div>
 
-            <button onClick={windowCtx.close} className="f9 text-black bg-white/[90%] font-bold px-8 py-4 text-3xl rounded-lg absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%]">Go Explore</button>
+            <button onClick={close} className="f9 text-black bg-white/[90%] font-bold px-8 py-4 text-3xl rounded-lg absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%]">Go Explore</button>
         </div>
         // mobile
     )
