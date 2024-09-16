@@ -78,12 +78,17 @@
     text-align: left;
     z-index: 100;
 
-    width: 90%;
-    height: 90%;
-    left: 5%;
-    top: 5%;
+    width: 95%;
+    height: 95%;
+    left: 2.5%;
+    top: 2.5%;
     animation: 0.3s forwards ease-out bubbleExpand;
 }
+
+#present2 .prose {
+    max-width: unset !important;
+}
+
 
 #present2 .project-preview.close {
     animation: 0.3s forwards ease-out bubbleRetract;

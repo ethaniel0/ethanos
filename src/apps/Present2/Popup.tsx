@@ -7,7 +7,9 @@ import "swiper/css/navigation";
 import { Project } from './types';
 import { FirebaseStorage } from 'firebase/storage';
 import * as dbUtils from './DbUtils';
+import Markdown from 'react-markdown'
 import { useEffect } from 'react';
+
 
 
 interface PopupProps {
@@ -56,7 +58,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
 
                 <h1 className='text-3xl font-extrabold text-center w-full'>{proj.title}</h1>
                 <div className='text-center pb-2'>
-                    <span className='text-lg'>Check it out <a href={proj.link} target='_blank' rel="noreferrer" className='text-blue-600 font-bold'>here!</a></span>
+                    {proj.link && <span className='text-lg'>Check it out <a href={proj.link} target='_blank' rel="noreferrer" className='text-blue-600 font-bold'>here!</a></span>}
                 </div>
                 
                 <div className='flex flex-col gap-4 w-full overflow-auto'>
@@ -74,13 +76,13 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                         >
                             {
                                 proj.images.map((img, ind) => (
-                                    <SwiperSlide key={ind} className='flex-col'>
+                                    <SwiperSlide key={ind} className='flex flex-col items-center'>
                                         {img.img.split('?')[0].endsWith('.mp4') ? (
                                             <video controls>
                                                 <source src={img.img} type='video/mp4' />
                                             </video>
                                         ) : (
-                                            <img key={ind} src={img.img} alt="" />
+                                            <img key={ind} src={img.img} alt="" className='max-h-[30rem]' />
                                         )}
                                         <span className='block text-black text-center mt-2 text-xl'>{img.caption}</span>
                                     
@@ -92,8 +94,9 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                         }
                         
                     </div>
-                    <div className='w-full'>
-                        <p className='text-lg font-medium'>{proj.longDescription}</p>
+                    <div className='w-full prose'>
+                        {/* <p className='text-lg font-medium'>{proj.longDescription}</p> */}
+                        <Markdown>{proj.longDescription}</Markdown>
                     </div>
 
                 </div>

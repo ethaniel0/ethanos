@@ -11,7 +11,6 @@ import resume from '../files/resume._pdf';
 import devp from '../files/devpost.lnk';
 import git from '../files/github.lnk';
 import lin from '../files/linkedin.lnk';
-import repl from '../files/replit.lnk';
 import mail from '../files/mail.lnk';
 
 const FileSystem: any = {
@@ -28,18 +27,16 @@ const FileSystem: any = {
             },
             'User': {
                 'Desktop': {
-                    "Present.lnk": present2File,
+                    "Projects.lnk": present2File,
                     "Resume.pdf": resume,
                     "devpost.lnk": devp,
                     "github.lnk": git,
                     "linkedin.lnk": lin,
-                    "replit.lnk": repl,
                     "mail.lnk": mail
                 },
                 'Homescreen': {
                     "Present.lnk": present2File,
                     "Linkedin": lin,
-                    "Replit": repl,
                     "Mail": mail
                 },
                 'Program Files': {

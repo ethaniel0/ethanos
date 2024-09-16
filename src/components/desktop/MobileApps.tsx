@@ -3,10 +3,9 @@ import FileDisplay from '../FileDisplay'
 import Directory from '../Directory'
 
 var fileLayout: any = {
-    "github.lnk": [-5, -2.3],
-    "linkedin.lnk": [-4, -2.3],
-    "devpost.lnk": [-3, -2.3],
-    "replit.lnk": [-2, -2.3],
+    "github.lnk": [-4, -2.3],
+    "linkedin.lnk": [-3, -2.3],
+    "devpost.lnk": [-2, -2.3],
     "mail.lnk": [-1, -2.3]
   }
 

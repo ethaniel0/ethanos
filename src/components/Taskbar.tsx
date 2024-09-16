@@ -97,9 +97,9 @@ export default function Taskbar(){
           </div>
 
           {/* info */}
-          <div className='info hidden md:flex w-48 h-full text-white justify-around items-center' style={{background: 'rgb(90, 90, 90)'}}>
-            {/* sound */}
-            <FontAwesomeIcon icon={faVolumeUp} className='text-xl' />
+          <div className='info hidden md:flex w-28 h-full text-white justify-around items-center' style={{background: 'rgb(90, 90, 90)'}}>
+            {/* sound
+            <FontAwesomeIcon icon={faVolumeUp} className='text-xl' /> */}
             {/* time */}
             <div className='flex flex-col text-center'>
               <span className='text-lg' style={{marginBottom: '-5px'}}>{time}</span>
