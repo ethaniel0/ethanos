@@ -1,9 +1,1 @@
-<svg width="432" height="596" viewBox="0 0 432 596" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M330.487 6.5L425.5 92.8754V589.5H6.5V6.5H330.487Z" fill="white" stroke="black" stroke-width="13"/>
-    <line x1="43" y1="147" x2="390" y2="147" stroke="black" stroke-width="12"/>
-    <line x1="43" y1="242" x2="390" y2="242" stroke="black" stroke-width="12"/>
-    <line x1="43" y1="337" x2="390" y2="337" stroke="black" stroke-width="12"/>
-    <line x1="43" y1="432" x2="390" y2="432" stroke="black" stroke-width="12"/>
-    <line x1="43" y1="527" x2="390" y2="527" stroke="black" stroke-width="12"/>
-    </svg>
-    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><style>.cls-1{fill:#dad7e5}.cls-2{fill:#edebf2}.cls-3{fill:#c6c3d8}</style></defs><g id="_9._PDF_file" data-name="9. PDF file"><path class="cls-1" d="M44 7v32a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h22z"/><path class="cls-2" d="M44 7c0 33.18-.1 32 0 32a4 4 0 0 1-4-4V12.17L32.83 5H21a4 4 0 0 1-4-4h21z"/><path class="cls-1" d="M38 13v32a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h22z"/><path class="cls-2" d="M38 13v32H18a7 7 0 0 1-7-7V7h21z"/><path class="cls-3" d="M38 13h-6V7l6 6zM44 7h-6V1l6 6z"/><rect x="4" y="25" width="28" height="16" rx="2" style="fill:#db5669"/><path d="M32 27v12H21A14 14 0 0 1 7 25h23a2 2 0 0 1 2 2z" style="fill:#f26674"/><path class="cls-2" d="M7 37v-8a1 1 0 0 1 1-1h2a3 3 0 0 1 0 6H9v3a1 1 0 0 1-2 0zm2-5h1a1 1 0 0 0 0-2H9zM18 38h-2a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h2a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3zm-1-2h1a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-1zM23 37v-8a1 1 0 0 1 1-1h4a1 1 0 0 1 0 2h-3v7a1 1 0 0 1-2 0z"/><path class="cls-2" d="M28 34h-4a1 1 0 0 1 0-2h4a1 1 0 0 1 0 2z"/></g></svg>
