@@ -84,7 +84,8 @@
 }
 
 #taskbar .apps, #taskbar .info {
-    background: rgb(90, 90, 90);
+    background: rgb(90, 90, 90, 0.8);
+    backdrop-filter: blur(3px);
 }
 
 #apptray {

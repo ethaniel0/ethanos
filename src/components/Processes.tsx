@@ -50,7 +50,8 @@ let Processes: ProcessesLayout = {
     exts: {
         'bash': '/E/Applications/Terminal.app',
         'pres': '/E/Applications/Present.app',
-        'txt': '/E/Applications/Notepad.app'
+        'txt': '/E/Applications/Notepad.app',
+        'pdf': '/E/Applications/Viewer.app'
     },
     defaultIcons: {
         'bash': '/assets/icons/Terminal icon.svg',

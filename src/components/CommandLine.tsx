@@ -61,7 +61,6 @@ export default class CommandLine{
                 if (!path.startsWith('/') && !path.startsWith('.')) path = './' + path;
                 let d = this.cwd.get(path);
                 if (d !== null){
-                    console.log('setting cwd to', d);
                     this.cwd = d;
                     return '';
                 }
@@ -100,12 +99,8 @@ export default class CommandLine{
         if (typeof f === 'object') {
             return 'open: path is not a file: ' + path;
         }
-
-        if (typeof f === 'object') {
-            return 'open: path is not a file: ' + path;
-        }
         if (typeof f === 'string'){
-            let ext = f.split('.').pop();
+            let ext = path.split('.').pop();
             if (ext === 'lnk'){
                 fetch(f).then(resp => resp.json()).then(json => {
                     if (json.onsite){

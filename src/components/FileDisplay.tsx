@@ -20,22 +20,30 @@ function getExt(path: string){
 const FileDisplay = ({path, name, pos, mobile}: AppProps) => {
   let cmd = new CommandLine(path);
   function click(){
-    cmd.command(`open ${name}`);
+    cmd.command(`open ${path}/${name}`);
   }
 
   let [image, setImage] = useState(Processes.defaultIcons[getExt(name)]);
   let [url, setURL]: [string, Function] = useState('');
 
+  function nameWOExt(str: string){
+    let parts = str.split('.');
+    if (parts.length === 1) return parts;
+    let name = parts.slice(0, parts.length - 1).join('.');
+    return name;
+  }
+
   useEffect(() => {
     async function loadFiles(path: string, second: boolean){
       
       let dir = new Directory('/');
-      let fs: any = {};
       let file = dir.getFile(path);
+
       if (typeof file === 'function'){
         let app = new file();
-        return setImage(mobile ? app.icon2 ? app.icon2 : app.icon : app.icon);
+        return setImage(mobile ? app.icon2 ?? app.icon : app.icon );
       }
+
       let resp = await fetch(file);
       try{
         var json = await resp.json();
@@ -68,11 +76,11 @@ const FileDisplay = ({path, name, pos, mobile}: AppProps) => {
     <div onClick={click} className={'text-center text-white font-bold flex flex-col items-center my-2 mr-2 select-none' + (pos ? ' absolute' : '')} style={{fontSize: '0.8rem', textShadow: '0 0.5px 2px black', left: left, top: top}}>
         {
           url !== '' ? 
-          <a href={url} target='_blank' onClick={stopProp}><img src={image} alt="" className='w-16 h-16 select-none' /></a>
+          <a href={url} target='_blank' rel="noreferrer" onClick={stopProp}><img src={image} alt="" className='w-16 h-16 select-none' /></a>
           :
           <img src={image} alt="" className='w-16 h-16 select-none' />
         }
-        <span>{name}</span>
+        <span>{nameWOExt(name)}</span>
     </div>
   )
 }
