@@ -1,22 +1,21 @@
 import * as React from 'react';
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import CommandLine from "../../components/CommandLine";
 import styles from "./styles.module.css";
 
 const UI = () => {
-
     const [lines, setLines] = useState([]);
-    const [commandLine, _] = useState(new CommandLine('/E'));
+    const commandLine = useRef(new CommandLine('/E'));
     const [prevCommands, setPrevCommands] = useState([]);
     const [showCursor, setShowCursor] = useState<boolean>(true);
     const [line, setLine] = useState('');
-    const [cwd, setCwd] = useState(commandLine.cwd);
+    const [cwd, setCwd] = useState(commandLine.current.cwd);
     
     let ref = useRef(null);
 
     async function callCommand(line: string){
         setPrevCommands([...prevCommands, line]);
-        let resp = await commandLine.command(line);
+        let resp = await commandLine.current.command(line);
         setLines([...lines, line]);
         return resp;
     }
@@ -30,7 +29,7 @@ const UI = () => {
             }
 
             let response = await callCommand(line.trim());
-            setCwd(commandLine.cwd);
+            setCwd(commandLine.current.cwd);
             let responses = response.split('\n');
             let cwd_prefix = cwd.path.trim() + '>';
             setLines([...lines, cwd_prefix + line, ...responses]);

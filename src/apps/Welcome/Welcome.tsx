@@ -7,7 +7,7 @@ import UI from './UI';
 import './welcome.css';
 
 class Welcome implements Application {
-  code: Function;
+  code: () => JSX.Element;
   name: string;
   icon: string;
   icon2: string;

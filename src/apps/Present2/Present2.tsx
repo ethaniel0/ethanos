@@ -7,7 +7,7 @@ import PresentApp from './PresentApp';
 import './Present.css';
 
 class Present2 implements Application {
-  code: Function;
+  code: () => JSX.Element;
   name: string;
   icon: string;
   icon2: string;
@@ -51,6 +51,7 @@ class Present2 implements Application {
       this.file = null
       this.page = 0;
     }
+    
     this.code = this.app;
   }
 
@@ -58,7 +59,7 @@ class Present2 implements Application {
     return new Present2();
   }
   
-  app(closeWindow: Function){
+  app(){
     return <PresentApp file={this.file} />
   }
 

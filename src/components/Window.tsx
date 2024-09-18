@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useRef, useContext, createContext } from 'react';
+import { useState, useEffect, useRef, useContext, createContext, useCallback, useMemo } from 'react';
 import Application from './Application';
 import Processes from './Processes';
 import Draggable from "react-draggable";
@@ -23,7 +23,7 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
   const ref = useRef(null);
   let minWidth = app.minWidth || 200;
   let minHeight = app.minHeight || 200;
-  const [isFullScreen, setFullScreen]: [boolean, Function] = useState(startFullScreen);
+  const [isFullScreen, setFullScreen] = useState(startFullScreen);
   
   const code = windowCode;
   const [closing, setClosing] = useState(false);
@@ -35,27 +35,33 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
 
   if (bottomBarHeight === 0) bottomBarHeight = 64;
 
-  function xyMove(x: number, y: number) { setCoords({x: x ?? coords.x, y: y ?? coords.y}); }
-  function fullScreen(){ setFullScreen(!isFullScreen); }
   
   function stopProp(e: any){
     e.cancelbubble = true;
     if (e.stopPropagation) e.stopPropagation();
   }
 
-  function onDrag(e: any, data: any){ setCoords({x: data.x, y: Math.max(0, data.y)}); }
+  const xyMove = useCallback((x: number, y: number) => { setCoords({x: x ?? coords.x, y: y ?? coords.y}); }, [coords]);
 
-  function windowClick(e: any){
+  const fullScreen = useCallback(() =>  setFullScreen(fs => !fs), []);
+
+  const onDrag = useCallback((e: any, data: any) => {
+    setCoords({x: data.x, y: Math.max(0, data.y)});
+  }, []);
+
+  const windowClick = useCallback((e: any) => {
     stopProp(e);
     Processes.bringWindowToFront(code);
-  }
+  }, [code]);
 
-  function closeWindow(){
+  const closeWindow = useCallback(() => {
     setClosing(true);
     setTimeout(() => {
       Processes.removeWindow(code);
     }, 500);
-  }
+  }, [code])
+
+  const Applet = useMemo(() => app.code(), [app]);
 
   useEffect(() => {
     function handleResize() {
@@ -86,7 +92,7 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
 
               {/* window body */}
               <div className="@container overflow-hidden" style={{width: '100%', flexGrow: 1}}>
-                {app.code()}
+                {Applet}
               </div>
 
             </div>

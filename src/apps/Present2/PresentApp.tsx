@@ -40,14 +40,14 @@ const PresentApp = ({file}: any) => {
             <div className='flex flex-row justify-between'>
                 <span className='font-semibold text-3xl'>
                     {
-                        page == 0 ? 'Welcome. Look around!' : <>.... . .-.. .-.. --- &nbsp; &nbsp; - .... . .-. .</>
+                        page === 0 ? 'Welcome. Look around!' : <>.... . .-.. .-.. --- &nbsp; &nbsp; - .... . .-. .</>
                     }
                 </span>
                 <span onClick={() => setPage(1 - page)} className='cursor-pointer text-transparent'>Log In</span>
             </div>
             
             {
-                page == 0 && 
+                page === 0 && 
                 <>
                     <div className='flex flex-wrap gap-4 mt-4 flex-grow overflow-auto'>
                     {
@@ -63,11 +63,9 @@ const PresentApp = ({file}: any) => {
                 </>
             }
             {
-                page == 1 &&
+                page === 1 &&
                 <SecretEdit back={() => setPage(0)} />
             }
-
-            
         </div>
     )
 }

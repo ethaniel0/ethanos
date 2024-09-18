@@ -6,7 +6,7 @@ import UI from './UI'
 
 
 export default class Notepad implements Application  {
-    code: Function;
+    code: () => JSX.Element;
     name: string;
     icon: string;
     defaultSize: number[];
@@ -41,7 +41,7 @@ export default class Notepad implements Application  {
         return new Notepad();
     }
 
-    app(closeWindow: Function){
+    app(){
         return (<>
             <UI filePath={this.file} />
         </>)

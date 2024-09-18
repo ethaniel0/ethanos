@@ -7,7 +7,6 @@ import UI from './UI';
 import './viewer.css';
 
 class Viewer implements Application {
-  code: Function;
   name: string;
   icon: string;
   icon2: string;
@@ -50,14 +49,13 @@ class Viewer implements Application {
       this.file = null
       this.page = 0;
     }
-    this.code = this.app;
   }
 
   newObject(){
     return new Viewer();
   }
   
-  app(){
+  code(){
     return <UI file={this.file}  />
   }
 

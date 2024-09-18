@@ -1,6 +1,6 @@
 
 export default interface Application {
-  code: Function;
+  code: () => JSX.Element;
   name: string;
   icon: string;
   icon2?: string;

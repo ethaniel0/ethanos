@@ -6,7 +6,6 @@ import Processes from "../../components/Processes";
 
 
 export default class Terminal implements Application  {
-    code: Function;
     name: string;
     icon: string;
     defaultSize: number[];
@@ -20,7 +19,6 @@ export default class Terminal implements Application  {
         this.icon = icon;
         this.defaultSize = [500, 300];
         this.resizeable = true;
-        this.code = () => <UI />;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
         this.menu = {
@@ -36,6 +34,10 @@ export default class Terminal implements Application  {
 
     newObject(){
         return new Terminal();
+    }
+
+    code(){
+      return <UI />; 
     }
 
 }

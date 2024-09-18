@@ -6,7 +6,7 @@ import UI from './UI';
 
 
 export default class WH2022DC implements Application  {
-    code: Function;
+    code: () => JSX.Element;
     name: string;
     icon: string;
     defaultSize: number[];

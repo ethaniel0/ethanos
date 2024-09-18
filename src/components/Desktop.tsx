@@ -54,8 +54,6 @@ export default function Desktop(){
       let start = new Welcome();
       Processes.addWindow(start, true);
     }
-    // let start = new Present2();
-    // Processes.addWindow(start, true);
     
   }, []);
 
