@@ -20,7 +20,8 @@ class Viewer implements Application {
   page: number;
   file: string;
   
-  constructor(file?: any){
+  constructor(args?: string[]){
+    let file = args ? args[0] || null : null;
     this.name = "Present";
     this.icon = icon;
     this.icon2 = icon2;
@@ -52,7 +53,7 @@ class Viewer implements Application {
   }
 
   newObject(){
-    return new Viewer();
+    return new Viewer([]);
   }
   
   code(){

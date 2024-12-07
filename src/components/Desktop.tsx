@@ -10,6 +10,7 @@ import Background from './desktop/Background';
 import DesktopApps from './desktop/DesktopApps';
 import MobileApps from './desktop/MobileApps';
 import Present2 from '../apps/Present2/Present2';
+import CommandLine from './CommandLine';
 
 
 export const BottomBarContext = createContext(64);
@@ -49,12 +50,30 @@ export default function Desktop(){
       setBottomBarHeight(bottomBar.current.getBoundingClientRect().height);
     }
 
-    if (!localStorage.getItem("welcome")){
+    if (!localStorage.getItem("welcome") && window.location.pathname === '/') {
       localStorage.setItem("welcome", "true");
-      let start = new Welcome();
+      let start = new Welcome([]);
       Processes.addWindow(start, true);
     }
     
+  }, []);
+
+  useEffect(() => {
+    // check url for app
+    let url = window.location.pathname;
+    if (url.startsWith('/')) url = url.substring(1);
+    
+    let url_parts = url.split('/');
+    console.log('checking href', url_parts);
+    if (url_parts.length == 1) return;
+    let app = url_parts[0];
+    let subparts = '"' + url_parts.splice(1).map(part => decodeURIComponent(part)) .join(' ') + '"';
+    
+    // check for app in directory
+    let cmd = new CommandLine();
+    let command = 'open /E/Applications/' + app + '.app ' + subparts;
+    console.log('running command', command);
+    cmd.command(command);
   }, []);
 
 

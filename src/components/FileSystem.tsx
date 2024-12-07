@@ -4,6 +4,7 @@ import WH2022DC from "../apps/WH2022DC/WH2022DC";
 import Welcome from "../apps/Welcome/Welcome";
 import FaceAPI from "../apps/FaceAPI/FaceAPI";
 import Viewer from "../apps/Viewer/Viewer";
+import UltimateTicTacToe from "../apps/UltimateTicTacToe/UltimateTicTacToe";
 import present2File from '../files/present2.lnk';
 import Present2 from "../apps/Present2/Present2";
 import resume from '../files/resume._pdf';
@@ -23,7 +24,8 @@ const FileSystem: any = {
                 'Notepad.app': null,
                 "WaffleHacks2022Clue2.app": null,
                 "FaceAPI.app": null,
-                "Viewer.app": null
+                "Viewer.app": null,
+                "UltimateTicTacToe.app": null
             },
             'User': {
                 'Desktop': {
@@ -53,6 +55,7 @@ const FileSystem: any = {
         this.directories.E.Applications["WaffleHacks2022Clue2.app"] = WH2022DC;
         this.directories.E.Applications["FaceAPI.app"] = FaceAPI;
         this.directories.E.Applications["Viewer.app"] = Viewer;
+        this.directories.E.Applications["UltimateTicTacToe.app"] = UltimateTicTacToe;
     }
 
 }

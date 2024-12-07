@@ -21,8 +21,7 @@ class Present2 implements Application {
   page: number;
   file: string;
   
-  constructor(file?: any){
-    
+  constructor(args: string[]){
     this.name = "Present";
     this.icon = icon;
     this.icon2 = icon2;
@@ -42,21 +41,16 @@ class Present2 implements Application {
         "Close Window": () => {}
       },
     };
-    
-    if (file){
-      this.file = file;
-      this.page = 1;
-    }
-    else {
-      this.file = null
-      this.page = 0;
+
+    if (args && args.length > 0){
+      this.file = args[0];
     }
     
     this.code = this.app;
   }
 
   newObject(){
-    return new Present2();
+    return new Present2([]);
   }
   
   app(){

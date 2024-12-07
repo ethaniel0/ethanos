@@ -31,6 +31,13 @@ const PresentApp = ({file}: any) => {
                     setProjects([...projects]);
                 })
             }
+
+            for (let i = 0; i < projects.length; i++){
+                if (projects[i].displayTitle == file){
+                    setSelected(i);
+                    break;
+                }
+            }
         });
 
     }, []);

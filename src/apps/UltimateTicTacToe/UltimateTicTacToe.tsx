@@ -1,12 +1,11 @@
 import * as React from "react";
 import Application from "../../components/Application";
 import icon from './assets/icon.svg';
+import UI from "./UI";
 import Processes from "../../components/Processes";
-import UI from './UI'
 
 
-export default class Notepad implements Application  {
-    code: () => JSX.Element;
+export default class UltimateTicTacToe implements Application  {
     name: string;
     icon: string;
     defaultSize: number[];
@@ -14,18 +13,14 @@ export default class Notepad implements Application  {
     lines: string[];
     spawnPoint: number[];
     menu: any;
-    file: string;
 
-    constructor(args?: string[]){
-        let file = args ? args[0] || null : null;
-        this.name = 'Terminal';
+    constructor(){
+        this.name = 'Ultimate Tic Tac Toe';
         this.icon = icon;
-        this.defaultSize = [500, 300];
-        this.resizeable = true;
-        
+        this.defaultSize = [500, 550];
+        this.resizeable = false;
         this.lines = [];
         this.spawnPoint = [...Processes.windowSpawnPoint];
-        this.file = file;
         this.menu = {
             "File": {
               "New Window": () => {},
@@ -35,17 +30,14 @@ export default class Notepad implements Application  {
               "Close Window": () => {}
             },
         };
-        this.code = this.app;
     }
 
     newObject(){
-        return new Notepad([]);
+        return new UltimateTicTacToe();
     }
 
-    app(){
-        return (<>
-            <UI filePath={this.file} />
-        </>)
+    code(){
+      return <UI />; 
     }
 
 }

@@ -40,6 +40,7 @@ export default function Taskbar(){
     '/E/Applications/Notepad.app',
     '/E/Applications/WaffleHacks2022Clue2.app',
     '/E/Applications/FaceAPI.app',
+    "/E/Applications/UltimateTicTacToe.app"
   ]);
   const [mobileDock, setmobileDock] = useState([
     '/E/Applications/Present.app',

@@ -9,6 +9,8 @@ import { FirebaseStorage } from 'firebase/storage';
 import * as dbUtils from './DbUtils';
 import Markdown from 'react-markdown'
 import { useEffect } from 'react';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from "rehype-raw";
 
 
 
@@ -54,7 +56,13 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                 style={{
                     boxShadow: '0px 0px 10px 2px rgba(0, 0, 0, 0.30)',
                 }}>
-                <button onClick={() => back()} className='text-xl font-black'>Back</button>
+                <div className='w-full flex justify-between'>
+                    <button onClick={() => back()} className='text-xl font-black'>Back</button>
+                    <button onClick={() => {
+                        navigator.clipboard.writeText(window.location.origin + '/Present/' + encodeURIComponent(proj.displayTitle));
+                    }} className='text-xl font-black'>Share</button>
+                </div>
+                
 
                 <h1 className='text-3xl font-extrabold text-center w-full'>{proj.title}</h1>
                 <div className='text-center pb-2'>
@@ -96,7 +104,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                     </div>
                     <div className='w-full prose'>
                         {/* <p className='text-lg font-medium'>{proj.longDescription}</p> */}
-                        <Markdown>{proj.longDescription}</Markdown>
+                        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} children={proj.longDescription}></Markdown>
                     </div>
 
                 </div>

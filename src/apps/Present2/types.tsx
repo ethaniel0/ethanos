@@ -15,4 +15,5 @@ export interface Project {
     title: string;
     year: string;
     id: string;
+    otherImages: string[];
 }

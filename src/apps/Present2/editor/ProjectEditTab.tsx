@@ -26,6 +26,8 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
     const [longDescription, setLongDescription] = useState<string>(project.longDescription);
     const [displayImg, setDisplayImg] = useState<string>(project.displayImg);
     const [images, setImages] = useState<CaptionedImage[]>(project.images);
+    const [otherImages, setOtherImages] = useState<string[]>(project.otherImages || []);
+     
     const [needsToSave, setNeedsToSave] = useState<boolean>(false);
 
     const [loadedImages, setLoadedImages] = useState<string[]>([]);
@@ -67,6 +69,17 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                 updatedProject['images'][i].img = url;
             }
         }
+
+        updatedProject['otherImages'] = [...otherImages];
+        for (let i = 0; i < otherImages.length; i++){
+            let str = otherImages[i];
+            if (!str.startsWith('https://firebasestorage.googleapis.com/')){
+                const fileRef = ref(imagesRef, `${project.id}/otherImg${i}.${ str.split(';')[0].split('/')[1] }`);
+                let url = await uploadImage(fileRef, str);
+                updatedProject['otherImages'][i] = url;
+            }
+        }
+
         var docRef = doc(db, "Apps/Present/Projects", project.id);
         await updateDoc(docRef, updatedProject);
         reload();
@@ -81,12 +94,13 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
             project.shortDescription !== shortDescription ||
             project.longDescription !== longDescription ||
             project.displayImg !== displayImg ||
-            project.images !== images) {
+            project.images !== images ||
+            project.otherImages !== otherImages){
             setNeedsToSave(true);
         } else {
             setNeedsToSave(false);
         }
-    }, [project, title, displayTitle, yearStart, yearEnd, link, shortDescription, longDescription, displayImg, images]);
+    }, [project, title, displayTitle, yearStart, yearEnd, link, shortDescription, longDescription, displayImg, images, otherImages]);
 
     useEffect(() => {
         let storage = getStorage();
@@ -151,9 +165,46 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
         input.click();
     }
 
+    function updateOtherImage(ind: number) {
+        // generate an input element and click it]
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*,video/*';
+        input.onchange = (e: Event) => {
+            const file = (e as unknown as React.ChangeEvent<HTMLInputElement>).target.files[0];
+            if (!file) return;
+            // don't save to storage, just get the url for now and save it
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const url = e.target.result;
+                let newImages = [...otherImages];
+                newImages[ind] = url as string;
+                setOtherImages(newImages);
+            }
+            reader.readAsDataURL(file);
+        }
+        input.click();
+    }
+
     function addImage(){
         setImages([...images, {img: "", caption: "", index: images.length, id: images.length}])
         setLoadedImages([...loadedImages, ""]);
+    }
+
+    function addOtherImage(){
+        setOtherImages([...otherImages, ""]);
+    }
+
+    async function uploadOtherImage(index: number){
+        // use uploadImage
+        const storage = getStorage();
+        const imagesRef = ref(storage, 'Present');
+        let img = otherImages[index];
+        let url = await uploadImage(ref(imagesRef, `${project.id}/other/${Math.round(Math.random()*1e10)}`), img);
+
+        let new_otherimgs = otherImages.slice();
+        new_otherimgs[index] = url;
+        setOtherImages(new_otherimgs);
     }
 
     function setImageList(state: CaptionedImage[]){
@@ -226,7 +277,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
             </table>
 
             <div className='ml-2'>
-                <span className='font-bold text-xl mb-4 block'>Images</span>
+                <span className='font-bold text-xl mb-4 block'>Carousel Images</span>
 
                 <ReactSortable list={images} setList={setImageList} className='flex flex-col gap-2'>
                     {
@@ -253,6 +304,38 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                     }
                     <button onClick={addImage} className='px-2 py-1 border-2 border-black rounded-md'>Add Image</button>
                 </ReactSortable>
+            </div>
+
+            <div className='ml-2'>
+                <span className='font-bold text-xl mt-8 mb-4 block'>Other Images</span>                
+                    {
+                        otherImages.map((p, ind) => (
+                        <div className='flex gap-2' key={ind}>
+                            <button onClick={() => {
+                                let imgs = otherImages.slice(); 
+                                imgs.splice(ind, 1); 
+                                setOtherImages(imgs);
+                            }}>
+                                <img src={deleteIcon} alt="" className='w-8' />
+                            </button>
+                            <div className='w-48 h-36 grid place-items-center'>
+                                <img onClick={_ => updateOtherImage(ind)} src={otherImages[ind]} alt="Display Image" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                                {
+                                    otherImages[ind].startsWith('https') ? 
+                                        <button onClick={() => {
+                                            navigator.clipboard.writeText(otherImages[ind]);
+                                        }} className="p-2 rounded-lg border-2 border-black">Copy URL</button>
+                                    : 
+                                        <button onClick={() => uploadOtherImage(ind)} className="p-2 rounded-lg border-2 border-black">Upload Image</button>
+                                }
+                            </div>
+                        </div>
+                        ))
+                    }
+                    <button onClick={addOtherImage} className='px-2 py-1 border-2 border-black rounded-md mt-4'>Add Image</button>
+
             </div>
         </div>
     )

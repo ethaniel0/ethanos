@@ -45,6 +45,8 @@ export async function loadProjects(db: Firestore, signedIn?: boolean){
 }
 
 export async function loadImage(storage: FirebaseStorage, path: string){
+    if (path.trim() === '') return '';
+    console.log('loading image:', path);
     let imagesRef = ref(storage, path);
     let url = await getDownloadURL(imagesRef);
     return url;

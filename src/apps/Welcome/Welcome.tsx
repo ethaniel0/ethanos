@@ -21,7 +21,7 @@ class Welcome implements Application {
   page: number;
   file: string;
   
-  constructor(file?: any){
+  constructor(args?: string[]){
     
     this.name = "Present";
     this.icon = icon;
@@ -43,8 +43,8 @@ class Welcome implements Application {
       },
     };
     
-    if (file){
-      this.file = file;
+    if (args && args.length > 0){
+      this.file = args[0];
       this.page = 1;
     }
     else {
@@ -55,7 +55,7 @@ class Welcome implements Application {
   }
 
   newObject(){
-    return new Welcome();
+    return new Welcome([]);
   }
   
   app(){

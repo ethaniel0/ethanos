@@ -69,7 +69,7 @@ export default class CommandLine{
                 return this.ls(args);
             case 'open': 
                 if (args.length === 0) return 'open: no file specified';
-                return this.openWindow(args[0]);
+                return this.openWindow(args[0], args.slice(1));
             case 'cat':
                 return await this.cat(args);
             case 'clear':
@@ -93,7 +93,7 @@ export default class CommandLine{
         if (dirs.length === 0) return ' ';
         return dirs.join('    ');
     }
-    openWindow(path: string): string {
+    openWindow(path: string, args: string[]): string {
         let f: any = this.cwd.getFile(path);
         if (f === undefined) return;
         if (typeof f === 'object') {
@@ -104,7 +104,7 @@ export default class CommandLine{
             if (ext === 'lnk'){
                 fetch(f).then(resp => resp.json()).then(json => {
                     if (json.onsite){
-                        this.openWindow(json.url);
+                        this.openWindow(json.url, args);
                     }
                     else window.open(json.url, json.url.startsWith('maito:') ? '_self' : '_blank');
                 })
@@ -118,7 +118,7 @@ export default class CommandLine{
             }
             return '';
         }
-        Processes.addWindow(new f());
+        Processes.addWindow(new f(args));
         return '';
     }
     async cat(args: string[]): Promise<string>{
