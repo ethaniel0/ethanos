@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useState} from "react";
 import styles from "./styles.module.css";
 
 
@@ -15,7 +15,7 @@ const UI = () => {
             {/* header */}
             <div className='h-[50px] flex flex-col'>
                 <h1 className='text-center'>Ultimate Tic Tac Toe</h1>
-                <span className='text-center w-full'>Turn: {turn == 'X' ? '✖️' : '⭕️'}</span>
+                <span className='text-center w-full'>Turn: {turn === 'X' ? '✖️' : '⭕️'}</span>
             </div>
 
             {/* body */}

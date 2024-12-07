@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react'
 import AppDrawer from './AppDrawer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import CommandLine from './CommandLine';
 import FileApp from './FileApp';
 
@@ -29,25 +27,25 @@ export default function Taskbar(){
   const [time, setTime] = useState(getTime());
   const [day, setDay] = useState(getDay());
   const [tray, showTray] = useState(false);
-  const [pinnedApps, setPinnedApps] = useState([
+  const pinnedApps =[
     '/E/Applications/Welcome.app',
     '/E/Applications/Present.app',
     '/E/Applications/Terminal.app'
-  ]);
-  const [drawerApps, setDrawerApps] = useState([
+  ];
+  const drawerApps = [
     '/E/Applications/Present.app',
     '/E/Applications/Terminal.app',
     '/E/Applications/Notepad.app',
     '/E/Applications/WaffleHacks2022Clue2.app',
     '/E/Applications/FaceAPI.app',
     "/E/Applications/UltimateTicTacToe.app"
-  ]);
-  const [mobileDock, setmobileDock] = useState([
+  ];
+  const mobileDock = [
     '/E/Applications/Present.app',
     '/E/User/Desktop/mail.lnk',
     '/E/User/Desktop/devpost.lnk',
     '/E/User/Desktop/github.lnk',
-  ]);
+  ];
 
   const cmd = new CommandLine();
 

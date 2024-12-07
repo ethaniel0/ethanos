@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect } from "react";
 import CommandLine from "../../components/CommandLine";
 import styles from "./styles.module.css";
 

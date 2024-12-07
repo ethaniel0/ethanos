@@ -56,7 +56,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
 
         if (!displayImg.startsWith('https://firebasestorage.googleapis.com/')){
             const fileRef = ref(imagesRef, `${project.id}/displayImg`);
-            let url = await uploadImage(ref(imagesRef, `${project.id}/displayImg`), displayImg);
+            let url = await uploadImage(fileRef, displayImg);
             updatedProject['displayImg'] = url;
         }
         updatedProject['images'] = [...images];
@@ -269,7 +269,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                     <tr>
                         <td>Display Image</td>
                         <td>
-                            <img src={displayImg} alt="Display Image" className='border-2 border-gray-300 rounded-md text-lg w-36 h-36' />
+                            <img src={displayImg} alt="Project Preview" className='border-2 border-gray-300 rounded-md text-lg w-36 h-36' />
                             <button onClick={updateDisplayImage} className='text-base text-blue-700'>Upload New Image</button>
                         </td>
                     </tr>
@@ -291,7 +291,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                                 <img src={deleteIcon} alt="" className='w-8' />
                             </button>
                             <div className='w-48 h-36 grid place-items-center'>
-                                <img onClick={_ => updateImage(ind)} src={loadedImages[ind]} alt="Display Image" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
+                                <img onClick={_ => updateImage(ind)} src={loadedImages[ind]} alt="Carousel Item" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
                             </div>
                             
                             <textarea value={p.caption} onChange={(e => {
@@ -319,7 +319,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                                 <img src={deleteIcon} alt="" className='w-8' />
                             </button>
                             <div className='w-48 h-36 grid place-items-center'>
-                                <img onClick={_ => updateOtherImage(ind)} src={otherImages[ind]} alt="Display Image" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
+                                <img onClick={_ => updateOtherImage(ind)} src={otherImages[ind]} alt="Other" className='border-2 border-gray-300 rounded-md text-lg object-contain w-48 h-36' />
                             </div>
                             <div className="flex flex-col justify-center">
                                 {

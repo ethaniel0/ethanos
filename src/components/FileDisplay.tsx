@@ -63,7 +63,7 @@ const FileDisplay = ({path, name, pos, mobile}: AppProps) => {
       }
     }
     loadFiles(path + '/' + name, false);
-  }, []);
+  }, [mobile, name, path]);
 
   function stopProp(e: any){
     e.stopPropagation();

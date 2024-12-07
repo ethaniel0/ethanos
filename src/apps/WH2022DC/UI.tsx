@@ -493,17 +493,6 @@ const UI = () => {
         else if (key.toLowerCase() === 'b') keyspressed.current.b = false;
         else if (key.toLowerCase() === 's') keyspressed.current.start = false;
     }
-
-    function exit(){
-        playing.current = false;
-        layout = copy(backuplayout);
-        playerCoords.current = {x: 0, y: 0};
-        playerVel.current = {x: 0, y: 0};
-        completed.current = false;
-        completedAnimation.current = 0;
-        konamiUsed.current = false;
-        konamiAnimation.current = 0;
-    }
     
     return (
       <canvas ref={canvas} id='wh2022dc-game-canv' tabIndex={0} onMouseMove={mouseMove} onClick={mouseClick} onKeyDown={keyDown} onKeyUp={keyUp} className='pixelated' style={{width: '100%', height: '100%', outline: 'none'}}></canvas>

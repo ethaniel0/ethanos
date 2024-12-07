@@ -42,7 +42,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                 img.img = url;
             })
         }
-    }, []);
+    }, [proj, storage]);
 
     return (
         <div

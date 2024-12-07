@@ -14,7 +14,6 @@ const UI = ({file}: UIProps) => {
         async function loadFileContent(){
             let resp = await fetch(file);
             let json = await resp.json();
-            console.log(json);
             setFileToView(json.file);
         }
 

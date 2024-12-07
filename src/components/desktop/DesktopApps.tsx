@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { useState, useRef, useMemo, useCallback } from 'react'
 import Directory from '../Directory'
 import FileDisplay from '../FileDisplay';
 
@@ -25,7 +25,7 @@ const FileView = ({files}: {files: string[]}) => {
 
 
 const DesktopApps = () => {
-    const [files, _] = useState(new Directory('/E/User/Desktop').getFiles());
+    const files = useMemo(() => new Directory('/E/User/Desktop').getFiles(), []);
     const [sstart, setSStart] = useState([-1, -1]);
     const [send, setSEnd] = useState([-1, -1]);
     let desktop = useRef(null);

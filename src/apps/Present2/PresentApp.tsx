@@ -33,14 +33,14 @@ const PresentApp = ({file}: any) => {
             }
 
             for (let i = 0; i < projects.length; i++){
-                if (projects[i].displayTitle == file){
+                if (projects[i].displayTitle === file){
                     setSelected(i);
                     break;
                 }
             }
         });
 
-    }, []);
+    }, [file]);
 
     return (
         <div id="present2" className='relative w-full h-full p-4 flex flex-col overflow-y-auto' style={{backgroundImage: `url(${bkg})`, backgroundSize: 'cover'}}>

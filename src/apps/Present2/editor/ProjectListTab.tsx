@@ -36,7 +36,7 @@ const ProjectListTab = ({ projects, select, db, reloadPage, back }: ProjectListT
         setProjectList(state);
         let order = state.map((p) => p.id);
         let prevOrder = projects.map((p) => p.id);
-        if (order == prevOrder || order.length == 0) return;
+        if (order === prevOrder || order.length === 0) return;
         let docRef = doc(db, 'Apps/Present');
         updateDoc(docRef, {
             Order: order
@@ -50,7 +50,7 @@ const ProjectListTab = ({ projects, select, db, reloadPage, back }: ProjectListT
         let docRef = doc(projectsCollection, project.id);
         console.log('deleting project', project.id);
         
-        let newOrder = projectList.filter((_, i) => i != ind);
+        let newOrder = projectList.filter((_, i) => i !== ind);
         updateDoc(docRef, {
             Order: newOrder
         }).then(() => {

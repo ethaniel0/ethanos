@@ -9,7 +9,6 @@ import Welcome from '../apps/Welcome/Welcome';
 import Background from './desktop/Background';
 import DesktopApps from './desktop/DesktopApps';
 import MobileApps from './desktop/MobileApps';
-import Present2 from '../apps/Present2/Present2';
 import CommandLine from './CommandLine';
 
 
@@ -64,15 +63,13 @@ export default function Desktop(){
     if (url.startsWith('/')) url = url.substring(1);
     
     let url_parts = url.split('/');
-    console.log('checking href', url_parts);
-    if (url_parts.length == 0) return;
+    if (url_parts.length === 0) return;
     let app = url_parts[0];
-    let subparts = '"' + url_parts.splice(1).map(part => decodeURIComponent(part)) .join(' ') + '"';
+    let subparts = '"' + url_parts.splice(1).map(part => decodeURIComponent(part)).join(' ') + '"';
     
     // check for app in directory
     let cmd = new CommandLine();
     let command = 'open /E/Applications/' + app + '.app ' + subparts;
-    console.log('running command', command);
     cmd.command(command);
   }, []);
 

@@ -101,6 +101,7 @@ export default class CommandLine{
         }
         if (typeof f === 'string'){
             let ext = path.split('.').pop();
+            console.log('STRING', f, ext);
             if (ext === 'lnk'){
                 fetch(f).then(resp => resp.json()).then(json => {
                     if (json.onsite){
@@ -112,8 +113,9 @@ export default class CommandLine{
             }
             if (ext in Processes.exts){
                 let appPath = Processes.exts[ext];
+                console.log('app path', appPath);
                 let app = this.cwd.getFile(appPath);
-                Processes.addWindow(new app(f));
+                Processes.addWindow(new app([f]));
                 return 'open: no app found for file: ' + path;
             }
             return '';

@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import CommandLine from './CommandLine';
 
 interface AppProps {
     path: string;
@@ -8,7 +7,7 @@ interface AppProps {
     index: number
 }
 
-const FileApp = ({ path, name, index }: AppProps) => {
+const FileApp = ({name}: AppProps) => {
    const [app, setApp] = useState({icon: '', icon2: '', url: ''});
 
     useEffect(() => {

@@ -10,7 +10,7 @@ var fileLayout: any = {
   }
 
 const MobileApps = () => {
-    const [apps, setApps]: [any, Function] = React.useState((new Directory('/E/User/Homescreen')).getFiles())
+    const apps: any = React.useMemo(() => (new Directory('/E/User/Homescreen')).getFiles(), []);
     return (
         <div style={{width: '100%', flexGrow: 1,  position: 'relative'}} className='block sm:hidden'>
 
