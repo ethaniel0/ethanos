@@ -65,7 +65,7 @@ export default function Desktop(){
     
     let url_parts = url.split('/');
     console.log('checking href', url_parts);
-    if (url_parts.length == 1) return;
+    if (url_parts.length == 0) return;
     let app = url_parts[0];
     let subparts = '"' + url_parts.splice(1).map(part => decodeURIComponent(part)) .join(' ') + '"';
     
