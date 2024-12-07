@@ -19,7 +19,7 @@ export const SecretEdit = ({back}: SecretEditProps) => {
     const [signedIn, setSignedIn] = useState<boolean>(false);
     const [selected, setSelected] = useState<number>(-1);
 
-    async function loadProjects(){
+    const loadProjects = React.useCallback(async () => {
         if (!db) return;
         let projects = await dbUtils.loadProjects(db, true);
         for (let project of projects){
@@ -28,7 +28,7 @@ export const SecretEdit = ({back}: SecretEditProps) => {
             }
         }
         setProjects(projects);
-    }
+    }, [db]);
 
     function signIn(){
         const auth = getAuth();
@@ -53,7 +53,7 @@ export const SecretEdit = ({back}: SecretEditProps) => {
         if (signedIn){
             loadProjects();
         }
-    }, [signedIn]);
+    }, [signedIn, loadProjects]);
 
     return (
         <div className='bg-white h-full rounded-md p-4 overflow-auto'>

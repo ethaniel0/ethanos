@@ -47,7 +47,7 @@ interface Sprites {
 }
 
 const UI = () => {
-    let gravity = 0.5
+    let gravity = React.useMemo(() => 0.5, []);
     let canvas = useRef(null);
     let cntx = useRef(null);
     let stscreen = useRef(null);
@@ -71,54 +71,7 @@ const UI = () => {
     let [page, setPage] = useState(0);
     let lastTime = useRef(0);
 
-    // load sprites`
-    useEffect(() => {
-        let toload: any = {controllerimg, floortile, fork, puddle, tabletile, treasurechest, treasurechestpart, treasurechestopen, ans2, waffle};
-        for (let key in toload){
-            let img = new Image();
-            img.src = toload[key];
-            img.onload = () => {
-                sprites.current[key] = img;
-                spritesLoaded.current++;
-                if (spritesLoaded.current === Object.keys(toload).length){
-                    setLoading(false);
-                }
-            }
-        }
-    }, []);
-
-    // load pages
-    useEffect(() => {
-        canvas.current.width = 360;
-        canvas.current.height = 180;
-        let ctx = canvas.current.getContext('2d');
-        cntx.current = ctx;
-        
-        if (page === 0){
-            if (loading){
-                let img = new Image();
-                img.src = loadingScreen;
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0, 360, 180);
-                }
-                return;
-            }
-            let img = new Image();
-            img.src = startscreen;
-            img.onload = () => {
-                stscreen.current = img;
-                ctx.drawImage(img, 0, 0, 360, 180);
-            }  
-        }
-        else if (page === 1){
-            ctx.fillStyle = '#d8bd9f';
-            ctx.fillRect(0, 0, 360, 180);
-            drawBackground(0);
-            playerAnimation(18);
-        }
-        
-    }, [page, loading]);
-
+    
     function getMouseXY(e: any){
         let rect = canvas.current.getBoundingClientRect();
         let scalex = canvas.current.width / rect.width;
@@ -208,35 +161,89 @@ const UI = () => {
 
     }
 
-    // player will appear from the bottom of the screen move to the row 5th from the bottom, then land on the ground (4th row from the bottom)
-    // framerate is 30fps
-    function playerAnimation(x: number) {
-        let ctx = cntx.current;
-        let y = 180;
-        let speed = -5;
-        function animate() {
-            y += speed;
-            speed += 0.1;
-            ctx.clearRect(0, 0, 360, 180);
-            drawBackground(0);
-            ctx.drawImage(sprites.current.waffle, x, y);
-            if (speed > 0 && y >= 18*6){
-                y = 18*6;
-                introAnimation.current = false;
-                playing.current = true;
-                playerCoords.current = {x: x, y: 18*6};
-                requestAnimationFrame(drawScene);
-            }
-            else{
-                let mils = Date.now();
-                while (Date.now() - mils < 10){}
-                requestAnimationFrame(animate);
+    const collisions = React.useCallback(() => {
+        // load the 9 blocks around the player
+        let coords = playerCoords.current;
+        onGround.current = false;
+        let collided = false;
+
+        for (let i = -1; i <= 1; i++){
+            for (let j = -1; j <= 1; j++){
+                let blockCoords = {x: bounds(Math.floor(coords.x/18) + j, 0, layout[0].length - 1), y: bounds(Math.floor(coords.y/18) + i, 0, layout.length - 1)};
+                let block = layout[blockCoords.y][blockCoords.x];
+                blockCoords.x *= 18;
+                blockCoords.y *= 18;
+                let vel = playerVel.current;
+                
+                // ground or table
+                if (block === 1 || block === 2){
+                    if (rectOverlap(coords, 18, 18, blockCoords, 18, 18)){
+                        // if collision is from below
+                        if (vel.y > 0 && blockCoords.y > coords.y){
+                            coords.y = blockCoords.y - 18;
+                            vel.y = 0;
+                            jumping.current = false;
+                            onGround.current = true;
+                        }
+                        collided = true;
+                    }
+                    if (rectOverlap(coords, 18, 18, blockCoords, 18, 18)){
+                        // if collision is from the left
+                        if (vel.x < 0 && blockCoords.x < coords.x){
+                            coords.x = blockCoords.x + 18;
+                            vel.x = 0;
+                            slipping.current = 0;
+                        }
+                        // if collision is from the right
+                        if (vel.x > 0 && blockCoords.x > coords.x){
+                            coords.x = blockCoords.x - 18;
+                            vel.x = 0;
+                            slipping.current = 0;
+                        }
+                        collided = true;
+                    }
+                }
+                
+                // fork
+                if (block === 3){
+                    let spike = {...blockCoords};
+                    spike.x += 5;
+                    spike.y += 2;
+                    if (rectOverlap(coords, 18, 18, spike, 7, 16)){
+                        collided = true;
+                        endGame();
+                    }
+                }
+                
+                // puddle
+                if (block === 4){
+                    let spike = {...blockCoords};
+                    spike.x += 5;
+                    spike.y += 14;
+                    if (playerVel.current.x !== 0 && rectOverlap(coords, 18, 18, spike, 10, 4)){
+                        if (slipping.current === 0) slipping.current = 15;
+                    }
+                }
+
+                // treasure chest{
+                if (block === 5){
+                    if (rectOverlap(coords, 18, 18, blockCoords, 36, 18)){
+                        completed.current = true;
+                    }    
+                
+                }
+
+                
             }
         }
-        animate();
-    }
 
-    function drawScene(time: number){
+        if (!collided){
+            onGround.current = false;
+        }
+
+    }, []);
+
+    const drawScene = React.useCallback((time: number) =>{
         if (time - lastTime.current < 1000/45){
             requestAnimationFrame(drawScene);
             return;
@@ -333,8 +340,37 @@ const UI = () => {
         if (playing.current){
             requestAnimationFrame(drawScene);
         }
-    }
+    }, [collisions, gravity])
 
+    // player will appear from the bottom of the screen move to the row 5th from the bottom, then land on the ground (4th row from the bottom)
+    // framerate is 30fps
+    const playerAnimation = React.useCallback((x: number) => {
+        let ctx = cntx.current;
+        let y = 180;
+        let speed = -5;
+        function animate() {
+            y += speed;
+            speed += 0.1;
+            ctx.clearRect(0, 0, 360, 180);
+            drawBackground(0);
+            ctx.drawImage(sprites.current.waffle, x, y);
+            if (speed > 0 && y >= 18*6){
+                y = 18*6;
+                introAnimation.current = false;
+                playing.current = true;
+                playerCoords.current = {x: x, y: 18*6};
+                requestAnimationFrame(drawScene);
+            }
+            else{
+                let mils = Date.now();
+                while (Date.now() - mils < 10){}
+                requestAnimationFrame(animate);
+            }
+        }
+        animate();
+    }, [drawScene])
+
+    
     function rectOverlap(c1: any, w: number, h: number, c2: any, w2: number, h2: number){
         return c1.x < c2.x + w2 && c1.x + w > c2.x && c1.y < c2.y + h2 && c1.y + h > c2.y;
     }
@@ -357,87 +393,7 @@ const UI = () => {
         setPage(0);
     }
 
-    function collisions(){
-        // load the 9 blocks around the player
-        let coords = playerCoords.current;
-        onGround.current = false;
-        let collided = false;
-
-        for (let i = -1; i <= 1; i++){
-            for (let j = -1; j <= 1; j++){
-                let blockCoords = {x: bounds(Math.floor(coords.x/18) + j, 0, layout[0].length - 1), y: bounds(Math.floor(coords.y/18) + i, 0, layout.length - 1)};
-                let block = layout[blockCoords.y][blockCoords.x];
-                blockCoords.x *= 18;
-                blockCoords.y *= 18;
-                let vel = playerVel.current;
-                
-                // ground or table
-                if (block === 1 || block === 2){
-                    if (rectOverlap(coords, 18, 18, blockCoords, 18, 18)){
-                        // if collision is from below
-                        if (vel.y > 0 && blockCoords.y > coords.y){
-                            coords.y = blockCoords.y - 18;
-                            vel.y = 0;
-                            jumping.current = false;
-                            onGround.current = true;
-                        }
-                        collided = true;
-                    }
-                    if (rectOverlap(coords, 18, 18, blockCoords, 18, 18)){
-                        // if collision is from the left
-                        if (vel.x < 0 && blockCoords.x < coords.x){
-                            coords.x = blockCoords.x + 18;
-                            vel.x = 0;
-                            slipping.current = 0;
-                        }
-                        // if collision is from the right
-                        if (vel.x > 0 && blockCoords.x > coords.x){
-                            coords.x = blockCoords.x - 18;
-                            vel.x = 0;
-                            slipping.current = 0;
-                        }
-                        collided = true;
-                    }
-                }
-                
-                // fork
-                if (block === 3){
-                    let spike = {...blockCoords};
-                    spike.x += 5;
-                    spike.y += 2;
-                    if (rectOverlap(coords, 18, 18, spike, 7, 16)){
-                        collided = true;
-                        endGame();
-                    }
-                }
-                
-                // puddle
-                if (block === 4){
-                    let spike = {...blockCoords};
-                    spike.x += 5;
-                    spike.y += 14;
-                    if (playerVel.current.x !== 0 && rectOverlap(coords, 18, 18, spike, 10, 4)){
-                        if (slipping.current === 0) slipping.current = 15;
-                    }
-                }
-
-                // treasure chest{
-                if (block === 5){
-                    if (rectOverlap(coords, 18, 18, blockCoords, 36, 18)){
-                        completed.current = true;
-                    }    
-                
-                }
-
-                
-            }
-        }
-
-        if (!collided){
-            onGround.current = false;
-        }
-
-    }
+    
 
     function keyDown(e: any){
         let key = e.key;
@@ -493,6 +449,55 @@ const UI = () => {
         else if (key.toLowerCase() === 'b') keyspressed.current.b = false;
         else if (key.toLowerCase() === 's') keyspressed.current.start = false;
     }
+
+    // load sprites`
+    useEffect(() => {
+        let toload: any = {controllerimg, floortile, fork, puddle, tabletile, treasurechest, treasurechestpart, treasurechestopen, ans2, waffle};
+        for (let key in toload){
+            let img = new Image();
+            img.src = toload[key];
+            img.onload = () => {
+                sprites.current[key] = img;
+                spritesLoaded.current++;
+                if (spritesLoaded.current === Object.keys(toload).length){
+                    setLoading(false);
+                }
+            }
+        }
+    }, []);
+
+    // load pages
+    useEffect(() => {
+        canvas.current.width = 360;
+        canvas.current.height = 180;
+        let ctx = canvas.current.getContext('2d');
+        cntx.current = ctx;
+        
+        if (page === 0){
+            if (loading){
+                let img = new Image();
+                img.src = loadingScreen;
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, 360, 180);
+                }
+                return;
+            }
+            let img = new Image();
+            img.src = startscreen;
+            img.onload = () => {
+                stscreen.current = img;
+                ctx.drawImage(img, 0, 0, 360, 180);
+            }  
+        }
+        else if (page === 1){
+            ctx.fillStyle = '#d8bd9f';
+            ctx.fillRect(0, 0, 360, 180);
+            drawBackground(0);
+            playerAnimation(18);
+        }
+        
+    }, [page, loading, playerAnimation]);
+
     
     return (
       <canvas ref={canvas} id='wh2022dc-game-canv' tabIndex={0} onMouseMove={mouseMove} onClick={mouseClick} onKeyDown={keyDown} onKeyUp={keyUp} className='pixelated' style={{width: '100%', height: '100%', outline: 'none'}}></canvas>

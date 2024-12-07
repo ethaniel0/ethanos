@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useState} from "react";
 import styles from "./styles.module.css";
 
 
 
 const UI = () => {
-    const [turn, setTurn] = useState('X');
+    const turn = 'X';
 
     return (<>
         <div

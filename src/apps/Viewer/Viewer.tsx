@@ -42,14 +42,6 @@ class Viewer implements Application {
       },
     };
 
-    // error and traceback
-    try {
-      let x = 4 / 0;
-    }
-    catch (e){
-      console.log(e.traceback);
-    }
-    
     if (file){
       this.file = file;
       this.page = 1;

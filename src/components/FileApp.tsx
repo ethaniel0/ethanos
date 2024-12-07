@@ -24,7 +24,7 @@ const FileApp = ({name}: AppProps) => {
         return () => {
             isCancelled = true;
           };
-    }, []);
+    }, [name]);
 
     function stopProp(e: any){
         e.stopPropagation();

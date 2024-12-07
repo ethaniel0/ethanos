@@ -6,8 +6,6 @@ interface UIProps {
 }
 
 const UI = ({file}: UIProps) => {
-    const [page, setPage] = useState(0);
-    const [firstLoad, setFirstLoad] = useState(true);
     const [fileToView, setFileToView] = useState("");
 
     useEffect(() => {
