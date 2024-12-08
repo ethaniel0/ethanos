@@ -102,6 +102,21 @@
     @apply w-24 h-24 sm:w-36 sm:h-36 rounded-md opacity-70 border-2 border-gray-500/50 bg-cover bg-center;
 }
 
+.popup-markdown figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.popup-markdown img {
+    width: 90%;
+    align-self: center;
+}
+
+
+
 @keyframes expandOut {
     0% {
         transform: scale(0);
@@ -143,3 +158,5 @@
         top: 0%;
     }
 }
+
+/* container width */

@@ -10,8 +10,8 @@ import * as dbUtils from './DbUtils';
 import Markdown from 'react-markdown'
 import { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from "rehype-raw";
-
+import rehypeRaw  from "rehype-raw";
+import rehypeUnwrapImages from './wrapFigure';
 
 
 interface PopupProps {
@@ -19,6 +19,7 @@ interface PopupProps {
     close: Function,
     storage: FirebaseStorage
 }
+
 
 const Popup = ({proj, close, storage}: PopupProps) => {
     const [closing, setClosing] = React.useState<boolean>(false);
@@ -69,7 +70,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                     {proj.link && <span className='text-lg'>Check it out <a href={proj.link} target='_blank' rel="noreferrer" className='text-blue-600 font-bold'>here!</a></span>}
                 </div>
                 
-                <div className='flex flex-col gap-4 w-full overflow-auto'>
+                <div className='@container flex flex-col gap-4 w-full overflow-auto'>
                     <div className='h-1/3'>
                         {
                         imageAvailable &&
@@ -102,9 +103,11 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                         }
                         
                     </div>
-                    <div className='w-full prose'>
-                        {/* <p className='text-lg font-medium'>{proj.longDescription}</p> */}
-                        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} children={proj.longDescription}></Markdown>
+                    <div className='w-full flex justify-center'>
+                        <div className='w-full @xl:w-7/12 prose popup-markdown'>
+                            {/* <p className='text-lg font-medium'>{proj.longDescription}</p> */}
+                            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeUnwrapImages]} children={proj.longDescription}></Markdown>
+                        </div>
                     </div>
 
                 </div>

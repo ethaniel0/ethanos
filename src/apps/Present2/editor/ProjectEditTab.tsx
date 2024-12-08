@@ -2,7 +2,7 @@ import { ReactSortable } from "react-sortablejs";
 import * as React from 'react'
 import { CaptionedImage, Project } from '../types';
 import { useEffect, useState } from 'react';
-import { StorageReference, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { StorageReference, getDownloadURL, getStorage, ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { Firestore, doc, updateDoc } from 'firebase/firestore/lite';
 import styles from '../PresentEdits.module.css';
 import deleteIcon from '../assets/images/delete.svg';
@@ -207,6 +207,38 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
         setOtherImages(new_otherimgs);
     }
 
+    async function deleteOtherImage(index: number){
+        console.log('deleting image');
+        const storage = getStorage();
+        const imagesRef = ref(storage, 'Present');
+        let img = otherImages[index];
+        if (!img.startsWith('https')){
+            console.log('deleting local image');
+            let new_otherimgs = otherImages.slice();
+            new_otherimgs.splice(index, 1);
+            setOtherImages(new_otherimgs);
+            return;
+        }
+        
+        // example: https://firebasestorage.googleapis.com/v0/b/portfolio-c3034.appspot.com/o/Present%2Fh9nQ3sdIapaaNnYL8i6P%2Fother%2F4730626109?alt=media&token=3a0d18fb-299d-499f-ae2b-f4f81bfeda9b
+        let imgName = img.split('%2F').pop()?.split('?')[0];
+        let imgRef = ref(imagesRef, `${project.id}/other/${imgName}`);
+
+        deleteObject(imgRef).then(() => {
+            let new_otherimgs = otherImages.slice();
+            new_otherimgs.splice(index, 1);
+            setOtherImages(new_otherimgs);
+
+            // delete from project
+            let docRef = doc(db, "Apps/Present/Projects", project.id);
+            updateDoc(docRef, {otherImages: new_otherimgs});
+
+        }).catch((error) => {
+            console.error(error);
+            alert(`Error deleting image. Look at project ${project.id} in the console.`);
+        });
+    }
+
     function setImageList(state: CaptionedImage[]){
         let loadedImagesNew = state.map(p => loadedImages[p.index]);
         for (let i = 0; i < state.length; i++){
@@ -312,9 +344,7 @@ const ProjectEditTab = ({ project, db, reload, back }: ProjectEditTabProps) => {
                         otherImages.map((p, ind) => (
                         <div className='flex gap-2' key={ind}>
                             <button onClick={() => {
-                                let imgs = otherImages.slice(); 
-                                imgs.splice(ind, 1); 
-                                setOtherImages(imgs);
+                                deleteOtherImage(ind);
                             }}>
                                 <img src={deleteIcon} alt="" className='w-8' />
                             </button>
