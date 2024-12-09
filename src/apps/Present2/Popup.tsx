@@ -53,7 +53,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
             boxShadow: '-3px 4px 13px -1px rgba(0, 0, 0, 0.40)',
         }}>
                 
-            <div className='p-2 w-full bg-white/40 rounded-md overflow-auto'
+            <div className='p-2 w-full bg-white/60 rounded-md overflow-auto'
                 style={{
                     boxShadow: '0px 0px 10px 2px rgba(0, 0, 0, 0.30)',
                 }}>
@@ -70,7 +70,7 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                     {proj.link && <span className='text-lg'>Check it out <a href={proj.link} target='_blank' rel="noreferrer" className='text-blue-600 font-bold'>here!</a></span>}
                 </div>
                 
-                <div className='@container flex flex-col gap-4 w-full overflow-auto'>
+                <div className='@container flex flex-col gap-4 w-full'>
                     <div className='h-1/3'>
                         {
                         imageAvailable &&
@@ -106,7 +106,12 @@ const Popup = ({proj, close, storage}: PopupProps) => {
                     <div className='w-full flex justify-center'>
                         <div className='w-full @xl:w-7/12 prose popup-markdown'>
                             {/* <p className='text-lg font-medium'>{proj.longDescription}</p> */}
-                            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeUnwrapImages]} children={proj.longDescription}></Markdown>
+                            <Markdown 
+                                remarkPlugins={[remarkGfm]} 
+                                rehypePlugins={[rehypeRaw, rehypeUnwrapImages]} 
+                                children={proj.longDescription}
+                                components={{}}
+                            />
                         </div>
                     </div>
 

@@ -115,6 +115,52 @@
     align-self: center;
 }
 
+.popup-markdown code:not(pre code) {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 0.3em;
+    padding: 0.1em 0.3em;
+}
+
+.popup-markdown code:not(pre code)::before, .popup-markdown code:not(pre code)::after {
+    content: '';
+}
+
+.popup-markdown table thead {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.popup-markdown table tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.popup-markdown table tr:last-child {
+    border-bottom: none;
+}
+
+.popup-markdown blockquote {
+    border-inline-start-color: rgba(0, 0, 0, 0.4);
+    border-inline-start-width: 0.25em;
+    background: rgba(130, 137, 193, 0.5);
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0;
+}
+
+.popup-markdown blockquote p {
+    display: inline;
+    margin: 0;
+}
+.popup-markdown blockquote p::before, .popup-markdown blockquote p::after {
+    content: '';
+}
+
+
 
 
 @keyframes expandOut {

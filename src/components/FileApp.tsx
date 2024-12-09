@@ -35,7 +35,7 @@ const FileApp = ({name}: AppProps) => {
         <>
         {
             app.url ? 
-            <a href={app.url} onClick={stopProp}><img src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' /></a>
+            <a href={app.url} onClick={stopProp} className='w-12 h-12 ml-2'><img src={app.icon2 ? app.icon2 : app.icon} alt="" /></a>
             :
             <img src={app.icon2 ? app.icon2 : app.icon} alt="" className='w-12 h-12 ml-2' />
         }

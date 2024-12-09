@@ -12,10 +12,11 @@ interface ResizeableProps {
     minWidth?: number,
     minHeight?: number,
     style?: any,
-    forceSize?: boolean
+    forceSize?: boolean,
+    isNonInteractive?: boolean
 }
 
-const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, minWidth, minHeight, forceSize}: ResizeableProps) => {
+const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, minWidth, minHeight, forceSize, isNonInteractive}: ResizeableProps) => {
 
     if (!maxWidth) maxWidth = Infinity;
     if (!maxHeight) maxHeight = Infinity;
@@ -106,13 +107,17 @@ const Resizeable = ({children, width, height, move, style, maxWidth, maxHeight, 
     return [{}, {width: w}];
     }
 
+    React.useEffect(() => {
+        console.log('isNonInteractive', isNonInteractive);
+    }, [isNonInteractive]);
+
       
   return (
     <div ref={ref} className="resizeable " style={{width: forceSize ? width : size.width, height: forceSize ? height :size.height, ...style}}>
     
         <div className='w-full h-full relative'>
             {children}
-            <div className={"absolute top-0 left-0 w-full h-full " + (!resizing ? 'hidden' : '')}></div>
+            <div className={"absolute top-0 left-0 w-full h-full " + ((!resizing && !isNonInteractive) ? 'hidden' : '')}></div>
         </div>
         
 

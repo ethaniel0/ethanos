@@ -20,13 +20,9 @@ export const WindowContext = createContext({
 export default function Window({app, windowCode, startFullScreen}: AppProps){
   if (!startFullScreen) startFullScreen = false;
 
-  const ref = useRef(null);
-  let minWidth = app.minWidth || 200;
-  let minHeight = app.minHeight || 200;
   const [isFullScreen, setFullScreen] = useState(startFullScreen);
-  
-  const code = windowCode;
   const [closing, setClosing] = useState(false);
+  const [isDragging, setDragging] = useState(false);
 
   let [coords, setCoords] = useState({x: app.spawnPoint[0], y: app.spawnPoint[1]});
   let [firstRender, setFirstRender] = useState<boolean>(true);
@@ -35,6 +31,11 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
 
   if (bottomBarHeight === 0) bottomBarHeight = 64;
 
+  const ref = useRef(null);
+  let minWidth = app.minWidth || 200;
+  let minHeight = app.minHeight || 200;
+  
+  const code = windowCode;
   
   function stopProp(e: any){
     e.cancelbubble = true;
@@ -75,7 +76,17 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
 
   return (
     <WindowContext.Provider value={{close: closeWindow}}>
-      <Draggable nodeRef={ref} bounds='' handle='.navbar' disabled={isFullScreen} onDrag={onDrag} position={isFullScreen ? {x: 0, y: 0} : coords} onMouseDown={windowClick}>
+      <Draggable 
+        nodeRef={ref}
+        bounds='' 
+        handle='.navbar' 
+        disabled={isFullScreen} 
+        onDrag={onDrag} 
+        onStart={() => setDragging(true)} 
+        onStop={() => setDragging(false)}
+        position={isFullScreen ? {x: 0, y: 0} : coords} 
+        onMouseDown={windowClick}
+      >
         <div ref={ref} className={'window' + (isFullScreen ? ' no-drag flex-grow w-screen h-full' : '') + (closing ? ' closing' : '') + (firstRender ? ' animate' : '')} onClick={windowClick}>
           <Resizeable 
             width={app.defaultSize[0]} 
@@ -84,6 +95,7 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
             move={xyMove} 
             minWidth={minWidth} 
             minHeight={minHeight}
+            isNonInteractive={isDragging}
             style={isFullScreen ? {border: 'none', width: '100%', height: `calc(100% - ${bottomBarHeight}px)`} : {border: '1px solid #B4B4B4'}}
           >
             <div className='w-full h-full flex flex-col'>
