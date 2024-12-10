@@ -47,6 +47,7 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
   const fullScreen = useCallback(() =>  setFullScreen(fs => !fs), []);
 
   const onDrag = useCallback((e: any, data: any) => {
+    setDragging(true);
     setCoords({x: data.x, y: Math.max(0, data.y)});
   }, []);
 
@@ -82,7 +83,6 @@ export default function Window({app, windowCode, startFullScreen}: AppProps){
         handle='.navbar' 
         disabled={isFullScreen} 
         onDrag={onDrag} 
-        onStart={() => setDragging(true)} 
         onStop={() => setDragging(false)}
         position={isFullScreen ? {x: 0, y: 0} : coords} 
         onMouseDown={windowClick}
